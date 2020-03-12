@@ -18,6 +18,8 @@ export default {
 			input: {	
 				crimes : this.criminal.crimes 
 			},
+			criminalCrimes : this.criminal.crimes,
+			newCrimes : [],
 			send_attachment_endpoint : urls.url_for_saving_photos ,
 			isLoading : null,
 			datepickerClass : ['hover:bg-grey-lightest','bg-grey-lighter','w-full','mb-2','p-2', 'leading-normal'], 
@@ -122,15 +124,14 @@ export default {
 						axios.put(this.endpoint, {
 							id : this.criminal.id,
 							form : this.form,
-							input : this.input.crimes
+							criminalCrimes : this.criminalCrimes,
+							newCrimes : this.newCrimes
 						}).then(response => {
-							console.log(response);
 							window.location.replace("/admin/criminals/"+this.criminal.id);
 						}).catch((error) => {
-							console.log(error);
-			// console.error((error));
-			// alert("We encounter some errors while adding that criminal, try to check your inputs");
-		});
+							// console.error((error));
+							// alert("We encounter some errors while adding that criminal, try to check your inputs");
+						});
 
 						this.requesting = false;
 						this.creating = false;
@@ -186,11 +187,14 @@ export default {
 			},
 
 			addNewCrime(){
-				this.input.crimes.push({ id: 1, complete_description : "" });
+				this.newCrimes.push({ crime_id: 1, crime_description : "" });
 			},
 
-			removeCrime(input,index) {
-				this.input.crimes.splice(input, index);
+			removeCrime(index) {
+				this.criminalCrimes.splice(index,1);
+			},	
+			removeNewCrime(index) {
+				this.newCrimes.splice(index,1);
 			},	
 
 	/*	 	
