@@ -320,7 +320,6 @@ handleEditorChange(file){
 
 handleAttachmentRemove(file){
 	// console.log(file);
-	// console.log("Trying to delete",file);
 	let url = file.attachment.attachment.attributes.values.url.split("/").pop();
 	
 	console.log(url);
