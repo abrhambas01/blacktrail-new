@@ -1,5 +1,5 @@
 <?php
-class App\Utilities ;
+namespace App\Utilities ;
 
 trait Helpers {
 
