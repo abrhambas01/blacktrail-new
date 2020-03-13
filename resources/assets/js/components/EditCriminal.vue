@@ -115,7 +115,7 @@ export default {
 
 			/*Updating a profile.*/
 			updateProfile(){
-				if ( this.input.crimes.length > 0 ){
+				if ( this.criminalCrimes.length > 0 || this.newCrimes.length > 0){
 					setTimeout(() => {
 						this.isLoading = false;
 						this.requesting = true;

@@ -11,11 +11,18 @@ class CriminalInfo extends Model
 	protected $guarded = [];
 	protected $dates = ['birthdate'];
 	protected $fillable = [
-		'last_seen',
-		'country_last_seen',
-		'bounty',
-		'currency',
-		'complete_description',
+			'criminal_id',
+			'birthplace',
+			'last_seen',
+			'birthdate',
+			'eye_color',
+			'weight_in_kilos',
+			'height_in_feet_and_inches',
+			'body_frame',
+			'country_of_origin',
+			'currency',
+			'bounty',
+			'complete_description'
 	];
 
 	// Define the "age" property accessor.
