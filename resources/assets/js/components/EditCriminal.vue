@@ -129,8 +129,6 @@ export default {
 						}).then(response => {
 							window.location.replace("/admin/criminals/"+this.criminal.id);
 						}).catch((error) => {
-							// console.error((error));
-							// alert("We encounter some errors while adding that criminal, try to check your inputs");
 						});
 
 						this.requesting = false;
