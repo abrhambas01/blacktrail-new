@@ -42,7 +42,7 @@ class MercuriusUsersTableSeeder extends Seeder
         ], [
             'display_name'   => $name,
             'role_id'        => mt_rand(1,3),  
-            'status' => 1
+            'status' => 1,
             'username'       => $faker->userName,
             'email'          => $faker->unique()->safeEmail,
                 'password'       => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
