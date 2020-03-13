@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers\Admin;
 use App\User;
-use Storage ; 
 use Validator ;
 use App\Country;
 use App\Crime ; 
@@ -13,6 +12,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
 use Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 // use Illuminate\Validation\Validator ; 
 
 class CriminalsController extends Controller
@@ -168,7 +169,7 @@ if (request()->wantsJson()) {
      * @param  int  $criminal
      * @return \Illuminate\Http\response
      */
-    public function stores(Request $request, Criminal $criminal) 
+    public function stores_new(Request $request, Criminal $criminal) 
     {
         // $criminal = Criminal::findOrFail($id);        
  /*
@@ -212,7 +213,6 @@ if (request()->wantsJson()) {
           Storage::delete($criminal->photo);          
           $image_url = Storage::disk()->url($imageName);
         }
-
           $cr = $criminal->update([
             'first_name'         =>             $request->input("form.first_name"),
             'middle_name'        =>             $request->input("form.middle_name"),
@@ -283,7 +283,7 @@ if (request()->wantsJson()) {
     }
     public function update(Request $request, Criminal $criminal) 
     {
-        // $criminal = Criminal::findOrFail($id);        
+      // $criminal = Criminal::findOrFail($id);        
  /*
         If user is not logged on. or that he's not an administrator to the app
         /*  */
@@ -317,16 +317,20 @@ if (request()->wantsJson()) {
         // dd(collect(request('input'))); 
 
         /* if there's an avatar included and to be replaced.*/
-        $imageName = str_random(30) . '.png';
+        
+        $imageName = $criminal->photo;
         if(request()->has('form.avatar')){
-          $base64String = request()->input('form.avatar');           
+          $base64String= request()->input('form.avatar') ; 
           $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
-          $p = Storage::disk('local')->put('' . $imageName, $image, 'public');                    
+          $imageName = str_random(30) . '.png';
+          $p = Storage::disk('public')->put('' . $imageName, $image, 'public'); 
+          $image_url = Storage::disk('public')->url($imageName);
+          Log::info($image_url);
           Storage::delete($criminal->photo);          
-          $image_url = Storage::disk()->url($imageName);
+        } else {
+          $imageName = $criminal->photo;
         }
-
-          $cr = $criminal->update([
+          $updateData = [
             'first_name'         =>             $request->input("form.first_name"),
             'middle_name'        =>             $request->input("form.middle_name"),
             'last_name'          =>             $request->input("form.last_name"),
@@ -336,9 +340,9 @@ if (request()->wantsJson()) {
             'country_id'         =>             $request->input("form.country_id"),
             'posted_by'          =>             $request->input("form.posted_by"),
             'status'             =>             $request->input("form.status"),
-            'photo'              =>             $imageName
-          ]);
-
+            'photo'             =>             $imageName,
+          ];
+          $cr = $criminal->update($updateData);
 
           if ( $cr == true){
             $updated =  CriminalInfo::where('criminal_id','=',request()->input('id'))

@@ -14,6 +14,7 @@ class Criminal extends Model
 		'country_id',
 		'posted_by',
 		'contact_number',
+		'contact_person',
 		'status',
 		'photo',
 	];
