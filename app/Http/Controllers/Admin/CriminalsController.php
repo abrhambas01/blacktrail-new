@@ -95,7 +95,8 @@ class CriminalsController extends Controller
         $base64String= request()->input('form.avatar') ; 
         $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
         $imageName = str_random(30) . '.png';
-        $p = Storage::disk('local')->put('' . $imageName, $image, 'public'); 
+        // $p = Storage::disk('local')->put('' . $imageName, $image, 'public'); 
+        $imageStore= Storage::disk('criminal')->put('/criminal/images/' . $imageName, $image, 'public'); 
         $image_url = Storage::disk()->url($imageName);
         Criminal::saveCriminal(request(), $imageName);
         return response()->json(['success' => 'You have successfully registered this criminal'],200);   
@@ -323,10 +324,7 @@ if (request()->wantsJson()) {
           $base64String= request()->input('form.avatar') ; 
           $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
           $imageName = str_random(30) . '.png';
-          $p = Storage::disk('public')->put('' . $imageName, $image, 'public'); 
-          $image_url = Storage::disk('public')->url($imageName);
-          Log::info($image_url);
-          Storage::delete($criminal->photo);          
+          $imageStore= Storage::disk('criminal')->put('/criminal/images/' . $imageName, $image, 'public'); 
         } else {
           $imageName = $criminal->photo;
         }

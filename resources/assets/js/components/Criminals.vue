@@ -28,7 +28,7 @@ export default {
 
 	computed : { 
 		avatarPath(){
-			return this.apiDomain + '/assets/images/' +this.criminal.photo ; 
+			return this.apiDomain + '/storage/criminal/images/' +this.criminal.photo ; 
 		}
 	},
 

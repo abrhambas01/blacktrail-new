@@ -194,7 +194,7 @@ computed : {
 	},
 
 	avatarPath(criminal){
-		return '/assets/images/'+this.criminals.photo ;
+		return '/storage/criminal/images/'+this.criminals.photo ;
 	},
 
 	criminalBounty(){
