@@ -20,6 +20,7 @@ export default {
 			},
 			criminalCrimes : this.criminal.crimes,
 			newCrimes : [],
+			crimesList : [],
 			send_attachment_endpoint : urls.url_for_saving_photos ,
 			isLoading : null,
 			datepickerClass : ['hover:bg-grey-lightest','bg-grey-lighter','w-full','mb-2','p-2', 'leading-normal'], 
@@ -112,7 +113,6 @@ export default {
 				});
 				_this.requesting = false;
 			},
-
 			/*Updating a profile.*/
 			updateProfile(){
 				if ( this.criminalCrimes.length > 0 || this.newCrimes.length > 0){
@@ -127,6 +127,7 @@ export default {
 							criminalCrimes : this.criminalCrimes,
 							newCrimes : this.newCrimes
 						}).then(response => {
+							// console.log(response);
 							window.location.replace("/admin/criminals/"+this.criminal.id);
 						}).catch((error) => {
 						});
@@ -139,11 +140,9 @@ export default {
 					this.$swal('You cannot proceed if you don\'t add Crimes for this Criminal now');
 				}
 			},
-
 			updateUserRoute(){
 				return `/`;
 			},
-
 			onAvatarChange(e){
 				let files = e.target.files || e.dataTransfer.files;
 				if (!files.length)
@@ -166,9 +165,11 @@ export default {
 				let reader = new FileReader();				
 				let vm = this;
 				vm.form.avatar = file;
+				
 				reader.onload = (e) => {
 					vm.form.avatar = e.target.result;
 				};
+
 				reader.readAsDataURL(file);
 			},
 
@@ -178,7 +179,6 @@ export default {
 					return;
 				this.createImage(files[0]);
 			},
-
 
 			isEmpty(obj) {
 				return !obj || Object.keys(obj).length === 0;
@@ -344,6 +344,7 @@ computed : {
 	remove_attachment_endpoint(){
 		return api.app + '/api/v1/attachments/' ;
 	},	
+
 	
 	crimeTypes(){
 		return this.crimes 

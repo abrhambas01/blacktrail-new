@@ -208,6 +208,7 @@ if (request()->wantsJson()) {
         /* if there's an avatar included and to be replaced.*/
         $imageName = str_random(30) . '.png';
         if(request()->has('form.avatar')){
+
           $base64String = request()->input('form.avatar');           
           $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
           $p = Storage::disk('local')->put('' . $imageName, $image, 'public');                    
