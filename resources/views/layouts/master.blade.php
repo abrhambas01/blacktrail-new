@@ -25,12 +25,8 @@ src="http://192.168.22.3:8098"></script> --}}
 <body class="bg-grey-lighter-2 tracking-normal font-basic"> 
   <div id="app">
     <div class="m-auto">
-
-     {{-- <flash-message message="Lorem ipsum dolor sit amet."></flash-message> --}}
-
-
       @if(session()->has('flash'))
-      <flash-message message="{{ trans('flash.logout_success') }}"></flash-message>
+        <flash-message message="{{ trans('flash.logout_success') }}"></flash-message>
       @endif 
 
       @if(session()->has('confirmation_success_message'))

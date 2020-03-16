@@ -10,6 +10,13 @@ use App\Country;
 
 class CriminalsController extends Controller
 {
+	/*We stopped here..*/
+	public function search_for_a_criminal(){
+		$searchResults = (new Search())
+		->registerModel(Criminal::class, 'name')
+		->search('');
+	}
+
 
 	public function index()
 	{
@@ -18,6 +25,7 @@ class CriminalsController extends Controller
 
 		$criminals = Criminal::notyetcaptured()
 		->with('profile','crimes')
+		->orderBy('updated_at', 'asc')
 		->paginate(5) ; 
 
 		$countries = Country::all();
@@ -105,9 +113,10 @@ To rank the criminals by their criminality_level ->  points  => 100
 */
 public function show($criminal)
 {
-		// $user = Criminal::findOrFail($criminal)->with('profile','crimes','country')->get();
-	$criminal = Criminal::with('profile','crimes','country')->findOrFail($criminal);
-	return view("criminals.show",['criminal' => $criminal]) ; 
+			// $user = Criminal::findOrFail($criminal)->with('profile','crimes','country')->get();
+	$criminal = Criminal::with('profile','crimes','country','respondent')->findOrFail($criminal);
+	$respondentName = Criminal::with('respondent')->findOrFail($criminal);
+	return view("criminals.show",compact('criminal','respondentName')) ; 
 }
 
 }

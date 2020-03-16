@@ -15,6 +15,8 @@ use App\Http\Requests\UpdateProfileRequest;
 
 class UsersController extends Controller
 {
+
+	// this is awesome..
 	public function getAllCommonUsers(){
 		$criminal = User::admins()->get();
 		return response()->json($criminal);

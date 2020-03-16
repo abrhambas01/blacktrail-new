@@ -12,6 +12,8 @@ These don't mean that it would work since it means one thing these will not work
 
 import router from './routes';
 import PayPal from 'vue-paypal-checkout';
+import VueInstantSearch from 'vue-instantsearch';
+
 // import UploadImage from 'vue-upload-image'eDITc;
 
 window.Vue = require('vue');
@@ -55,6 +57,7 @@ Vue.component('pending-users', require('./components/PendingUsers.vue'));
 Vue.component('chat-label', require('./components/ChatLabel.vue'));
 Vue.component('upload-image', require('./components/UploadImage.vue'));
 Vue.component('update-profile', require('./components/UpdateProfile.vue'));
+Vue.component('my-search', require('./components/MySearch.vue').default);
 // Vue.component('trix-editor', require('./components/TrixEditor.vue'));
 
 // Vue.component('site-sidebar',require('./components/Layouts/SiteSidebar.vue'));
@@ -86,6 +89,7 @@ const app = new Vue({
 			user_info: "",
 		}
 	},
+	router
 	/*
 	beforeRouteEnter (to, from, next) {
 		getPost(to.params.id, (err, post) => {
@@ -96,6 +100,5 @@ const app = new Vue({
 	beforeRouteUpdate(){
 
 	},*/
-	router
 });
 

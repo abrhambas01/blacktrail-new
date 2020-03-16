@@ -350,9 +350,9 @@ if (request()->wantsJson()) {
              'last_seen' =>                           request()->input('form.last_seen'),
              'birthdate' =>                           request()->input('form.birthdate'),
              'eye_color' =>                           request()->input('form.eye_color'),
-             'weight_in_kilos' =>            request()->input('form.weight'),
-             'height_in_feet_and_inches' =>  request()->input('form.height'),
-             'body_frame' =>                 request()->input('form.body_frame'),
+             'weight_in_kilos' =>                     request()->input('form.weight'),
+             'height_in_feet_and_inches' =>           request()->input('form.height'),
+             'body_frame' =>                          request()->input('form.body_frame'),
              'country_of_origin' =>          request()->input('form.country_of_origin'),
              'currency' =>                   request()->input('form.currency'),
              'bounty' =>                     request()->input('form.bounty'),
@@ -369,10 +369,13 @@ if (request()->wantsJson()) {
                 'crime_description'=>$crime['pivot']['crime_description'],
               ];
             }
+            
             $newCrimes = $request->newCrimes;
+            
             if(count($newCrimes)>0) {
               $crimes = array_merge($crimes,$newCrimes);
             }
+
             if(count($crimes)>0) {
               $syncValues = [];
               foreach ($crimes as $crime) {

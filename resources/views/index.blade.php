@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master')	
 
 @section('title', 'Be a bounty hunter now, Earn money by finding wanted criminals in your area')
 
@@ -46,10 +46,9 @@
 
 
 		</div>
-
-
+		
 		<p class="mt-8 font-normal font-basic text-2xl">{{ trans('slots.intro_text') }}</p>
-
+		
 		<ol class="mt-4">
 			<li class="font-basic">
 				Help hunt the criminals & fugitives who are hunted by the law enforcement agencies all over the world. 
@@ -58,9 +57,8 @@
 			</li>
 			<li class="font-basic">Offer more gold/bounty for a specific fugitive's head. The bigger his bounty, the easier he will be captured</li>
 		</ol>
+
 	</section>
-	
 	@endguest
 </div>
-
 @endsection

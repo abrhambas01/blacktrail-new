@@ -9,6 +9,7 @@
 	'algoliaAdminApiKey'  =>  env('ALGOLIA_PLACES_ADMIN_API_KEY'),
 	'publicPath'		  =>  public_path(),
 	'storagePath'		  =>  storage_path(),
+	'assetStorageCriminalsPath'		  =>  asset('storage/criminals'),
 	'algoliaKey' 		  =>  env('ALGOLIA_SECRET'),
 	'addCriminalUrl' 	  =>  route('admin.criminals.store'),
 	'savePhotosUrl' 	  =>  route('admin.photos.uploads'),

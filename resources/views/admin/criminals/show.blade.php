@@ -15,7 +15,19 @@
 						</p>
 						<div class="text-center">
 							<div id="avatar" class="inline-block mb-6 w-full" >
-								<img src="{{ asset('/storage/criminal/images/'.$criminal->photo) }}" class="h-50 w-50 rounded-full border-orange border-2">
+								
+								@if(\Storage::disk('public')->exists('criminals/'.$criminal->photo))
+									
+									<img class="h-64 w-40 border-orange border-2" src="{{ asset('storage/criminals/' . $criminal->photo) }}">
+
+								@else
+
+								<img class="h-36 w-36 rounded-full border-orange border-2" 
+								src="{{ asset('/assets/images/avatar.jpg') }}">
+								
+
+								{{-- 	<img src="{{ asset('storage/images/'.'default_avatar.jpg') }}" class="h-50 w-50 rounded-full border-orange border-2"> --}}
+								@endif
 								<p class="font-normal font-display mt-2 text-black text-3xl">{{ $criminal->full_name }} aka <em class="font-bold"> {{  $criminal->alias }}</em></p>
 								<p class="font-bold mt-2 text-orange text-2xl">{{  is_null($criminal->profile->bounty) ? 'Bounty not added yet' : $criminal->profile->bounty ." " .$criminal->profile->currency}}</p>
 

@@ -169,6 +169,7 @@ Route::any('upload', function()
 
 Route::post("/login",'AuthController@postLogin')->name('postLogin');
 Route::get('/logout','AuthController@logout')->name('logout');
+
 Route::post('/register',[
 	'as' => 'postRegister',
 	'uses' => 'AuthController@postRegister'
@@ -179,6 +180,8 @@ Route::post('payment/create',"PaypalController@create_payment");
 Route::post('payment/execute',"PaypalController@execute_payment");	
 Route::get("test-paypal","PaypalController@main_paypal_page");
 Route::get('/home', 'HomeController@index')->name('home');
+
+// `localhost:3000/messages/t/fbi44`
 Route::get('messages/t/{respondent}',"MessageController@sendMessage")->name('messages.send');
 
 /*Mailables*/

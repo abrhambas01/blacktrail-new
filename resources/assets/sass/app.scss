@@ -2,7 +2,7 @@
 @import "components/btn";
 // @import "components/fonts"; 
 @import "components/feeds";
-
+@import '~instantsearch.css/themes/algolia-min';
 // Global Variables
 html, body { 
 	@apply .h-full;

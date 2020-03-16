@@ -3,7 +3,6 @@
 @section('title', 'Criminal Profile')
 
 @section('content')
-
 @php
 use Carbon\Carbon;
 @endphp
@@ -19,29 +18,33 @@ use Carbon\Carbon;
 						</p>
 						<div class="text-center">
 							<div id="avatar" class="inline-block mb-6 w-full" >
+
+								@if(\Storage::disk('public')->exists('criminals/'.$criminal->photo))
 								
-								@if(file_exists(public_path($criminal->photo)))
-										@php
-										echo "Avatar found" ; 
-										@endphp
-								{{-- <img src="{{ asset('app/'.$criminal->photo) }}" class="h-50 w-50 rounded-full border-orange border-2"> --}}
+								{{-- <h3>There's an avatar</h3> --}}
+
+								<img class="h-36 w-36 rounded-full border-orange border-2" src="{{ asset('storage/criminals/' . $criminal->photo) }}">
+
 								@else
-										@php
-										echo "Avatar cannot be found";
-										@endphp
+
+								<img class="h-36 w-36 rounded-full border-orange border-2" 
+								src="{{ asset('/assets/images/avatar.jpg') }}">
+								
 
 								{{-- 	<img src="{{ asset('storage/images/'.'default_avatar.jpg') }}" class="h-50 w-50 rounded-full border-orange border-2"> --}}
 								@endif
+								
 								<p class="font-normal font-display mt-2 text-black text-3xl">{{ $criminal->full_name }} aka <em class="font-bold"> {{  $criminal->alias }}</em></p>
 								<p class="font-bold mt-2 text-black text-2xl">Bounty:</p>
 								<p class="font-bold mt-2 text-orange text-2xl">{{  is_null($criminal->profile->bounty) ? 'Bounty not added yet' : $criminal->profile->bounty ." " .$criminal->profile->currency}}</p>
 
 								@if (!auth()->user()->isAdmin())
 								<button class="hover:bg-blue-darker hover:text-white bg-blue rounded-full w-1/2 mt-4 h-12 ">
-									<a class="text-white hover:text-blue-lighter" href="{{ route('messages.send',auth()->id()) }}">Report Location</a>
+									<a class="text-white hover:text-blue-lighter" href="{{ route('messages.send','user') }}">
+										Report Location
+									</a>
 								</button>
 								@endif
-
 							</div>
 						</div>
 

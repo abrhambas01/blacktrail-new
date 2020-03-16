@@ -28,13 +28,16 @@
 		<article class="timeline-feeds">	
 			<div class="flex" id="userProfile">	
 				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
-					{{-- <img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('/storage/criminal/images/'.$criminal->photo) }}" id="criminalsPhoto"  alt="Criminals View" > --}}
+					{{-- <img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('storage/criminals'.$criminal->photo) }}" id="criminalsPhoto"  alt="Criminals View" > --}}
 
-					@if(file_exists(public_path('/storage/criminal/images/'.$criminal->photo))) 
-					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('/storage/criminal/images/'.$criminal->photo)  }}" id="criminalsPhoto" alt="Criminals View" >
+					@if(file_exists(public_path('/storage/criminals/'.$criminal->photo))) 
+					
+						<img class="h-18 w-18 mr-4 mt-2" src="{{ asset('/storage/criminals/'.$criminal->photo)  }}" id="criminalsPhoto" alt="Criminals View" >
+					
 					@else
-					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
+						<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
 					@endif
+
 				</router-link>
 				<div class="flex-1">
 					@verbatim

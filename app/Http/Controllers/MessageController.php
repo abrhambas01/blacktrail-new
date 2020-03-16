@@ -8,9 +8,10 @@ class MessageController extends Controller
 {
 
 	/**/
-	public function sendMessage()
+	public function sendMessage($user)
 	{
-		return view("chat");
+		// $user = User::where('user',$user)->get();
+		// return view("chat",compact(''));
 	}
 
 

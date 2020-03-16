@@ -22,8 +22,5 @@ class CriminalsController extends Controller
 	}
 
 	public function chats_for_a_specific_criminal($criminal){
-
 	}
-
-
 }

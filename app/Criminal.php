@@ -1,26 +1,17 @@
 <?php
-
 namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Laravel\Scout\Searchable;
+use Spatie\Searchable\Searchable as SpatieSearchable;
+use Spatie\Searchable\SearchResult;
 
-class Criminal extends Model
+class Criminal extends Model implements SpatieSearchable
 {
+
 
 	use Searchable ; 
 
- /**
-     * Get the index name for the model.
-     *
-     * @return string
-     */
- public function searchableAs()
- {
- 	return 'posts_index';
- }
-
-	
 	protected $fillable = [
 		'first_name',
 		'middle_name',
@@ -34,7 +25,34 @@ class Criminal extends Model
 		'photo',
 	];
 
+
+	public static function searchResults(){
+		$searchResults = (new Search())
+		->registerModel(Criminal::class, 'full_name')
+		->search('john');
+	}
+	
+	public function toSearchableArray() {
+		$array = $this->toArray();
+		$array['fullName'] = $this->fullName;
+		return $array;
+	}
+
+
 	protected $guarded = [];
+
+
+	public function getSearchResult(): SearchResult
+	{
+
+		$url = route('criminals.results.show', $this->slug);
+		
+		return new \Spatie\Searchable\SearchResult(
+			$this,
+			$this->title,
+			$url
+		);
+	}
 
 	protected static $imageFields = [
 		'avatar'
@@ -46,7 +64,7 @@ class Criminal extends Model
 			$criminal->profile()->delete();
 		});
 	}
-	
+
 	/**
 	* a Criminal has a profile.
 	*
@@ -117,6 +135,7 @@ class Criminal extends Model
 	{ 
 		return $this->belongsToMany(Crime::class,'crime_criminal','criminal_id','crime_id')->withPivot("crime_description");
 	}
+
 
 
 

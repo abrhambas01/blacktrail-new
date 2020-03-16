@@ -9,6 +9,7 @@ import moment from 'moment' ;
 import VModal from 'vue-js-modal'
 import VeeValidate from 'vee-validate' ;
 import VueSweetalert2 from 'vue-sweetalert2';
+import VueInstantSearch from 'vue-instantsearch';
 // import Vuetify from 'vuetify';
 // import vuetifyCss from 'vuetify/dist/vuetify.min.css';
 
@@ -33,7 +34,8 @@ const options = {
 	confirmButtonColor: '#519E8A',
 	cancelButtonColor: '#ff7674'
 }
-
+	
+Vue.use(VueInstantSearch);
 Vue.use(VueSweetalert2, options);
 Vue.config.devtools = true ; 
 Vue.config.performance  = true ; 
