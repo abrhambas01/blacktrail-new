@@ -32,10 +32,10 @@
 
 					@if(file_exists(public_path('/storage/criminals/'.$criminal->photo))) 
 					
-						<img class="h-18 w-18 mr-4 mt-2" src="{{ asset('/storage/criminals/'.$criminal->photo)  }}" id="criminalsPhoto" alt="Criminals View" >
+					<img class="h-18 w-18 mr-4 mt-2" src="{{ asset('/storage/criminals/'.$criminal->photo)  }}" id="criminalsPhoto" alt="Criminals View" >
 					
 					@else
-						<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
+					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
 					@endif
 
 				</router-link>
@@ -46,7 +46,6 @@
 					@endverbatim
 				</div>
 				<div v-if="showChatBox = true" class="bg-green-dark rounded-full h-8 w-8 flex items-center justify-center text-white">1</div>
-				{{-- <div class="bg-green px-4 py-4 rounded-full"></div> --}}
 			</div>
 		</article>
 	</criminals-view>

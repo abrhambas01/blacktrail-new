@@ -115,6 +115,7 @@ export default {
 			},
 			/*Updating a profile.*/
 			updateProfile(){
+				this.$swal('Wait for sometime...');
 				if ( this.criminalCrimes.length > 0 || this.newCrimes.length > 0){
 					setTimeout(() => {
 						this.isLoading = false;

@@ -7,9 +7,7 @@
 @auth
 
 @include('modals.report-criminal')
-
 @include('modals.location-map')
-
 <section class="w-1/2x ml-6">
 	<p class="font-basic tracking-normal text-3xl mb-4 mt-4 font-normal text-black mr-2">Wanted Criminals</p>
 	

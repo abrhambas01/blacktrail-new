@@ -19,14 +19,9 @@ import OfferBounty from './modals/OfferBounty';
 import redirect from '../mixins/redirect';
 import api from './scripts/api.js';
 export default {
-	
-	props : ['id','criminals'],
-	
-	name: 'UserButton',
-
-	
+	props : ['id','criminals','respondentName'],
+	name: 'UserButton',	
 	mixins : ['redirect'],
-	
 	components:  { ChatBox, OfferBounty },
 
 	data () {
@@ -57,8 +52,9 @@ export default {
 	},
 
 	computed : { 
-		chatUrl(){
-			return api.app + '/messages/t/3'; 
+
+		chatUrl(respondentName){
+			return api.app + '/messages/t/' + this.respondentName; 
 			// return '/respond/criminal/' + this.criminal_id;
 		},
 		userRole(){

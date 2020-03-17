@@ -24,7 +24,7 @@ class CriminalsController extends Controller
 		// $criminals = Criminal::atlarge()->mostwanted()->get();
 
 		$criminals = Criminal::notyetcaptured()
-		->with('profile','crimes')
+		->with('profile','crimes','respondent')
 		->orderBy('updated_at', 'asc')
 		->paginate(5) ; 
 
@@ -118,5 +118,7 @@ public function show($criminal)
 	$respondentName = Criminal::with('respondent')->findOrFail($criminal);
 	return view("criminals.show",compact('criminal','respondentName')) ; 
 }
+
+
 
 }

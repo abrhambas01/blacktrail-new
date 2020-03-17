@@ -18,18 +18,12 @@ use Carbon\Carbon;
 						</p>
 						<div class="text-center">
 							<div id="avatar" class="inline-block mb-6 w-full" >
-
 								@if(\Storage::disk('public')->exists('criminals/'.$criminal->photo))
-								
-								{{-- <h3>There's an avatar</h3> --}}
-
-								<img class="h-36 w-36 rounded-full border-orange border-2" src="{{ asset('storage/criminals/' . $criminal->photo) }}">
-
+									<img class="h-36 w-50 border-orange border-2" src="{{ asset('storage/criminals/' . $criminal->photo) }}">
 								@else
 
-								<img class="h-36 w-36 rounded-full border-orange border-2" 
+								<img class="h-36 w-45 rounded-full border-orange border-2" 
 								src="{{ asset('/assets/images/avatar.jpg') }}">
-								
 
 								{{-- 	<img src="{{ asset('storage/images/'.'default_avatar.jpg') }}" class="h-50 w-50 rounded-full border-orange border-2"> --}}
 								@endif
@@ -40,7 +34,7 @@ use Carbon\Carbon;
 
 								@if (!auth()->user()->isAdmin())
 								<button class="hover:bg-blue-darker hover:text-white bg-blue rounded-full w-1/2 mt-4 h-12 ">
-									<a class="text-white hover:text-blue-lighter" href="{{ route('messages.send','user') }}">
+									<a class="text-white hover:text-blue-lighter" href="{{ route('messages.send',$criminal->respondent->username) }}">
 										Report Location
 									</a>
 								</button>

@@ -22,7 +22,7 @@
 		</div>
 
 		<div class="flex" style="margin-top:-16px" class="mb-2 ">
-			<input type="text" v-model="criminal.state" class="bg-white mr-2 p-2 border border-gray w-1/3x h-10 mt-2 rounded-r-sm font-basic" placeholder="City / State / any place">
+			<input type="text" v-model="criminal.state" class="bg-white mr-2 p-2 border border-gray w-1/3x h-10 mt-2 rounded-r-sm font-basic" placeholder="City / State / any place" v-show="criminalName && !criminal.sortBy && !criminal.country">
 
 			<select v-model="criminal.country" class="border p-2 border-gray mr-4 h-10 w-1/3 rounded-sm font-basic mt-2 mb-4 ml-2">
 				@foreach ($countries as $country)

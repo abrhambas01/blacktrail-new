@@ -12,7 +12,7 @@
 
 				<div class="text-center">
 					<div id="avatar" class="inline-block mb-6 w-full" >
-						<img :src="avatarPath" class="h-64 w-1/2 rounded-full border-orange border-2">
+						<img :src="avatarPath" class="h-64 w-1/2 border-orange border-2">
 						<p class="font-bold font-display mt-2 text-black text-3xl">{{ criminals.full_name }}
 						</p>
 						<p class="font-bold mt-2 text-orange text-2xl" v-text="criminalBounty === null ? 'No Bounty' : criminalBounty">
@@ -45,7 +45,7 @@
 				<admin-buttons :id="criminalId" :criminals="criminals"></admin-buttons>
 			</div>
 			<div v-show="normalUser">
-				<user-buttons :id="criminalId" :criminals="criminals"></user-buttons>
+				<user-buttons :id="criminalId" :criminals="criminals" :respondentName="criminals.respondent.username"></user-buttons>
 			</div>
 		</div>
 	</div>
@@ -196,7 +196,7 @@ computed : {
 	},
 
 	avatarPath(criminal){
-		if (this.criminals.photo === "default_avatar.jpg"){
+		if (this.criminals.photo == "default_avatar.jpg"){
 			return '/assets/images/default_avatar.jpg';
 		}
 		else { 

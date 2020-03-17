@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User ; 
+use App\Message ; 
 class MessageController extends Controller
 {
 
 	/**/
 	public function sendMessage($user)
 	{
-		// $user = User::where('user',$user)->get();
-		// return view("chat",compact(''));
+		$message = Message::where([
+			['from_id','=', auth()->id()],
+			['to_id', '=',2]
+		])->get();
+		
+		dd($message);
 	}
 
 
