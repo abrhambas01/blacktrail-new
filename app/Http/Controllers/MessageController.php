@@ -11,13 +11,12 @@ class MessageController extends Controller
 	/**/
 	public function sendMessage($user)
 	{
+
 		$message = Message::where([
 			['from_id','=', auth()->id()],
 			['to_id', '=',2]
 		])->get();
 		
-		dd($message);
+		return view('messages',compact("message"));
 	}
-
-
 }

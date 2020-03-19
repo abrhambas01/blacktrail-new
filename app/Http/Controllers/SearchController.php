@@ -14,26 +14,24 @@ class SearchController extends Controller
      */
   public function index()
   {
-  	return view('search');
+    	return view('search');
   }
 
-    /**
-     * search records in database and display  results
-     * @param  Request $request [description]
-     * @return view      [description]
-     */
-    public function search( Request $request)
-    {
+  public function search(Request $request)
+  {
+    $this->validate($request, [
+      'q' => 'required'
+    ]);
 
-    	$searchterm = $request->input('query');
+    $posts = Post::search( $request->get('q') )->raw();
 
-    	$searchResults = (new Search())
-	->registerModel(\App\Criminal::class, 'name')
-    	->registerModel(\App\Category::class, 'name')
-    	->perform($searchterm);
-
-    	return view('search', compact('searchResults', 'searchterm'));
+    if(empty($posts['hits'])) {
+      $posts['hits'] = [];
     }
+
+    return response()->json(['data' => $posts['hits']]);
+  }
+
 }
 
 }

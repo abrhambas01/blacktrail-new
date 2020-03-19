@@ -8,9 +8,9 @@ use Spatie\Searchable\SearchResult;
 
 class Criminal extends Model implements SpatieSearchable
 {
-
-
 	use Searchable ; 
+	
+	protected $guarded = [];
 
 	protected $fillable = [
 		'first_name',
@@ -39,7 +39,6 @@ class Criminal extends Model implements SpatieSearchable
 	}
 
 
-	protected $guarded = [];
 
 
 	public function getSearchResult(): SearchResult

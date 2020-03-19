@@ -58,17 +58,17 @@ class DashboardController extends Controller {
 	/* Returns all posted criminals.. */
 	public function postedCriminals($admin)
 	{
-		$criminals = Criminal::postedByLoggedOnUser()->with('crimes','profile')->paginate(5);	
+		$criminals = Criminal::postedByLoggedOnUser()->with('respondent','crimes','profile')->paginate(5);	
 		// dd($criminals);
 		
 		// $criminals = Criminal::paginate(5);
 
-		// $criminals = Criminal::postedByUser($admin)
-		// ->join("criminal_profiles","criminal_profiles.criminal_id","=","criminals.id")
-		// ->join("crime_criminal","crime_criminal.criminal_id","=","criminals.id")
-		// ->orderBy("full_name","asc")
-		// ->distinct()
-		// ->paginate(5);
+/*		$criminals = Criminal::postedByUser($admin)
+		->join("criminal_profiles","criminal_profiles.criminal_id","=","criminals.id")
+		->join("crime_criminal","crime_criminal.criminal_id","=","criminals.id")
+		->orderBy("full_name","asc")
+		->distinct()
+		->paginate(5);*/
 
 		return view('admin.criminals.posted',compact('criminals'));
 	}

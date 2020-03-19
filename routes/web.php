@@ -1,16 +1,19 @@
 <?php
-
 /*
 We need pages for this in the landing page 
 for the bounty hunters
 admin Criminals in your area..
 */
-
 /*	
 Route::get("/test/email/send",functionf(){
 Mail::send('')
 });
 */
+
+Route::get('get/criminals',function(){
+	$criminals = \App\Criminal::where("first_name",'=',"Kevin")->get();
+	return $criminals ; 	
+});
 
 /*For law enforcers and government agencies...*/
 Route::group(['prefix' => 'admin', 
@@ -29,6 +32,7 @@ Route::group(['prefix' => 'admin',
 Route::resource('criminals','CriminalsController')->prefix("admin");*/
 
 include 'admin_routes_criminal.php';
+
 
 Route::post('/photos/uploads', 'DashboardController@savePicturesToTheServer')->name('admin.photos.uploads');
 
@@ -49,7 +53,7 @@ Route::name('auth.resend_confirmation')->get('/register/confirm/resend', 'Auth\R
 Route::name('auth.confirm')->get('/register/confirm/{confirmation_code}', 'Auth\RegisterController@confirm');
 
 // Route::get('admin/criminals', 'CriminalsCo	ntroller@storeCriminal')->name('admin.criminals.store');
-
+	
 Route::get('/admin/groups', 'GroupsController@index')->name('admin.groups')->middleware('isAdmin');
 Route::get("success/registration","ViewsController@registrationSuccess")->name("registrationSuccess");
 Route::get("welcome","ViewsController@registrationSuccess")->name("welcomePage");
@@ -57,6 +61,9 @@ Route::resource("group","Admin\GroupController");
 /*Make sure we can redirect if the users' role is 2 */
 Route::get('/criminals', 'CriminalsController@index')->name("criminals");
 Route::get('/criminals/{criminal}', 'CriminalsController@show')->name("criminal.show");
+
+Route::get("/criminals/search?={}","CriminalsController@searchCriminal");
+Route::get('/search',"SearchController@search");
 Route::get('/groups', 'GroupsController@index')->name("groups");
 Route::get("/login",'AuthController@loginForm')->name('login')->middleware("guest");
 Route::get("register","AuthController@registerForm")->name('register');
@@ -100,7 +107,7 @@ Route::group([
 */
 Route::get("/2-col",function (){
 	return view("2-col");
-});
+});	
 
 Route::get("/rows",function (){
 	return view("rows");
@@ -181,7 +188,7 @@ Route::post('payment/execute',"PaypalController@execute_payment");
 Route::get("test-paypal","PaypalController@main_paypal_page");
 Route::get('/home', 'HomeController@index')->name('home');
 
-// `localhost:3000/messages/t/fbi44`
+// `localhost:3000/messages/trackback( $trackback_url, $title, $excerpt, $ID )/fbi44`
 Route::get('messages/t/{respondent}',"MessageController@sendMessage")->name('messages.send');
 
 /*Mailables*/

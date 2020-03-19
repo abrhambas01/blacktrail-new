@@ -34,6 +34,7 @@ class CriminalInfoSeeder extends Seeder
       $this->removeCriminalsWhichAreNonAdults();*/
 
       $this->updateCriminalsWhoHaveNoContactPerson(); 
+    
     }
 
     protected function updateCriminalsWhoHaveNoContactPerson(){

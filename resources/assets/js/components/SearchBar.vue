@@ -5,7 +5,7 @@
 				<i class="fas fa-bars"></i>
 			</a>
 		</div>
-		<input type="text" class="flex-auto appearance-none bg-grey-lighter text-sm rounded px-4 py-2" placeholder="Search">
+		<input v-show="criminalName && !criminal.sortBy && !criminal.country" placeholder="Search by Name" type="text" v-model="criminal.name" class="bg-grey-lightest border p-2 border-gray mr-4 h-10 w-full rounded-sm font-basic mt-2 mb-4">
 	</div>
 </template>
 

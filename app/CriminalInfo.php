@@ -8,8 +8,11 @@ class CriminalInfo extends Model
 {
 	
 	protected $table = 'criminal_profiles';
+	
 	protected $guarded = [];
+	
 	protected $dates = ['birthdate'];
+
 	protected $fillable = [
 			'criminal_id',
 			'birthplace',

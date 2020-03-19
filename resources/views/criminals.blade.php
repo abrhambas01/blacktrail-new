@@ -27,7 +27,9 @@
 					<img class="h-18 w-18 mr-4 mt-2" src="{{ asset('/storage/criminals/'.$criminal->photo)  }}" id="criminalsPhoto" alt="Criminals View" >
 					
 					@else
+
 					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
+					
 					@endif
 				</router-link>
 				{{-- showing the names of the criminals --}}

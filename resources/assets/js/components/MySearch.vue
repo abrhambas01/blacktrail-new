@@ -1,9 +1,10 @@
 <template>
   <ais-instant-search
     :search-client="searchClient"
-    index-name="contacts"
+    index-name="criminals"
   >
-    <!-- Other search components go here -->
+  <ais-search-box placeholder="Search contacts..."></ais-search-box>
+  <ais-hits></ais-hits>
   </ais-instant-search>
 </template>
 

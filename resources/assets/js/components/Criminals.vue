@@ -4,7 +4,7 @@ export default {
 	props : ['criminals'],
 	data(){
 		return {
-			// showDiv : true , 
+			showDiv : true , 
 			showChatBox : true , 
 			criminalsList : [],
 			criminal: this.criminals ,
@@ -33,11 +33,10 @@ export default {
 	},
 
 	mounted() {
+	/*	console.log(this.criminal);
 
-		// console.log(this.criminal);
-
-		// axios.get("/criminals").then(response => this.criminals = response.data); 
-		// console.log('Criminal list is now mounted');
+		axios.get("/criminals").then(response => this.criminals = response.data); 
+		console.log('Criminal list is now mounted');*/
 	}
 };
 </script>

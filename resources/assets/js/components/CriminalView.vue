@@ -149,7 +149,6 @@ export default {
 	check_if_the_currently_logged_on_user_is_the_creator(){
 		console.log("	... starts here.");
 	}
-
 },
 mounted(){
 	this.criminalDetails = this.criminals ; 

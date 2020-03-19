@@ -1,0 +1,84 @@
+[33mb947f04[m[33m ([m[1;36mHEAD -> [m[1;32medit-criminals[m[33m)[m HEAD@{0}: commit (cherry-pick): repeatedly made changes on that merge conflict
+[33m2fb34ce[m HEAD@{1}: commit (cherry-pick): fixed the issue in criminals.show
+[33m75da0fe[m HEAD@{2}: commit (cherry-pick): fixed the merge conflict here too
+[33m1f3e4b0[m HEAD@{3}: commit (cherry-pick): Fixed the merge conflicts.. I was trying to make the cherry pick work here.. What i Did was to fix the merge conflicts at first since it was told here 2 do that
+[33m228e9fc[m[33m ([m[1;31morigin/edit-criminals[m[33m)[m HEAD@{4}: commit: updated files as of march 18, 2020
+[33mb335705[m HEAD@{5}: checkout: moving from b838c88afa8b53d1a46c0cfd2547a837090a7f54 to edit-criminals
+[33mb838c88[m HEAD@{6}: commit: the user filters wasn't completely finished yet. but the images are now shown for the criminals list and the criminalView
+[33m4291659[m HEAD@{7}: commit: the images were now showing for the listing of criminals for the admins or for ordinary citizens
+[33mb335705[m HEAD@{8}: checkout: moving from master to origin/edit-criminals
+[33m343afdf[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{9}: checkout: moving from search-criminals to master
+[33me7877a6[m[33m ([m[1;32msearch-criminals[m[33m)[m HEAD@{10}: commit: The criminals avatar would now show up by making a big change in the blade files, this should be in the edit-crimnals branch but to avoid complexity in the workflow I just put it here
+[33m2524efc[m[33m ([m[1;35mrefs/stash[m[33m)[m HEAD@{11}: checkout: moving from edit-criminals to search-criminals
+[33m9c6d3f0[m HEAD@{12}: reset: moving to HEAD
+[33m9c6d3f0[m HEAD@{13}: checkout: moving from search-criminals to edit-criminals
+[33m2524efc[m[33m ([m[1;35mrefs/stash[m[33m)[m HEAD@{14}: reset: moving to HEAD
+[33m2524efc[m[33m ([m[1;35mrefs/stash[m[33m)[m HEAD@{15}: reset: moving to 2524efc
+[33m16971bc[m[33m ([m[1;31morigin/search-criminals[m[33m)[m HEAD@{16}: checkout: moving from edit-criminals to search-criminals
+[33m9c6d3f0[m HEAD@{17}: reset: moving to HEAD
+[33m9c6d3f0[m HEAD@{18}: pull: Fast-forward
+[33m0a3c837[m HEAD@{19}: pull: Fast-forward
+[33mbe7771c[m HEAD@{20}: checkout: moving from search-criminals to edit-criminals
+[33m16971bc[m[33m ([m[1;31morigin/search-criminals[m[33m)[m HEAD@{21}: reset: moving to HEAD
+[33m16971bc[m[33m ([m[1;31morigin/search-criminals[m[33m)[m HEAD@{22}: checkout: moving from be7771c737592f338de841cbbf345eaab8c99e66 to search-criminals
+[33mbe7771c[m HEAD@{23}: checkout: moving from search-criminals to be7771c
+[33m16971bc[m[33m ([m[1;31morigin/search-criminals[m[33m)[m HEAD@{24}: pull: Merge made by the 'recursive' strategy.
+[33m37f04bb[m HEAD@{25}: commit: search criminals but login can't be seen here, setting up algolia isn't finished
+[33mbe7771c[m HEAD@{26}: reset: moving to be7771c
+[33ma0dd101[m HEAD@{27}: commit: Login view won't show up in this specific commit in my i5 hp computer, halfway doing the setting up of algolia vue-instant-search, not yet finished on that
+[33mbe7771c[m HEAD@{28}: checkout: moving from edit-criminals to search-criminals
+[33mbe7771c[m HEAD@{29}: commit: the crime description should be listed in the text box it would show up if we put v-model=crime.pivot.crime_descripion but not crime.crime_description we cannot add new crime
+[33m8e5bdef[m HEAD@{30}: checkout: moving from 857747cdb68da25d14a4ee08182e5453c57eacf6 to edit-criminals
+[33m857747c[m HEAD@{31}: checkout: moving from edit-criminals to 857747c
+[33m8e5bdef[m HEAD@{32}: reset: moving to HEAD
+[33m8e5bdef[m HEAD@{33}: checkout: moving from edit-criminals to edit-criminals
+[33m8e5bdef[m HEAD@{34}: reset: moving to HEAD
+[33m8e5bdef[m HEAD@{35}: reset: moving to HEAD
+[33m8e5bdef[m HEAD@{36}: checkout: moving from edit-criminals to edit-criminals
+[33m8e5bdef[m HEAD@{37}: reset: moving to HEAD
+[33m8e5bdef[m HEAD@{38}: checkout: moving from master to edit-criminals
+[33m343afdf[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{39}: checkout: moving from 8e5bdeff5e94a17810af61c5a3010fab0e9cdd67 to master
+[33m8e5bdef[m HEAD@{40}: checkout: moving from edit-criminals to 8e5bdef
+[33m8e5bdef[m HEAD@{41}: reset: moving to HEAD
+[33m8e5bdef[m HEAD@{42}: commit: Removing a criminal's previous photo when updating is now ok
+[33m9bdbc7a[m HEAD@{43}: commit: the images for the trix content when showing the criminals information can now be seen
+[33mab19ee3[m HEAD@{44}: commit: Updated files made gitignore effect
+[33m7243b81[m HEAD@{45}: checkout: moving from edit-criminals to edit-criminals
+[33m7243b81[m HEAD@{46}: commit: updated one
+[33mfa396a1[m HEAD@{47}: commit: this is my latest commit, latest update
+[33mab86038[m HEAD@{48}: commit: updated the edit criminal form wherein the criminals crimes would be listed
+[33m842bbca[m[33m ([m[1;31mheroku/edit-criminals[m[33m)[m HEAD@{49}: commit: deploying with heroku, first take
+[33m6458c7f[m HEAD@{50}: reset: moving to HEAD
+[33m6458c7f[m HEAD@{51}: commit: added files for mercurius and chatify emssenger, chat tba
+[33md650377[m HEAD@{52}: reset: moving to d650377
+[33md650377[m HEAD@{53}: reset: moving to d650377
+[33md650377[m HEAD@{54}: reset: moving to HEAD
+[33md650377[m HEAD@{55}: reset: moving to HEAD
+[33md650377[m HEAD@{56}: checkout: moving from edit-criminals to edit-criminals
+[33m343afdf[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{57}: checkout: moving from master to edit-criminals
+[33m343afdf[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{58}: commit: the updated version, to be checked
+[33m408dbdd[m HEAD@{59}: commit: most updated commit, working on the list all the crimes part
+[33m706b51d[m HEAD@{60}: checkout: moving from fixing-the-adding-of-the-criminals to master
+[33m3484d4b[m[33m ([m[1;32mfixing-the-adding-of-the-criminals[m[33m)[m HEAD@{61}: checkout: moving from master to fixing-the-adding-of-the-criminals
+[33m706b51d[m HEAD@{62}: reset: moving to HEAD
+[33m706b51d[m HEAD@{63}: pull: Fast-forward
+[33m5bd1dcf[m HEAD@{64}: reset: moving to HEAD
+[33m5bd1dcf[m HEAD@{65}: pull: Fast-forward
+[33m3484d4b[m[33m ([m[1;32mfixing-the-adding-of-the-criminals[m[33m)[m HEAD@{66}: checkout: moving from fixing-the-adding-of-the-criminals to master
+[33m3484d4b[m[33m ([m[1;32mfixing-the-adding-of-the-criminals[m[33m)[m HEAD@{67}: reset: moving to master
+[33m8702df9[m[33m ([m[1;31morigin/fixing-the-adding-of-the-criminals[m[33m)[m HEAD@{68}: checkout: moving from 8702df993051a3969e8542a4cfa5e9273492966d to fixing-the-adding-of-the-criminals
+[33m8702df9[m[33m ([m[1;31morigin/fixing-the-adding-of-the-criminals[m[33m)[m HEAD@{69}: checkout: moving from fixing-the-adding-of-the-criminals to 8702df9
+[33m8702df9[m[33m ([m[1;31morigin/fixing-the-adding-of-the-criminals[m[33m)[m HEAD@{70}: checkout: moving from master to fixing-the-adding-of-the-criminals
+[33m3484d4b[m[33m ([m[1;32mfixing-the-adding-of-the-criminals[m[33m)[m HEAD@{71}: reset: moving to HEAD
+[33m3484d4b[m[33m ([m[1;32mfixing-the-adding-of-the-criminals[m[33m)[m HEAD@{72}: pull: Fast-forward
+[33mb564406[m HEAD@{73}: checkout: moving from fixing-the-adding-of-the-criminals to master
+[33m8702df9[m[33m ([m[1;31morigin/fixing-the-adding-of-the-criminals[m[33m)[m HEAD@{74}: commit: edit criminal is now updated and we should be able to number of crimes of criminals
+[33ma369916[m HEAD@{75}: commit: updated the criminals edit form, also added the defalt route..
+[33m02bb6fd[m HEAD@{76}: commit: editing criminals information updated, we can now see the listing of all crimes
+[33m7f7bd73[m HEAD@{77}: commit: we can now delete an attachment from the trix-editor, but when we reset the trix-editor field it would delete the attachments
+[33mb7c8e06[m HEAD@{78}: commit: updated the trix attachment controller
+[33m68bcc75[m HEAD@{79}: commit: There's a problem rendering a prop to a blade view
+[33m6695ff2[m HEAD@{80}: commit: removed the assets/images to the folder to be added, also modified the contents
+[33me121841[m HEAD@{81}: commit: we can't add new criminals yet / insert these into the db
+[33me6a4be9[m HEAD@{82}: checkout: moving from master to fixing-the-adding-of-the-criminals
+[33mb564406[m HEAD@{83}: clone: from https://github.com/abrhambas01/blacktrail-backup.git
