@@ -63,6 +63,10 @@ export default {
 		}
 	},	
 	methods : {
+		handleTrixInit(file){
+			console.log(file);
+		},
+
 		customFormatter(date) {
 			return moment(date).format('MMMM Do YYYY, h:mm:ss a');
 		},
@@ -242,6 +246,11 @@ export default {
 		},
 
 		handleAttachmentAdd(event){
+
+			console.log("Description: "+this.form.complete_description);
+
+			
+			console.log(event);
 			if(this.requesting || this.creating || this.resetting){
 				event.preventDefault();
 				return false;
@@ -321,6 +330,7 @@ handleEditorChange(file){
 },
 
 handleAttachmentRemove(file){
+
 	// console.log(file);
 	// console.log("Trying to delete",file);
 	let url = file.attachment.attachment.attributes.values.url.split("/").pop();

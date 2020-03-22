@@ -57,7 +57,7 @@ export default {
 
 	computed : { 
 		chatUrl(respondentName){
-			return api.app + '/messages/t/' + this.respondentName; 
+			return api.app + '/messages/t/' + this.respondentName + '/c/' +this.id; 
 			// return '/respond/criminal/' + this.criminal_id;
 		},
 		userRole(){

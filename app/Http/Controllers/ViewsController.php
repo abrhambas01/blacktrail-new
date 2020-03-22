@@ -19,8 +19,7 @@ class ViewsController extends Controller
 			else { 
 				return redirect()->route("admin.dashboard");
 			}	
-		}
-		
+		}	
 	}
 
 

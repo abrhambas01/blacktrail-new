@@ -82,9 +82,12 @@ $factory->define(App\Message::class, function (Faker $faker) {
         $to = rand(1, 15);
     } while ($from === $to);
     return [
-        'from' => $from,
-        'to' => $to,
-        'body' => $faker->sentence
+        'receiver_id' => $from,
+        'sender_id' => $to,
+        'criminal_id' => Criminal::get()->random()->id;
+        'type' => 1,    
+        'message' => $faker->sentence,
+        'seen_at' => $faker->dateTime(), 
     ];
 });
 

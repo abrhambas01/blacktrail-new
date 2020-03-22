@@ -5,18 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User ; 
 use App\Message ; 
+use App\Criminal ; 
 class MessageController extends Controller
 {
-
-	/**/
-	public function sendMessage($user)
+	/*
+==>
+	 Send message
+	<==
+	*/
+	public function sendMessage($user,$criminal)
 	{
 
 		$message = Message::where([
-			['from_id','=', auth()->id()],
-			['to_id', '=',2]
+			['sender_id','=', auth()->id()],
+			['receiver_id', '=',$user]
 		])->get();
-		
-		return view('messages',compact("message"));
+
+		$criminal = Criminal::where('id','=',$criminal)->get();
+		return view('messages',compact("message",'criminal'));
 	}
 }

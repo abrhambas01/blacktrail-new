@@ -1,7 +1,9 @@
 <script>
 import urls from './scripts/endpoints.js';
+import CriminalSearch from './CriminalSearch.vue';
 export default {
 	name: 'UserFilters',
+	components : { CriminalSearch },
 	props: ['value', 'placeholder'],
 	data () {
 		return {	
@@ -33,40 +35,40 @@ export default {
 		this.criminal.country = null;
 		this.criminal.name = "";
 
-		},
+	},
 
-		changeFilterAdmin(event){
-			var value = event.target.value;
-			this.criminal.sortBy = value ;
-			if (this.sortBy === 1){
-				window.location.href = 'admin/criminals/followed';
-			}
-		},
-
-		startSearch(){
-			if ( this.criminal.sortBy != null  && this.criminal.country != null){
-				console.log("Please Choose one ");
-			}
-			else { 
-				console.log("Please Redirect ");
-			}
-		},
-
-		refresh({ data }) {
-			this.dataSet = data.activities;
-			this.items = data.activities.data;
-
-			this.$refs.timeline.scrollIntoView();
-		},
-
-
-		url(page) {
-			let url = urls.urlForSearchingCriminals + `/api/v1/search-criminals/?=${this.criminal}`;
-		},
-
-		searchCriminals(){	
-
+	changeFilterAdmin(event){
+		var value = event.target.value;
+		this.criminal.sortBy = value ;
+		if (this.sortBy === 1){
+			window.location.href = 'admin/criminals/followed';
 		}
+	},
+
+	startSearch(){
+		if ( this.criminal.sortBy != null  && this.criminal.country != null){
+			console.log("Please Choose one ");
+		}
+		else { 
+			console.log("Please Redirect ");
+		}
+	},
+
+	refresh({ data }) {
+		this.dataSet = data.activities;
+		this.items = data.activities.data;
+
+		this.$refs.timeline.scrollIntoView();
+	},
+
+
+	url(page) {
+		let url = urls.urlForSearchingCriminals + `/api/v1/search-criminals/?=${this.criminal}`;
+	},
+
+	searchCriminals(){	
+
+	}
 }
 };
 </script>

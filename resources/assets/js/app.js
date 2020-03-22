@@ -17,7 +17,6 @@ import VueInstantSearch from 'vue-instantsearch';
 // import UploadImage from 'vue-upload-image'eDITc;
 
 window.Vue = require('vue');
-window.$ = require('jquery');
 
 Vue.component('chat-app', require('./components/ChatApp.vue'));
 /*globally registered components.. */
@@ -35,6 +34,7 @@ Vue.component('register-criminal', require('./components/RegisterCriminal.vue'))
 Vue.component('criminal-map', require('./components/CriminalMap'));	
 Vue.component('user-filters', require('./components/UserFilters.vue'));	
 Vue.component('dashboard-nav', require('./components/DashboardNav.vue'));
+Vue.component('search-messages', require('./components/SearchMessages.vue'));
 
 Vue.component('criminal-layout',require('./components/CriminalViewLayout.vue')) ;
 Vue.component("edit-criminal",require("./components/EditCriminal.vue"));
@@ -57,7 +57,7 @@ Vue.component('pending-users', require('./components/PendingUsers.vue'));
 Vue.component('chat-label', require('./components/ChatLabel.vue'));
 Vue.component('upload-image', require('./components/UploadImage.vue'));
 Vue.component('update-profile', require('./components/UpdateProfile.vue'));
-Vue.component('my-search', require('./components/MySearch.vue').default);
+Vue.component('criminals-search', require('./components/CriminalSearch.vue').default);
 // Vue.component('trix-editor', require('./components/TrixEditor.vue'));
 
 // Vue.component('site-sidebar',require('./components/Layouts/SiteSidebar.vue'));

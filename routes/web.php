@@ -114,8 +114,6 @@ Route::get("/rows",function (){
 });
 
 Route::get('/', 'ViewsController@index')->name('index');
-
-
 /**
 * confirming email.
 */
@@ -189,7 +187,7 @@ Route::get("test-paypal","PaypalController@main_paypal_page");
 Route::get('/home', 'HomeController@index')->name('home');
 
 // `localhost:3000/messages/trackback( $trackback_url, $title, $excerpt, $ID )/fbi44`
-Route::get('messages/t/{respondent}',"MessageController@sendMessage")->name('messages.send');
+Route::get('messages/t/{respondent}/c/{criminal}',"MessageController@sendMessage")->name('messages.send');
 
 /*Mailables*/
 Route::get("mailable","ViewsController@test_mailable");

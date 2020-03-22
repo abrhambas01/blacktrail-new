@@ -13,39 +13,43 @@ content="width=SITE_MIN_WIDTH, initial-scale=1, maximum-scale=1"> --}} {{--
 <link href="{{ asset('css/app.css')}}" rel="stylesheet" data-turbolinks-track="true"> 
 <link rel="stylesheet" href="{{ asset('css/animate.css') }}">   
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
-<link rel="stylesheet" href="{{ asset('css/animate.css') }}">   {{-- when
-using microsoft edge as a developer tools..--}} {{-- <script
-src="http://localhost:8098"></script> <script
-src="http://192.168.22.3:8098"></script> --}} 
+<link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+<link rel="stylesheet" href="{{ asset('js/jquery.min.js') }}">
 <script>  
   window.App = @include("partials.stubs.global-vars") 
 </script>      
+<script>
+  $(function(){
+    $(".flashMessage").click(function(){
+      // $(".flashMessage").hide();
+      console.log("OK");
+    });
+  });
+</script>
 @yield('styles') 
 </head>
-<body class="bg-grey-lighter-2 tracking-normal font-basic"> 
+<body class="h-full bg-grey-lighter-2 tracking-normal font-basic"> 
   <div id="app">
     <div class="m-auto">
       @if(session()->has('flash'))
       <flash-message inline-template>      
         <div v-show="messageIsAvailable" id="messageSuccess" class="bg-green-theme p-4 w-full flex justify-between flashMessage">
           <p class="text-white font-semibold text-md font-sans">{{ trans('flash.logout_success') }}</p>
-          <svg @click="messageIsAvailable = false" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
+          <svg @click="hideAlert()" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
           </svg>
         </div>
       </flash-message>
       @endif 
 
       @if(session()->has('confirmation_success_message'))
-
       <flash-message inline-template>      
         <div v-show="messageIsAvailable" id="confirmationSuccess" class="bg-green-theme p-4 w-full flex justify-between flashMessage">
           <p class="text-white font-semibold text-md font-sans">{{ trans('flash.confirmation_success') }}
           </p>
-          <svg @click="messageIsAvailable = false" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
+          <svg @click="hideAlert()" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
           </svg>
         </div>
       </flash-message>
-
       @endif
 
       @if(session()->has('flash-message'))
@@ -56,7 +60,7 @@ src="http://192.168.22.3:8098"></script> --}}
         <div v-show="messageIsAvailable" id="logoutSuccess" class="bg-green-theme p-4 w-full flex justify-between flashMessage">
           <p class="text-white font-semibold text-md font-sans">{{ session('flash-message' ) }}
           </p>
-          <svg @click="messageIsAvailable = false" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
+          <svg @click="hideAlert()" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
           </svg>
         </div>
       </flash-message>
@@ -76,12 +80,6 @@ src="http://192.168.22.3:8098"></script> --}}
   </div>
 
   <script data-turbolinks-suppress-warning src="{{ mix('js/app.js') }}"></script>
-
-  <script>
-    $("#flashMessage").click(function(){
-      $("#flashMessage").hide();
-    });
-  </script>
   @yield("scripts")
 </body>
 </html> 

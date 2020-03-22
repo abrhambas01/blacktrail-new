@@ -9,6 +9,9 @@ export default {
 	methods : {
 		hideAfterSeconds(){
 			setTimeout(() => this.messageIsAvailable = false, 5000);
+		},
+		hideAlert(){
+			this.messageIsAvailable = false; 
 		}
 	},
 	mounted(){

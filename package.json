@@ -31,6 +31,7 @@
         "moment": "^2.24.0",
         "places.js": "^1.16.1",
         "pusher-js": "^4.4.0",
+        "socket.io": "^2.3.0",
         "socket.io-client": "^2.3.0",
         "turbolinks": "^5.2.0",
         "vee-validate": "^2.2.15",

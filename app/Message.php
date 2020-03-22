@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
 
-	protected $fillable = ['body'];
-    
+	// protected $fillable = ['id','from_id','to_id','body'];
     protected $table = 'messages';
+    protected $guarded = [];
 	
 
     // protected $appends = ['selfMessage'];
@@ -23,4 +23,6 @@ class Message extends Model
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
         return $this->hasMany(User::class,'id','from');
     }
+
+    
 }

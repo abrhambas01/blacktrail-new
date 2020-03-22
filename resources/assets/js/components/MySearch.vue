@@ -4,7 +4,7 @@
     index-name="criminals"
   >
   <ais-search-box placeholder="Search contacts..."></ais-search-box>
-  <ais-hits></ais-hits>
+  <ais-hits ></ais-hits>
   </ais-instant-search>
 </template>
 

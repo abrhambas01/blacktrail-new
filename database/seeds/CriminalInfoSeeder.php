@@ -115,7 +115,6 @@ class CriminalInfoSeeder extends Seeder
       $anonCriminals->each(function($item,$key){
       // dd($item->criminal_id);
 
-
         DB::table("criminal_profiles")->where('criminal_id','=',$item->criminal_id)
         ->update(['complete_description'=> $this->returnsCompleteDescription()
       ]); 

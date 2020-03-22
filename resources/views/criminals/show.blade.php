@@ -34,7 +34,7 @@ use Carbon\Carbon;
 
 								@if (!auth()->user()->isAdmin())
 								<button class="hover:bg-blue-darker hover:text-white bg-blue rounded-full w-1/2 mt-4 h-12 ">
-									<a class="text-white hover:text-blue-lighter" href="{{ route('messages.send',$criminal->respondent->username) }}">
+									<a class="text-white hover:text-blue-lighter" href="{{ route('messages.send',[$criminal->respondent->username, $criminal->id]) }}">
 										Report Location
 									</a>
 								</button>

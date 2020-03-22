@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Criminal ; 
 use App\User ; 
 use App\GroupMember ; 
+use App\Message ; 
 use App\CriminalInfo ; 
 use App\Group ; 
 use App\Country ; 
@@ -254,4 +255,24 @@ class DatabaseController extends Controller {
 		});
 	}
 
-}	
+	public function update_messages_where_criminal_id_is_zero(){
+		$messages = Message::where("criminal_id",'=',0)->get() ;
+		
+
+		foreach ($messages as $message) {
+
+			$criminal_id = Criminal::where("status",'=',1)->pluck('id')->toArray();
+			// $countryId = DB::table("criminals")->where('status','=',1)->pluck("id")->toArray();
+			$id = array_random($criminal_id);
+						
+			$msg  = Message::findOrFail($message->id);
+			
+			$msg->criminal_id = $id;
+			
+			$msg->update() ; 
+		}
+		
+	}
+
+}
+
