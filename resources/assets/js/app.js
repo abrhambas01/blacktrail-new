@@ -19,6 +19,7 @@ import VueInstantSearch from 'vue-instantsearch';
 window.Vue = require('vue');
 
 Vue.component('chat-app', require('./components/ChatApp.vue'));
+Vue.component('chat-box', require('./components/ChatBox.vue'));
 /*globally registered components.. */
 Vue.component('app-header',require('./components/App/AppHeader.vue'));
 Vue.component('app-sidebar',require('./components/App/Sidebar.vue'));
@@ -34,9 +35,10 @@ Vue.component('register-criminal', require('./components/RegisterCriminal.vue'))
 Vue.component('criminal-map', require('./components/CriminalMap'));	
 Vue.component('user-filters', require('./components/UserFilters.vue'));	
 Vue.component('dashboard-nav', require('./components/DashboardNav.vue'));
-Vue.component('search-messages', require('./components/SearchMessages.vue'));
+// Vue.component('search-messages', require('./components/SearchMessages.vue'));
 
 Vue.component('criminal-layout',require('./components/CriminalViewLayout.vue')) ;
+Vue.component('message-conversations',require('./components/Messages/MessageConversations.vue'));
 Vue.component("edit-criminal",require("./components/EditCriminal.vue"));
 Vue.component("flash-message",require('./components/Alerts/FlashMessage.vue'));
 

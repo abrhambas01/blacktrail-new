@@ -76,8 +76,8 @@
 						</label>
 						<div class="card-body">
 							<div class="row">
-								<div class="col-md-3" v-if="form.avatar">
-									<img :src="form.avatar" class="img-responsive" height="70" width="90">
+								<div class="col-md-3" v-if="userAvatar">
+									<img :src="userAvatar" class="img-responsive" height="70" width="90">
 								</div>
 								<div class="col-md-6">
 									<input type="file" v-on:change="onAvatarChange" class="form-control">
@@ -126,7 +126,7 @@ export default {
 				email : this.user.email, 
 				id : this.user.id, 
 				current_password : "",
-				avatar : "",
+				avatar : this.user.avatar,
 				password : "", 
 				confirm_password : "", 
 				display_name : this.user.display_name,
@@ -221,6 +221,16 @@ export default {
 	computed : { 
 		endpoint(){
 			return urls.update_profiles_endpoint;
+		},
+		userAvatar(){
+			if (this.user.avatar === "default_avatar.jpg"){
+				// return `${window.App.assetStorageCriminalsPath}/${this.criminals.photo}`;
+				// return `${window.App.assetStorageCriminalsPath}/${this.criminals.photo}`;
+				return urls.urlDomain + `/assets/images/default_avatar.jpg`;
+			}
+			else { 
+				return `${window.App.defaultStoragePath}/${this.user.avatar}`;
+			}
 		}
 	}
 };

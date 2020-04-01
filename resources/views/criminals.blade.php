@@ -10,7 +10,7 @@
 @include('modals.report-criminal')
 @include('modals.location-map')
 
-<section class="w-1/2x">
+<section class="w-1/2">
 	<div class="ml-8">
 		<p class="font-basic tracking-normal text-3xl mb-4 mt-4 font-normal text-black mr-2">All Wanted Criminals
 		</p>
@@ -19,16 +19,22 @@
 	</div>
 	
 	@forelse ($criminals as $criminal)	
+
 	<criminals-view :criminals="{{ strip_tags($criminal) }}" inline-template> 
 		<article class="timeline-feeds">	
 			<div class="flex" id="userProfile">	
-				<a href=""></a>
 				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
+
 					@if(file_exists(public_path('/storage/criminals/'.$criminal->photo))) 
+
 					<img class="h-18 w-18 mr-4 mt-2" src="{{ asset('/storage/criminals/'.$criminal->photo)  }}" id="criminalsPhoto" alt="Criminals View" >
+					
 					@else
+					
 					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
+
 					@endif
+
 				</router-link>
 				{{-- showing the names of the criminals --}}
 				<div class="flex-1">
@@ -46,15 +52,15 @@
 	@endforelse
 
 	{{ $criminals->links() }}
-	
-</section>
 
+</section>
 {{--CriminalView.vue  --}}
 <router-view></router-view>
 
 @endif
 @endauth
 @guest
+
 <section class="w-1/2 ml-5 mt-4">
 	<h5 class="text-center text-xl font-light font-basic ml-2">Please<a class="ml-2 underline font-basic text-blue font-bold" href="login">sign in</a> first to browse criminals</h5>
 </section>

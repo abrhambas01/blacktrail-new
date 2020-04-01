@@ -13,7 +13,8 @@ class Uppercase implements Rule
      */
     public function __construct()
     {
-        //
+
+
     }
 
     /**

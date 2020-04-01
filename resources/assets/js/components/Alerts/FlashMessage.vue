@@ -17,10 +17,12 @@ export default {
 	mounted(){
 		this.hideAfterSeconds();
 	},
-/*watch : { 
-message(){
+	watch : { 
 
-}
-}*/
+		message(){
+
+		}
+
+	}
 };
 </script>

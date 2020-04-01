@@ -136,8 +136,9 @@ export default {
 							// console.log(response);
 							window.location.replace("/admin/criminals/"+this.criminal.id);
 						}).catch((error) => {
+							// alert(error);
+							this.$swal("We encounter an error please check your inputs as there are some issues with your inputs");
 						});
-
 						this.requesting = false;
 						this.creating = false;
 					}, 1000);
@@ -149,6 +150,7 @@ export default {
 			updateUserRoute(){
 				return `/`;
 			},
+
 			onAvatarChange(e){
 				let files = e.target.files || e.dataTransfer.files;
 				if (!files.length)
@@ -169,7 +171,9 @@ export default {
 
 			createImage(file) {
 				let reader = new FileReader();				
+				
 				let vm = this;
+
 				vm.form.avatar = file;
 				
 				reader.onload = (e) => {
@@ -356,16 +360,15 @@ computed : {
 	remove_attachment_endpoint(){
 		return api.app + '/api/v1/attachments/' ;
 	},	
-
-	
 	crimeTypes(){
 		return this.crimes 
 	}
-
 },
+
 mounted(){
-	// this.mountAvatar(this.form.avatar) ;
+	this.mountAvatar(this.form.avatar) ;
 }
+
 };
 </script>
 

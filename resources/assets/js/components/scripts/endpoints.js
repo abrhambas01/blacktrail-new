@@ -20,6 +20,7 @@ const show_profile_endpoint = urlDomain + "/user/profiles/" + api.user.id;
 const urlSaveCriminal = urlDomain + "/admin/criminals";
 const urlUpdateCriminal = urlDomain + "/admin/criminals";
 const urlForSearchingCriminals = urlDomain + "/api/v1/?search-criminals";
+// const urlForSearchingCriminals = urlDomain + "/api/v1/?search-criminals";
 
 
 export default { 

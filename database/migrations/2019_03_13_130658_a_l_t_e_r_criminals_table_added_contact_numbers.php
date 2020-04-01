@@ -38,4 +38,6 @@ class ALTERCriminalsTableAddedContactNumbers extends Migration
             $table->dropColumn('complete_description');
         });
     }
+
+    
 }

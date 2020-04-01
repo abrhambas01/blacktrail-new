@@ -12,7 +12,6 @@
 	</button> -->
 	<chat-box :id="id" :criminalName="criminals"></chat-box>
 	<offer-bounty :id="id" :criminals="criminals"></offer-bounty>
-
 </section>
 </template>
 <script>

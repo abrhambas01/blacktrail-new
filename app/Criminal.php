@@ -3,10 +3,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Laravel\Scout\Searchable;
-use Spatie\Searchable\Searchable as SpatieSearchable;
+// use Spatie\Searchable\Searchable as SpatieSearchable;
 use Spatie\Searchable\SearchResult;
 
-class Criminal extends Model implements SpatieSearchable
+class Criminal extends Model
 {
 	use Searchable ; 
 	
@@ -31,14 +31,13 @@ class Criminal extends Model implements SpatieSearchable
 		->registerModel(Criminal::class, 'full_name')
 		->search('john');
 	}
-	
+
 	public function toSearchableArray() {
 		$array = $this->toArray();
 		$array['fullName'] = $this->fullName;
+		$array['country'] = $this->country->name;
 		return $array;
 	}
-
-
 
 
 	public function getSearchResult(): SearchResult

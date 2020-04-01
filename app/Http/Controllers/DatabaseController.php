@@ -264,7 +264,7 @@ class DatabaseController extends Controller {
 			$criminal_id = Criminal::where("status",'=',1)->pluck('id')->toArray();
 			// $countryId = DB::table("criminals")->where('status','=',1)->pluck("id")->toArray();
 			$id = array_random($criminal_id);
-						
+
 			$msg  = Message::findOrFail($message->id);
 			
 			$msg->criminal_id = $id;
@@ -272,6 +272,25 @@ class DatabaseController extends Controller {
 			$msg->update() ; 
 		}
 		
+	}	
+
+	public function erase_duplicate_criminals_by_its_name(){
+		$messages = Message::where("criminal_id",'=',0)->get() ;
+		$check = DB::table("users")->groupBy("full_name")->having("full_name",'=' DB::)->get();
+
+		dd($check);
+
+		foreach ($messages as $message) {
+
+			$criminal_id = Criminal::where("status",'=',1)->pluck('id')->toArray();
+			// $countryId = DB::table("criminals")->where('status','=',1)->pluck("id")->toArray();
+			$id = array_random($criminal_id);
+			$msg  = Message::findOrFail($message->id);
+			$msg->criminal_id = $id;			
+			$msg->update() ; 
+	
+		}
+	
 	}
 
 }

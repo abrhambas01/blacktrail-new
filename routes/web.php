@@ -15,15 +15,23 @@ Route::get('get/criminals',function(){
 	return $criminals ; 	
 });
 
+// Route::get("/messags",function(){
+// 	return App\Message::where('id',1)->first();
+// });
+
+// Route::get("/messages/get/{message}","MessageController@getMessages");
+// Route::get("/messages/get/{message}","MessageController@getMessages");
+
 /*For law enforcers and government agencies...*/
 Route::group(['prefix' => 'admin', 
 	'middleware' => 'isAdmin', 	
 	'namespace' => 'Admin'
 ], function () {
 	Route::get("stats","DashboardController@stats")->name("admin.statistics");
+	
 	Route::get("users/pending","DashboardController@pending_users")->name('admin.pending.users');
-	Route::get('/home', 'DashboardController@index')->name('admin.dashboard');	
 
+	Route::get('/home', 'DashboardController@index')->name('admin.dashboard');	
 	/*Chats for a specific criminal..*/
 	Route::get("chats/{criminal}","CriminalsController@chats_for_a_specific_criminal");
 	Route::get('/criminals/posted/{user}', 'DashboardController@postedCriminals')->name('admin.criminals.posted');
@@ -123,6 +131,11 @@ Route::get('confirm/mail/{confirmation_code}','VerificationController@confirm_em
 */
 
 
+/*
+.Messaging Routes..
+
+*/
+
 // Route::resource('group','GroupController');
 
 
@@ -149,6 +162,7 @@ Route::get("/dashboard",function()
 });
 
 Route::get('image-upload',['as'=>'image.upload','uses'=>'ImageUploadController@imageUpload']);
+
 Route::post('image-upload',['as'=>'image.upload.post','uses'=>'ImageUploadController@imageUploadPost']);
 
 Route::get('upload',function(){
@@ -166,9 +180,6 @@ Route::any('upload', function()
 
 	return view('uploads')->with($data);
 });
-
-
-
 
 // Auth::routes();
 
@@ -188,6 +199,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // `localhost:3000/messages/trackback( $trackback_url, $title, $excerpt, $ID )/fbi44`
 Route::get('messages/t/{respondent}/c/{criminal}',"MessageController@sendMessage")->name('messages.send');
+
+
 
 /*Mailables*/
 Route::get("mailable","ViewsController@test_mailable");
@@ -209,4 +222,22 @@ Route::get("counter", function(){
 // Route::post('message',"MessageController@")
 Route::post("/sender",function(){
 	event(new MessageSent($text));
+});
+
+
+Route::get('/home/2', function () {
+	return view('welcome');
+});
+
+Route::get('/getAll', function () {
+	$messages = \App\Message::take(200)->pluck('message');
+	return response()->json($messages); 
+});
+
+Route::post('/post', function () {
+	$message = new Message();
+	$content = request('message');
+	$message->content = $content;
+	$message->save();
+	return $content;
 });

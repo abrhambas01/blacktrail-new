@@ -1,7 +1,7 @@
 <template>
-	<div class="h-full mt-6 h-screen overflow-hidden" style="background: #edf2f7;">
+	<div class="h-full w-full mt-6 h-screen overflow-hidden" style="background: #edf2f7;">
 		<div>
-			<div class="w-full h-32" style="background-color: #449388"></div>
+			<div class="h-32" style="background-color: #449388"></div>
 			<div class="container mx-auto" style="margin-top: -128px;">
 				<div class="py-6 h-screen">
 					<div class="flex border border-grey rounded shadow-lg h-full">
@@ -24,37 +24,10 @@
 								</div>
 							</div>
 							
-							<!-- Search -->
-							<div class="py-2 px-2 bg-grey-lightest">
-								<input type="text" class="w-full px-2 py-2 text-sm" placeholder="Search or start new chat"/>
-							</div>
-							
-							<!-- Contacts -->
-							<div class="bg-grey-lighter flex-1 overflow-auto">
-								<div class="px-3 flex items-center bg-grey-light cursor-pointer">
-									<div>
-										<img class="h-12 w-12 rounded-full"
-										:src="currentUserAvatar"/>
-									</div>
-									<div class="ml-4 flex-1 border-b border-grey-lighter py-4">
-										<div class="flex items-bottom justify-between">
-											<p class="text-grey-darkest">
-												{{ this.selectedContact.display_name }}
-											</p>
-											<p class="text-xs text-grey-darkest">
-												12:45 pm
-											</p>
-										</div>
-										<p class="text-grey-dark mt-1 text-sm">
-											Get Andrés on this movie ASAP!
-										</p>
-									</div>
-								</div>
-							</div>
-							
+							<!-- Search Bar for message-->
+							<message-search></message-search>
+							<message-conversations :selectedContact="this.respondent"></message-conversations>						
 						</div>
-						
-						
 						<!-- Right -->
 						<div class="w-2/3 border flex flex-col">
 							
@@ -67,10 +40,9 @@
 									<div class="ml-4">
 										<p class="text-grey-darkest">
 											{{ this.selectedContact.display_name }}
-											
 										</p>
 										<p class="text-grey-darker text-xs mt-1">
-											Responding to : Taylor Swift
+											Responding to Criminal: {{ this.criminal[0].full_name }}
 										</p>
 									</div>
 								</div>
@@ -82,140 +54,14 @@
 								</div>
 							</div>
 							
-							<!-- Messages -->
-							<div class="flex-1 overflow-auto" style="background-color: #DAD3CC">
-								<div class="py-2 px-3">
-									
-									<div class="flex justify-center mb-2">
-										<div class="rounded py-2 px-4" style="background-color: #DDECF2">
-											<p class="text-sm uppercase">
-												February 20, 2018
-											</p>
-										</div>
-									</div>
-									
-									<div class="flex justify-center mb-4">
-										<div class="rounded py-2 px-4" style="background-color: #FCF4CB">
-											<p class="text-xs">
-												Messages to this chat and calls are now secured with end-to-end encryption. Tap for more info.
-											</p>
-										</div>
-									</div>
-									
-									<div class="flex mb-2">
-										<div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-											<p class="text-sm text-teal">
-												Sylverter Stallone
-											</p>
-											<p class="text-sm mt-1">
-												Hi everyone! Glad you could join! I am making a new movie.
-											</p>
-											<p class="text-right text-xs text-grey-dark mt-1">
-												12:45 pm
-											</p>
-										</div>
-									</div>
-									
-									<div class="flex mb-2">
-										<div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-											<p class="text-sm text-purple">
-												Tom Cruise
-											</p>
-											<p class="text-sm mt-1">
-												Hi all! I have one question for the movie
-											</p>
-											<p class="text-right text-xs text-grey-dark mt-1">
-												12:45 pm
-											</p>
-										</div>
-									</div>
-									
-									<div class="flex mb-2">
-										<div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-											<p class="text-sm text-orange">
-												Harrison Ford
-											</p>
-											<p class="text-sm mt-1">
-												Again?
-											</p>
-											<p class="text-right text-xs text-grey-dark mt-1">
-												12:45 pm
-											</p>
-										</div>
-									</div>
-									
-									<div class="flex mb-2">
-										<div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-											<p class="text-sm text-orange">
-												Russell Crowe
-											</p>
-											<p class="text-sm mt-1">
-												Is Andrés coming for this one?
-											</p>
-											<p class="text-right text-xs text-grey-dark mt-1">
-												12:45 pm
-											</p>
-										</div>
-									</div>
-									
-									<div class="flex mb-2">
-										<div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-											<p class="text-sm text-teal">
-												Sylverter Stallone
-											</p>
-											<p class="text-sm mt-1">
-												He is. Just invited him to join.
-											</p>
-											<p class="text-right text-xs text-grey-dark mt-1">
-												12:45 pm
-											</p>
-										</div>
-									</div>
-									
-									<div class="flex justify-end mb-2">
-										<div class="rounded py-2 px-3" style="background-color: #E2F7CB">
-											<p class="text-sm mt-1">
-												Hi guys.
-											</p>
-											<p class="text-right text-xs text-grey-dark mt-1">
-												12:45 pm
-											</p>
-										</div>
-									</div>
-									
-									<div class="flex justify-end mb-2">
-										<div class="rounded py-2 px-3" style="background-color: #E2F7CB">
-											<p class="text-sm mt-1">
-												Count me in
-											</p>
-											<p class="text-right text-xs text-grey-dark mt-1">
-												12:45 pm
-											</p>
-										</div>
-									</div>
-									
-									<div class="flex mb-2">
-										<div class="rounded py-2 px-3" style="background-color: #F2F2F2">
-											<p class="text-sm text-purple">
-												Tom Cruise
-											</p>
-											<p class="text-sm mt-1">
-												Get Andrés on this movie ASAP!
-											</p>
-											<p class="text-right text-xs text-grey-dark mt-1">
-												12:45 pm
-											</p>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-							
+							<messages></messages>
+
 							<!-- Input -->
 							<div class="bg-grey-lighter px-4 py-4 flex items-center">
 								<div>
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path opacity=".45" fill="#263238" d="M9.153 11.603c.795 0 1.439-.879 1.439-1.962s-.644-1.962-1.439-1.962-1.439.879-1.439 1.962.644 1.962 1.439 1.962zm-3.204 1.362c-.026-.307-.131 5.218 6.063 5.551 6.066-.25 6.066-5.551 6.066-5.551-6.078 1.416-12.129 0-12.129 0zm11.363 1.108s-.669 1.959-5.051 1.959c-3.505 0-5.388-1.164-5.607-1.959 0 0 5.912 1.055 10.658 0zM11.804 1.011C5.609 1.011.978 6.033.978 12.228s4.826 10.761 11.021 10.761S23.02 18.423 23.02 12.228c.001-6.195-5.021-11.217-11.216-11.217zM12 21.354c-5.273 0-9.381-3.886-9.381-9.159s3.942-9.548 9.215-9.548 9.548 4.275 9.548 9.548c-.001 5.272-4.109 9.159-9.382 9.159zm3.108-9.751c.795 0 1.439-.879 1.439-1.962s-.644-1.962-1.439-1.962-1.439.879-1.439 1.962.644 1.962 1.439 1.962z"></path></svg>
 								</div>
+								
 								<div class="flex-1 mx-4">
 									<input class="w-full border rounded px-2 py-2" type="text"/>
 								</div>
@@ -224,7 +70,6 @@
 								</div>
 							</div>
 						</div>
-						
 					</div>
 				</div>
 			</div>
@@ -233,15 +78,20 @@
 </template>
 <script>
 // import ContactList from './ContactList.vue';
-import SearchMessages from './SearchMessages.vue';
-import MessageInbox from './MessageInbox.vue';
+import MessageSearch from './Messages/MessageSearch';
+import MessageConversations from './Messages/MessageConversations.vue';
+import Messages from './Messages/Messages.vue';
 import ChatHeader from './ChatHeader.vue';
 import MessageComposer from './MessageComposer.vue';
 import endpoints from './scripts/endpoints.js';
 // import ContactList from './ContactList.vue';
 export default {
-	components : { MessageComposer, SearchMessages, MessageInbox,  ChatHeader },
+	components : { Messages, MessageComposer, MessageSearch, MessageConversations, ChatHeader },
 	props : { 
+		criminal : { 
+			type : Array,
+			required : true
+		},
 		user  : {
 			type : Object,
 			required : true
@@ -261,7 +111,8 @@ export default {
 	},
 	methods : {
 		saveNewMessage(message){
-			this.messages.push(message);
+			axios.post(this.send_message_endpoint, {
+			})
 		},
 		
 		startConversationWith(contact){
@@ -286,27 +137,54 @@ export default {
 				return single ; 
 			})
 		}
-		
 	},
 	computed : { 
+		
 		defaultAvatar(){	
 			return endpoints.urlDomain +"/assets/images/" +this.respondent.avatar ; 
 		},
+
+		send_message_endpoint(){
+			return window.App.sendMessageEndpoint ; 
+		},
+		
 		currentUserAvatar(){	
 			if(this.user.avatar === "default_avatar.jpg") {
 				return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
 			} 
 			else { 
 				return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
-			}
+			} 
 		}
 	},
 
 	mounted(){
-		Echo.private(`messages${this.user.id}`)
-		.listen('NewMessage', (e) => {
-			this.handleIncoming();
+		console.log('Component mounted.');
+
+		let channel = Echo.channel('public');
+
+		channel.listen('.MessageSent',function(data){
+			console.log(data);
 		});
+
+		// Registered client on public channel to listen to MessageSent event
+/*		Echo.channel('public').listen('MessageSent', ({message}) => {
+			this.messages.push(message);
+		});*/
+
+
+	}	
+		/*console.log("Component mounted for chat Now");			
+		
+		let channel = Echo.channel('message');
+		
+		channel.listen('.MessageSent', function(data){
+			console.log(data);
+		});*/
+		// Echo.private(`messages${this.user.id}`)
+		// .listen('NewMessage', (e) => {
+		// 	this.handleIncoming();
+		// });
 
 	/*	axios.get("/contacts")
 		.then(response => {
@@ -315,7 +193,5 @@ export default {
 			console.log(error);
 		});*/
 		
-		console.log('Component mounted.')
-	},
-};
-</script>
+	};
+	</script>

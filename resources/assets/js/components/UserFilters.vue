@@ -67,8 +67,9 @@ export default {
 	},
 
 	searchCriminals(){	
-
-	}
+		// console.log("Start Searching");
+		window.location.replace("/found-criminals");
+	}	
 }
 };
 </script>

@@ -3,13 +3,12 @@
 		<div  class="bg-white mb-4 w-4/5 mt-4 px-4 py-4 rounded-sm">
 			<h3 class="font-basic text-2xl mt-2">Search for Criminals Here</h3>
 			<div class="flex w-full">
-
 				<select placeholder="Sort By" v-model="criminal.sortBy" class="bg-grey-lightest border p-2 border-gray mr-4 h-10 w-1/2 rounded-sm font-basic mt-2 mb-4">
 					<option>--Sort By--</option>
 					<option value="1">Most Wanted</option>
 					<option value="2">Last Seen</option>
-					<option value="3">Very Popular</option>
-					<option value="4">Sort By Bounty/Reward</option>
+					<option value="3">Sort By Bounty/Reward</option>
+					{{-- <option value="3">Very Popular</option> --}}
 				</select>
 
 				<select placeholder="Country of Origin" v-model="criminal.country" class="bg-grey-lightest border p-2 border-gray mr-4 h-10 w-full rounded-sm font-basic mt-2 mb-4">
@@ -18,7 +17,6 @@
 					<option value="{{  $country->id }}">{{ $country->name }}</option>
 					@endforeach
 				</select>
-			
 			</div>
 			
 			<p class="font-bold text-md" v-show="criminalName && !criminal.sortBy && !criminal.country">

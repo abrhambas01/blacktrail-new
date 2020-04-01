@@ -92,8 +92,7 @@ class AuthController extends Controller
 		
 		else {
 			try { 
-				$email = request()->get('email');
-		
+				$email = request()->get('email');	
 				$confirmation_code = str_random(10);
 		
 				$user = User::create([

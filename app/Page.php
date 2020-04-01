@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Page extends Model
 {
     use LogsActivity;
+ 
     use SoftDeletes;
 
     /**
@@ -43,4 +44,5 @@ class Page extends Model
     {
         return __CLASS__ . " model has been {$eventName}";
     }
+    
 }

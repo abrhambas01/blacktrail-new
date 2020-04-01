@@ -16,6 +16,6 @@
 			{{-- <setu/p-billing></setup-billing> --}}
 			{{-- @include('partials.forms._billing-form') --}}
 		{{-- </form> --}}
-	</section>
+</section>
 
 	@endsection

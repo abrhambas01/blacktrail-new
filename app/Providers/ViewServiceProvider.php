@@ -4,7 +4,7 @@ use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
 {
-    
+
     /**
      * Bootstrap the application services.
      *
@@ -13,6 +13,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('*','App\Http\ViewComposers\All');
+        
         view()->composer(['partials.filters.criminals','partials.filters.groups'],'App\Http\ViewComposers\SearchFilters');
     }
 

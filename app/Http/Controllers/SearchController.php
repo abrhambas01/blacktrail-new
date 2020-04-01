@@ -14,24 +14,25 @@ class SearchController extends Controller
      */
   public function index()
   {
-    	return view('search');
-  }
+   return view('search');
+ }
+ public function search()
+ {
+   return view('search-results');
+ }
 
-  public function search(Request $request)
-  {
-    $this->validate($request, [
-      'q' => 'required'
-    ]);
+ public function searchForACriminal(Request $request)
+ {
 
-    $posts = Post::search( $request->get('q') )->raw();
+  $sortByValue = request("form.sortBy");
+  $countryValue = request("form.countryValue");
 
-    if(empty($posts['hits'])) {
-      $posts['hits'] = [];
-    }
-
-    return response()->json(['data' => $posts['hits']]);
+  if ( $sortByValue === 1 && $countryValue != null ){ 
+    request()->input("");
   }
 
 }
 
+
 }
+

@@ -9,7 +9,7 @@ use DB ;
 
 class ContactsController extends Controller
 {
-
+	/*Fetch Contacts..*/
 	public function fetch_all_contacts(){
 		$contacts = User::with('messages')->where(['messages']); 
 		return response()->json($contacts);
@@ -20,19 +20,19 @@ class ContactsController extends Controller
 		$user = request()->input("user");
 		
 		$messages = DB::table('messages')->where("from",$user)->orWhere("to",$user)->get();
-	
+
 		return response()->json($messages);
 	}
 
 	public function send()
 	{
-	    $message = Message::create([
-	    	'from' => auth()->id() , 
-	    	'to' => request('to'),
-	    	'text' => request('text')
-	    ]);
+		$message = Message::create([
+			'from' => auth()->id() , 
+			'to' => request('to'),
+			'text' => request('text')
+		]);
 
-	    broadcast(new NewMessage($message));
+		broadcast(new NewMessage($message));
 
 	}
 

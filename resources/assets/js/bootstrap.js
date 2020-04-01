@@ -43,10 +43,13 @@ Vue.prototype.user = window.App.user;
 Vue.prototype.$http = axios;
 
 import Echo from "laravel-echo" ;
+window.io = require("socket.io-client");
+
 
 window.Echo = new Echo({
-	broadcaster: 'pusher',
-	key : '1232b570ab3e5024b5e9d',
-	cluster : 'ap1',
-	encrypted : true
+	broadcaster: 'socket.io',
+	host : process.env.MIX_APP_URL + ':6001'
+	// key : '1232b570ab3e5024b5e9d',
+	// cluster : 'ap1',
+	// encrypted : true
 });	

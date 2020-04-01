@@ -77,18 +77,20 @@ $factory->define(App\CrimeCriminal::class, function (Faker $faker) {
 
 
 $factory->define(App\Message::class, function (Faker $faker) {
+    // Message::truncate();
+
     do {
         $from = rand(1,15);
         $to = rand(1, 15);
     } while ($from === $to);
     return [
-        'receiver_id' => $from,
-        'sender_id' => $to,
-        'criminal_id' => Criminal::get()->random()->id;
-        'type' => 1,    
-        'message' => $faker->sentence,
-        'seen_at' => $faker->dateTime(), 
-    ];
+        'receiver_id'  => User::admins()->get()->random()->id,
+       'sender_id' => User::where("role_id",'=',3)->get()->random()->id, 
+       'criminal_id' => Criminal::get()->random()->id,
+       'message' => $faker->sentence,
+       'seen_at' => null, 
+       'read' => 0 
+   ];
 });
 
 /*for criminal_info*/

@@ -1,5 +1,4 @@
 let mix = require('laravel-mix');
-
 require('laravel-mix-tailwind');
 
 /*
@@ -19,9 +18,34 @@ mix.js('resources/assets/js/app.js', 'public/js')
 // .js('resources/assets/js/script.js','public/js')
 .sass('resources/assets/sass/app.scss', 'public/css')
 .tailwind()
-.browserSync('localhost:8004');
+.browserSync("localhost:8004")
 
 
 if (mix.inProduction()) {
 	mix.minTemplate('storage/framework/views/*.php', 'storage/framework/views/')
 }
+
+
+/*
+mix.options({
+    hmrOptions: {
+        host: 'localhost',  // site's host name
+        port: 8004,
+    }
+});
+
+// // fix css files 404 issue
+mix.webpackConfig({
+    // add any webpack dev server config here
+    devServer: { 
+        proxy: {
+            host: '0.0.0.0',  // host machine ip 
+            port: 8800,
+        },
+        watchOptions:{
+            aggregateTimeout:200,
+            poll:5000
+        },
+
+    }
+});*/

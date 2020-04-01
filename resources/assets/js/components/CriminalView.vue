@@ -12,7 +12,7 @@
 
 				<div class="text-center">
 					<div id="avatar" class="inline-block mb-6 w-full" >
-						<img :src="avatarPath" class="h-64 w-1/2 border-orange border-2">
+						<img onerror="this.src=this.defaultAvatar" :src="avatarPath" class="h-64 w-1/2 border-orange border-2">
 						<p class="font-bold font-display mt-2 text-black text-3xl">{{ criminals.full_name }}
 						</p>
 						<p class="font-bold mt-2 text-orange text-2xl" v-text="criminalBounty === null ? 'No Bounty' : criminalBounty">
@@ -67,24 +67,12 @@ import ChatBox from './modals/ChatBox.vue';
 import _ from 'lodash';
 export default {
 	name: 'CriminalView',
-	props : { 
-		criminals  : {
-			type : Object,
-			required : false
-				// default  : null 
-			},
+	props : ['criminals','criminalId'],
 
-			criminalId : {
-				type : Number,
-				required : true,
-				default : null
-			}
-		},
-
-		components : { 
-			AdminButtons,
-			ChatBox,
-			UserButtons
+	components : { 
+		AdminButtons,
+		ChatBox,
+		UserButtons
 		// CrimesList, 
 	},
 	data(){
@@ -156,7 +144,7 @@ mounted(){
 
 
 /*beforeRouteUpdate (to, from, next) {
-	console.log("before route update");
+	console.log("before route update");	
 
 },
 
@@ -194,44 +182,56 @@ computed : {
 		return user.role_id ;
 	},
 
-	avatarPath(criminal){
-		if (this.criminals.photo == "default_avatar.jpg"){
+	defaultAvatar(){
+		return app + '/assets/images/default_avatar.jpg';
+	},
+
+	avatarPath(){
+	/*	if (this.criminals.photo == "default_avatar.jpg"){
 			return '/assets/images/default_avatar.jpg';
 		}
 		else { 
 			return window.App.assetStorageCriminalsPath +"/" +this.criminals.photo;
+		}*/
+
+		if (this.criminals.photo){
+			return `${window.App.assetStoragePath}/${this.criminals.photo}`;
 		}
+		
+		return app + `/assets/images/default_avatar.jpg`;
+
 	},
 
 	criminalBounty(){
 		let bounty = this.criminals.profile.bounty +" " +this.criminals.profile.currency;
 		return bounty ;
-		 // === null ? 'No Profile was listed' : this.criminals.profile.bounty + " " +this.criminals.profile.currency ;
+			 // === null ? 'No Profile was listed' : this.criminals.profile.bounty + " " +this.criminals.profile.currency ;
+			},
+
+			criminalsDetails() {
+			// _.head(this.criminalDetails) ;
+
+			_.sortBy(this.criminals, value => {
+			// console.log(value);
+			return value ; 
+		});
+
 		},
-		criminalsDetails() {
-	// _.head(this.criminalDetails) ;
 
-	_.sortBy(this.criminals, value => {
-	// console.log(value);
-	return value ; 
-});
-
-},
-
-criminalInfo(criminalsInfo){
-	_.sortBy(this.criminals, value => {
+		criminalInfo(criminalsInfo){
+			_.sortBy(this.criminals, value => {
 		// console.log(value);
 		return value ; 
 
 	});
 
-}
+		}
 
-},
+	},
 
-created(){
-	this.check_if_the_currently_logged_on_user_is_the_creator(); 
-}
+	created(){
+		this.check_if_the_currently_logged_on_user_is_the_creator(); 
+	}
 };
 </script>
 

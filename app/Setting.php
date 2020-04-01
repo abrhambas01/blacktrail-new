@@ -9,7 +9,7 @@ class Setting extends Model
     /**
      * Indicates if the model should be timestamped.
      *
-     * @var bool
+         * @var bool
      */
     public $timestamps = false;
 
@@ -33,4 +33,6 @@ class Setting extends Model
      * @var array
      */
     protected $fillable = ['key', 'value'];
+
+    
 }

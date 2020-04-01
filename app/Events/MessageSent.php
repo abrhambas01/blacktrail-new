@@ -13,33 +13,43 @@ class MessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message ;
-    /**
+    public $message = 'sample text';
+
+     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
-    {
+     public function __construct(Message $message)
+     {
         $this->message = $message; 
+        $this->dontBroadcastToCurrentUser();
     }
 
-    /**
+        /**
      * Get the channels the event should broadcast on.
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
     public function broadcastOn()
     {
+
         /*we'll just use this for simpler coding..*/
-        return new Channel('message') ;
-   // private channels .. -> needs user authenticated..
-        // presence channels -> 
-
-    // should be because I 
-
+        return new PrivateChannel('message.'.$this->message->id);
+        // private channels .. -> needs user authenticated..
         // return new PrivateChannel('channel-name');
     }
 
+    public function broadcastAs()
+    {
+        return "New Event";
+    }
 
+    /*Broadcast with*/
+    public function broadcastWith()
+    {
+        return [  
+            'message' => $this->message
+        ];
+    }
 }
