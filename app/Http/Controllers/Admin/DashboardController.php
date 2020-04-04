@@ -59,8 +59,7 @@ class DashboardController extends Controller {
 	public function postedCriminals($admin)
 	{
 		$criminals = Criminal::postedByLoggedOnUser()->with('respondent','crimes','profile')->paginate(5);	
-		// dd($criminals);
-		
+				
 		// $criminals = Criminal::paginate(5);
 
 /*		$criminals = Criminal::postedByUser($admin)

@@ -24,25 +24,35 @@
 <body class="h-full bg-grey-lighter-2 tracking-normal font-basic"> 
   <div id="app">
     <div class="m-auto">
+      @if(session()->has('activated_flash'))
+     <flash-message inline-template>      
+      <div v-show="messageIsAvailable" id="messageSuccess" class="bg-green-theme p-4 w-full flex justify-between flashMessage">
+        <p class="text-white font-semibold text-md font-sans">{{ trans('flash.logout_success') }}</p>
+        <svg @click="hideAlert()" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
+        </svg>
+      </div>
+    </flash-message>
+    @endif 
+
       @if(session()->has('flash'))
-      <flash-message inline-template>      
-        <div v-show="messageIsAvailable" id="messageSuccess" class="bg-green-theme p-4 w-full flex justify-between flashMessage">
-          <p class="text-white font-semibold text-md font-sans">{{ trans('flash.logout_success') }}</p>
-          <svg @click="hideAlert()" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
-          </svg>
-        </div>
-      </flash-message>
+        <flash-message inline-template>      
+          <div v-show="messageIsAvailable" id="messageSuccess" class="bg-green-theme p-4 w-full flex justify-between flashMessage">
+            <p class="text-white font-semibold text-md font-sans">{{ trans('flash.logout_success') }}</p>
+            <svg @click="hideAlert()" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
+            </svg>
+          </div>
+        </flash-message>
       @endif 
 
       @if(session()->has('confirmation_success_message'))
-      <flash-message inline-template>      
-        <div v-show="messageIsAvailable" id="confirmationSuccess" class="flashMessage bg-green-theme p-4 w-full flex justify-between ">
-          <p class="text-white font-semibold text-md font-sans">{{ trans('flash.confirmation_success') }}
-          </p>
-          <svg @click="hideAlert()" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
-          </svg>
-        </div>
-      </flash-message>
+        <flash-message inline-template>      
+          <div v-show="messageIsAvailable" id="confirmationSuccess" class="flashMessage bg-green-theme p-4 w-full flex justify-between ">
+            <p class="text-white font-semibold text-md font-sans">{{ trans('flash.confirmation_success') }}
+            </p>
+            <svg @click="hideAlert()" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
+            </svg>
+          </div>
+        </flash-message>
       @endif
 
       @if(session()->has('flash-message'))

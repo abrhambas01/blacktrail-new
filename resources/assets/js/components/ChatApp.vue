@@ -26,6 +26,7 @@
 							
 							<!-- Search Bar for message-->
 							<message-search></message-search>
+
 							<message-conversations :selectedContact="this.respondent"></message-conversations>						
 						</div>
 						<!-- Right -->
@@ -85,7 +86,9 @@ import ChatHeader from './ChatHeader.vue';
 import MessageComposer from './MessageComposer.vue';
 import endpoints from './scripts/endpoints.js';
 // import ContactList from './ContactList.vue';
+
 export default {
+
 	components : { Messages, MessageComposer, MessageSearch, MessageConversations, ChatHeader },
 	props : { 
 		criminal : { 

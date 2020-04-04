@@ -16,6 +16,7 @@
 		</p>
 		
 		@include('partials.filter',['countries'=> $countries])		
+	
 	</div>
 	
 	@forelse ($criminals as $criminal)	
@@ -56,7 +57,6 @@
 </section>
 {{--CriminalView.vue  --}}
 <router-view></router-view>
-
 @endif
 @endauth
 @guest

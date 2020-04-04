@@ -31,7 +31,12 @@ class UsersController extends Controller
 
 	public function activate_user(){
 		$user_id = intval(request('user_id'));
-		$user = DB::table('users')->where('id', '=', $user_id)->update(['status' => '1']);
+		
+		DB::table('users')->where('id', '=', $user_id)->update(['status' => '1']);	
+
+		$user = DB::table("users")->where('id','=',$user_id)->get();
+		
+		Mail::to($user->email)->send(new UserActivated($user));
 		return response()->json($user);
 	}
 

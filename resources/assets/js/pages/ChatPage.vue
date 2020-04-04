@@ -18,7 +18,7 @@
     created () {
       this.$store.dispatch('setUserList')
     }
-  }
+  };
 </script>
 
 <template>

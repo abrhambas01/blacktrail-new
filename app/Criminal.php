@@ -12,6 +12,7 @@ class Criminal extends Model
 	
 	protected $guarded = [];
 
+
 	protected $fillable = [
 		'first_name',
 		'middle_name',
@@ -24,6 +25,14 @@ class Criminal extends Model
 		'status',
 		'photo',
 	];
+
+	/*
+	public function modelFilter()
+	{
+		return $this->provideFilter(\App\ModelFilters\CustomFilters\CustomUserFilter::class);
+	}
+	*/
+
 
 
 	public static function searchResults(){
@@ -38,6 +47,8 @@ class Criminal extends Model
 		$array['country'] = $this->country->name;
 		return $array;
 	}
+
+
 
 
 	public function getSearchResult(): SearchResult
@@ -79,7 +90,7 @@ class Criminal extends Model
 		return $this->hasMany(File::class);
 				// hasOne(RelatedModel, foreignKeyOnRelatedModel = criminal_id, localKey = id)
 	}
-
+   
 	public function getFullNameAttribute()
 	{
 		return "{$this->first_name} {$this->last_name}";

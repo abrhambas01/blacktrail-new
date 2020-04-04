@@ -36,6 +36,13 @@ class UsersController extends Controller
      */
     public function create()
     {
+/*
+
+        User::whereNotIn('id', User::min('id')->groupBy('first_name', 'middle_name', 'last_name', 'alias')->get()->toArray());
+
+
+        */
+
         $roles = Role::select('id', 'name', 'label')->get();
         $roles = $roles->pluck('label', 'name');
 

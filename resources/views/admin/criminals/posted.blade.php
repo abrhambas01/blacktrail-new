@@ -23,8 +23,11 @@
 		</button>
 
 	</div>
+	
 	@forelse ($criminals as $criminal)
+
 	<criminals-view :criminals="{{ strip_tags($criminal) }}" inline-template>
+
 		<article class="timeline-feeds">	
 			<div class="flex" id="userProfile">	
 				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
@@ -45,20 +48,21 @@
 					<p class="mt-2">aka <em class="font-basic roman">{{ criminal.alias  }}</em></p>
 					@endverbatim
 				</div>
-			<div v-if="showChatBox = true" class="bg-green-dark rounded-full h-8 w-8 flex items-center justify-center text-white">1</div>
-			</div>
-		</article>
-	</criminals-view>
-	
-	@empty
-	
-	<h3>No Criminals are added yet..</h3>
-	
-	@endforelse
+		{{-- 	<div v-if="showChatBox = true" class="bg-green-dark rounded-full h-8 w-8 flex items-center justify-center text-white">1
+		</div> --}}
+	</div>
+</article>
+</criminals-view>
 
-	{{ $criminals->links() }}
+@empty
 
+<h3>No Criminals are added yet..</h3>
+
+@endforelse
+
+{{ $criminals->links() }}
 </section>
+
 {{-- CriminalView.vue --}}
 
 <router-view></router-view>

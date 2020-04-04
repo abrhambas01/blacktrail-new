@@ -92,8 +92,8 @@ const app = new Vue({
 		}
 	},
 	router
-	/*
-	beforeRouteEnter (to, from, next) {
+	
+/*	beforeRouteEnter (to, from, next) {
 		getPost(to.params.id, (err, post) => {
 			next(vm => vm.setData(err, post))
 		})

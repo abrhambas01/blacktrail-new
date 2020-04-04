@@ -17,6 +17,39 @@ class CriminalsController extends Controller
 		->search('');
 	}
 
+	/*
+	
+	*/
+	public function filter_example(Request $request)
+	{
+		$query = User::where('company_id', $request->input('company_id'));
+
+		if ($request->has('last_name'))
+		{
+			$query->where('last_name', 'LIKE', '%' . $request->input('last_name') . '%');
+		}
+
+		if ($request->has('name'))
+		{
+			$query->where(function ($q) use ($request)
+			{
+				return $q->where('first_name', 'LIKE', $request->input('name') . '%')
+				->orWhere('last_name', 'LIKE', '%' . $request->input('name') . '%');
+			});
+		}
+
+		$query->whereHas('roles', function ($q) use ($request)
+		{
+			return $q->whereIn('id', $request->input('roles'));
+		})
+		->whereHas('clients', function ($q) use ($request)
+		{
+			return $q->whereHas('industry_id', $request->input('industry'));
+		});
+
+		return $query->get();
+	}
+
 
 	public function index()
 	{

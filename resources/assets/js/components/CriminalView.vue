@@ -1,61 +1,5 @@
-<template>
-	<div class="md:w-1/2 mr-6 ml-4 font-basic" id="criminal_Page">
-		<section>
-			<p class="font-basic tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
-				Criminal Profile of {{ criminals.full_name }}
-			</p>
-
-			<div class="bg-white px-8 py-8 pt-4 shadow-md">
-				<div id="remove-icon">
-					<svg @click="deleteUser(criminalId)" class="h-6 w-6 fillCurrent text-red-darker" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"/></svg>
-				</div>			
-
-				<div class="text-center">
-					<div id="avatar" class="inline-block mb-6 w-full" >
-						<img onerror="this.src=this.defaultAvatar" :src="avatarPath" class="h-64 w-1/2 border-orange border-2">
-						<p class="font-bold font-display mt-2 text-black text-3xl">{{ criminals.full_name }}
-						</p>
-						<p class="font-bold mt-2 text-orange text-2xl" v-text="criminalBounty === null ? 'No Bounty' : criminalBounty">
-						</p>
-						<!-- <crimes-list :criminals="crimes"></crimes-list> -->
-
-						<div v-if="this.criminals.crimes.length > 0">
-							<p class="mt-2 font-bold text-2xl">Notable Crimes:
-							</p>
-							<!-- @foreach ($criminal->crimes as $crime)  -->
-							<!-- Crimes List -->
-
-					<!-- <div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
-					<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_details }}</p>
-					</div>
-				-->
-
-				<div id="crimesList">
-					<div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
-						<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_description }}</p>
-					</div>
-				</div>
-				<!-- <crimes-list :crimes="crimes" :criminals="criminals"></crimes-list> -->
-			</div>
-			<div v-else class="font-bold text-3xl font-basic mt-2 text-black-v2">
-				No Crimes were listed for this criminal yet.
-			</div>
-			<!-- soon use slots here named or scoped  -->
-			<div v-show="userRole === 1 || userRole === 2">
-				<admin-buttons :id="criminalId" :criminals="criminals"></admin-buttons>
-			</div>
-			<div v-show="normalUser">
-				<user-buttons :id="criminalId" :criminals="criminals" :respondentName="criminals.respondent.username"></user-buttons>
-			</div>
-		</div>
-	</div>
-</div>
-</section>
-<div v-show="this.criminals === null">
-	<p>No Criminals Profile</p>
-</div>
-</div>
-</template>
+<!-- <template src="./CriminalView.html"></template> -->
+<template></template>
 <script>
 import CrimesList from './CrimesList.vue';
 import urlDomain from './scripts/endpoints.js';
@@ -67,7 +11,8 @@ import ChatBox from './modals/ChatBox.vue';
 import _ from 'lodash';
 export default {
 	name: 'CriminalView',
-	props : ['criminals','criminalId'],
+
+	props : ['criminals', 'criminalId'],
 
 	components : { 
 		AdminButtons,
@@ -78,7 +23,10 @@ export default {
 	data(){
 		return {
 			showDiv : true , 
-			// criminalDetails : this.criminals,
+			displayBounty : "" , 
+			display_full_name : "", 
+			showIfTheCurrentUserIsTheOneWhoPosted : false,
+			criminalDetails : null,
 			// criminalId :  $route.params.id ,
 			// crimes : this.criminals.crimes
 		}
@@ -134,44 +82,66 @@ export default {
 		this.$modal.show('report-criminal');
 	},
 
+
+	criminalBounty(){
+		// let bounty = this.criminals.profile.bounty +" " +this.criminals.profile.currency;
+		// return bounty ;
+
+		if (this.criminals.profile.bounty){
+			this.displayBounty = this.criminals.profile.bounty +" " +this.criminals.profile.currency;
+		}
+
+		this.displayBounty = "No Listed bounty / profile" ;
+
+	},
+
 	check_if_the_currently_logged_on_user_is_the_creator(){
-		console.log("	... starts here.");
+		if ( user.id === this.criminalDetails.posted_by ){
+			this.showIfTheCurrentUserIsTheOneWhoPosted = true ; 
+		}
+		else { 
+			this.showIfTheCurrentUserIsTheOneWhoPosted = false; 
+		}
 	}
+
 },
+
 mounted(){
-	this.criminalDetails = this.criminals ; 
+	// this.criminalDetails = this.criminals ; 
+	console.log(this.criminalId);
+
+/*
+	if (this.criminals !== null ){
+		this.criminalDetails = this.criminals ; 
+		this.check_if_the_currently_logged_on_user_is_the_creator(); 
+		if (this.criminalDetails.profile.bounty){
+			this.displayBounty = this.criminalDetails.profile.bounty +" " +this.criminalDetails.profile.currency;
+		}
+		else {
+			this.displayBounty = "No Listed bounty / profile" ;
+		}
+
+		if (this.criminalDetails.full_name !== null && typeof (this.criminalDetails.full_name) !== "undefined"){
+			this.display_full_name = this.criminalDetails.full_name;
+		}		
+		else {
+			this.display_full_name = "Unknown Criminal";
+		}
+	}	
+	else { 
+		alert("No Criminals Value"+this.criminals);
+	}*/
+
 },
-
-
-/*beforeRouteUpdate (to, from, next) {
-	console.log("before route update");	
-
-},
-
-beforeRouteEnter (to, from, next) {
-	console.log("before route enter");
-
-    // called before the route that renders this component is confirmed.
-    // does NOT have access to `this` component instance,
-    // because it has not been created yet when this guard is called!
-},
-
-beforeRouteLeave(){
-	console.log("before route leave");
-},*/
-
 
 computed : { 
+/*
 	remove_criminal_endpoint(){
 		return urlDomain.destroyUserUrl; 
 	},
 
 	normalUser(){
 		return this.userRole === 3 || this.userRole === 4 || this.userRole === 5 ; 
-	},
-
-	full_name(){
-		return this.criminals.full_name === null ? "Lorem Ipsum" : "Nothing so far" ;
 	},
 
 	fetchCriminalsInfoEndpoint(){
@@ -187,51 +157,41 @@ computed : {
 	},
 
 	avatarPath(){
-	/*	if (this.criminals.photo == "default_avatar.jpg"){
+		if (this.criminals.photo == "default_avatar.jpg"){
 			return '/assets/images/default_avatar.jpg';
 		}
 		else { 
 			return window.App.assetStorageCriminalsPath +"/" +this.criminals.photo;
-		}*/
-
-		if (this.criminals.photo){
-			return `${window.App.assetStoragePath}/${this.criminals.photo}`;
 		}
-		
-		return app + `/assets/images/default_avatar.jpg`;
+		if (this.criminalDetails.photo !== null && typeof (this.criminalDetails.photo) !== "undefined") {
+			return `${window.App.assetStorageCriminalsPath}/${this.criminalDetails.photo}`;
+		} else { 
+			return app + `/assets/images/default_avatar.jpg`;
+		}
+	},
+	
+
+	criminalsDetails() {
+		// _.head(this.criminalDetails) ;
+
+		_.sortBy(this.criminals, value => {
+				// console.log(value);
+				return value ; 
+			});
 
 	},
 
-	criminalBounty(){
-		let bounty = this.criminals.profile.bounty +" " +this.criminals.profile.currency;
-		return bounty ;
-			 // === null ? 'No Profile was listed' : this.criminals.profile.bounty + " " +this.criminals.profile.currency ;
-			},
-
-			criminalsDetails() {
-			// _.head(this.criminalDetails) ;
-
-			_.sortBy(this.criminals, value => {
-			// console.log(value);
-			return value ; 
-		});
-
-		},
-
-		criminalInfo(criminalsInfo){
-			_.sortBy(this.criminals, value => {
+	criminalInfo(criminalsInfo){
+		_.sortBy(this.criminals, value => {
 		// console.log(value);
 		return value ; 
 
 	});
 
-		}
+	}*/
 
-	},
+}
 
-	created(){
-		this.check_if_the_currently_logged_on_user_is_the_creator(); 
-	}
 };
 </script>
 

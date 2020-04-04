@@ -14,8 +14,10 @@ class SearchController extends Controller
      */
   public function index()
   {
+   // return User::filter($request->all())->get();
    return view('search');
  }
+
  public function search()
  {
    return view('search-results');
@@ -24,15 +26,29 @@ class SearchController extends Controller
  public function searchForACriminal(Request $request)
  {
 
-  $sortByValue = request("form.sortBy");
-  $countryValue = request("form.countryValue");
+   /* $sortByValue = request()->input("sortBy");
+    $countryValue = request()->input("country");
+    */
+    if (request()->has('sortBy') && request()->has('country'))
+    {
+      dd("No");
+      // return response("Good",201);
+    }
+    else { 
 
-  if ( $sortByValue === 1 && $countryValue != null ){ 
-    request()->input("");
-  }
+      return response("Well it's bad",500);
+    }
 
+}
 }
 
 
+  /*Most Wanted
+  if ( $sortByValue === 1 && is_null($countryValue)) { 
+  }
+  else { 
+  }
+
+}
 }
 

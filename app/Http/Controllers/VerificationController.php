@@ -10,6 +10,7 @@ class VerificationController extends Controller
 
 	public function confirm_email($token){
 		$user = User::findOrFailByToken($token);
+		
 		$user->confirm();
 
 		return redirect()->route('login')->with(['confirmation_success_message' => 'You can now login with those credentials...']);
@@ -33,23 +34,10 @@ class VerificationController extends Controller
 		*/
 	}
 
-	function verify_email()
-	{
-		try {
-			$reservation = $concert->reserveTickets(request('ticket_quantity'), request('email'));
-
-			$order = $reservation->complete($this->paymentGateway, request('payment_token'), $concert->user->stripe_account_id);
-
-			Mail::to($order->email)->send(new OrderConfirmationEmail($order));
-
-			return response()->json($order, 201);
-		} catch(PaymentFailedException $e) {
-			$reservation->cancel();
-			return response(['Damn'], 422);
-		} catch (NotEnoughTicketsRemainException $e) {
-			return response([], 422);
-		}
-
+	public function userActivated(){
+		
 	}
+
+
 
 }

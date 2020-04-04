@@ -54,7 +54,8 @@ methods : {
 		)
 }
 });
-},
+	},
+
 	activate_user(id){
 		Swal({
 			title: 'Are you sure?',
@@ -77,7 +78,7 @@ methods : {
 					'That user has been activated',
 					'success'
 					)
-				location.reload(); 
+				// location.reload(); 
 
 // For more information about handling dismissals please visit
 // https://sweetalert2.github.io/#handling-dismissals

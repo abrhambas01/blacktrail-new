@@ -8,7 +8,7 @@
 	'algoliaSearchApiKey' =>  		env('ALGOLIA_PLACES_SEARCH_ONLY_API_KEY'), 
 	'algoliaAdminApiKey'  =>  		env('ALGOLIA_PLACES_ADMIN_API_KEY'),
 	'publicPath'	 	  =>  		public_path(),
-	'storagePath'		  			  =>  		storage_path(),
+	'storagePath'		  =>  		storage_path(),
 	'sendMessageEndpoint' 			  => 	    route("sendMessageEndpoint"),
 	'assetStorageCriminalsPath'		  =>  asset('storage/criminals'),
 	'assetStoragePath'		  =>  asset('storage'),
@@ -17,4 +17,5 @@
 	'addCriminalUrl' 	  =>  route('admin.criminals.store'),
 	'savePhotosUrl' 	  =>  route('admin.photos.uploads'),
 	'resourcePath' 		  =>  resource_path(),
-]) !!};    
+	'searchCriminalsBy'   =>  route('criminals.search'),
+]) !!}   

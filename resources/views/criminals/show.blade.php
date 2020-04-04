@@ -19,7 +19,7 @@ use Carbon\Carbon;
 						<div class="text-center">
 							<div id="avatar" class="inline-block mb-6 w-full" >
 								@if(\Storage::disk('public')->exists('criminals/'.$criminal->photo))
-									<img class="h-36 w-50 border-orange border-2" src="{{ asset('storage/criminals/' . $criminal->photo) }}">
+								<img class="h-36 w-50 border-orange border-2" src="{{ asset('storage/criminals/' . $criminal->photo) }}">
 								@else
 
 								<img class="h-36 w-45 rounded-full border-orange border-2" 
@@ -30,7 +30,11 @@ use Carbon\Carbon;
 								
 								<p class="font-normal font-display mt-2 text-black text-3xl">{{ $criminal->full_name }} aka <em class="font-bold"> {{  $criminal->alias }}</em></p>
 								<p class="font-bold mt-2 text-black text-2xl">Bounty:</p>
+
+								@if ($criminal->profile()->exists())
+
 								<p class="font-bold mt-2 text-orange text-2xl">{{  is_null($criminal->profile->bounty) ? 'Bounty not added yet' : $criminal->profile->bounty ." " .$criminal->profile->currency}}</p>
+								@endif
 
 								@if (!auth()->user()->isAdmin())
 								<button class="hover:bg-blue-darker hover:text-white bg-blue rounded-full w-1/2 mt-4 h-12 ">
@@ -59,14 +63,19 @@ use Carbon\Carbon;
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Status : <em class="font-bold roman">{{  $criminal->status == 1 ? 'At Large' : 'Captured' }}</em></p>
 								</div>
+								
+								@if ($criminal->profile()->exists())
 
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Age : <em class="font-bold roman">{{  $criminal->profile->age }}</em></p>
-								</div>		
+								</div>
 
+								@endif
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Country of Origin : <em class="font-bold roman">{{  $criminal->country->name }}</em></p>
 								</div>
+
+								@if ($criminal->profile()->exists())
 
 
 								<div class="row mb-3">
@@ -108,6 +117,8 @@ use Carbon\Carbon;
 							<div class="row mb-3">
 								<p class="text-md text-normal mr-4">Height (in feet and inches) : <em class="font-bold roman">{{ ucwords($criminal->profile->height_in_feet_and_inches) }}</em></p>
 							</div>
+							
+							@endif
 
 							<div class="row mb-3">
 								<p class="text-md text-normal mr-4">Respondent's Name <em class="font-bold roman">{{ ucwords($criminal->respondent->display_name) }}</em>
@@ -146,6 +157,8 @@ use Carbon\Carbon;
 				</div>
 			</div>
 		</div>
+
+		@if($criminal->profile()->exists())
 		<div class="shadow-md bg-white p-4 mt-4">
 			<div class="">	
 				<div class="ml-4">	
@@ -154,7 +167,7 @@ use Carbon\Carbon;
 				</div>
 			</div>
 		</div>
-
+		@endif
 	</section>
 {{-- 
 		<div class="flex">

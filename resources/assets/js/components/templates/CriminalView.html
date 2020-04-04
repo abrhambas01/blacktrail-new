@@ -1,0 +1,61 @@
+	<div class="md:w-1/2 mr-6 ml-4 font-basic" id="criminal_Page">
+		<section>
+			<p class="font-basic tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
+				Criminal Profile of {{ this.display_full_name }}
+			</p>
+
+			<div class="bg-white px-8 py-8 pt-4 shadow-md">
+				<div v-show="showIfTheCurrentUserIsTheOneWhoPosted " id="remove-icon">
+					<svg @click="deleteUser(criminalId)" class="h-6 w-6 fillCurrent text-red-darker" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"/>
+					</svg>
+				</div>			
+
+				<div class="text-center">
+					<div id="avatar" class="inline-block mb-6 w-full" >
+						<img :src="avatarPath" onerror="this.src=this.defaultAvatar" class="h-64 w-1/2 border-orange border-2">
+
+						<p class="font-bold font-display mt-2 text-black text-3xl">
+							{{ this.display_full_name }}
+						</p>
+
+						<p class="font-bold mt-2 text-orange text-2xl" v-text="displayBounty">
+						</p>
+						<!-- <crimes-list :criminals="crimes"></crimes-list> -->
+
+						<div v-if="this.criminals.crimes.length > 0">
+							<p class="mt-2 font-bold text-2xl">Notable Crimes:
+							</p>
+							<!-- @foreach ($criminal->crimes as $crime)  -->
+							<!-- Crimes List -->
+
+					<!-- <div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
+					<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_details }}</p>
+					</div>
+				-->
+
+				<div id="crimesList">
+					<div class="mt-2 text-lg font-normal" v-if="criminals.crimes.length > 0 " v-for="criminal in criminals.crimes">
+						<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_description }}</p>
+					</div>
+				</div>
+				<!-- <crimes-list :crimes="crimes" :criminals="criminals"></crimes-list> -->
+			</div>
+			<div v-else class="font-bold text-3xl font-basic mt-2 text-black-v2">
+				No Crimes were listed for this criminal yet.
+			</div>
+			<!-- soon use slots here named or scoped  -->
+			<div v-show="userRole === 1 || userRole === 2">
+				<admin-buttons :id="criminalId" :criminals="criminals"></admin-buttons>
+			</div>
+			
+			<div v-show="normalUser">
+				<user-buttons :id="criminalId" :criminals="criminals" :respondentName="criminals.respondent.username"></user-buttons>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+<div v-show="this.criminals === null">
+	<p>No Criminals Profile</p>
+</div>
+</div>

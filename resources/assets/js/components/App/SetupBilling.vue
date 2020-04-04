@@ -37,7 +37,7 @@
 
 		<div v-else>
 			<div class="bg-grey-lightest p-4 rounded-md">
-				<p class="font-sans tracking-tight text-2xl bg-gray-900">Paypal is the payment option people can use for now. We'll add more payment feature in the future. Don't worry.
+				<p class="font-sans tracking-tight text-2xl bg-gray-900">Paypal is the payment option people can use for now. We'll add more payment feature in the future. Don't worry bro
 				</p>
 			</div>
 		</div>

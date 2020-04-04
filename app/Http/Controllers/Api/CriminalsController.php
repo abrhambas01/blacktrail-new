@@ -9,7 +9,7 @@ class CriminalsController extends Controller
 {
 	public function getById($criminal)
 	{
-		$criminal = Criminal::find($criminal)->first();
+		$criminal = Criminal::find($criminal);
 		return response()->json($criminal);
 	}
 

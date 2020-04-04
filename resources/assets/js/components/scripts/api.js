@@ -8,16 +8,18 @@ export const url_for_saving_photos			=      window.App.savePhotosUrl;
 export const resourcePath			 		=      window.App.resourcePath; 
 export const storagePath			 		=      window.App.storagePath; 
 export const csrfToken 						= 	   window.App.csrfToken; 
+export const searchCriminalsEndpoint        = 	   window.App.searchCriminalsBy; 
 
 export default {
 	csrfToken : csrfToken, 
-	user : user ,
+	user  ,
 	algoliaId , 
 	algoliaKey ,
 	publicPath : assetPath ,
 	app,
 	storagePath ,
 	urlSaveCriminal ,
+	searchCriminalsEndpoint,
 	url_for_saving_photos
 };
 

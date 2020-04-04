@@ -10,10 +10,12 @@ Mail::send('')
 });
 */
 
+
+
 Route::get('get/criminals',function(){
 	$criminals = \App\Criminal::where("first_name",'=',"Kevin")->get();
 	return $criminals ; 	
-});
+});	
 
 // Route::get("/messags",function(){
 // 	return App\Message::where('id',1)->first();
@@ -70,7 +72,6 @@ Route::resource("group","Admin\GroupController");
 Route::get('/criminals', 'CriminalsController@index')->name("criminals");
 Route::get('/criminals/{criminal}', 'CriminalsController@show')->name("criminal.show");
 
-Route::get("/criminals/search?={}","CriminalsController@searchCriminal");
 Route::get('/search',"SearchController@search");
 Route::get('/groups', 'GroupsController@index')->name("groups");
 Route::get("/login",'AuthController@loginForm')->name('login')->middleware("guest");
@@ -83,6 +84,7 @@ Route::get('/md',function(){
 });
 
 
+
 /*Implementing chat here..*/
 Route::get("/respond/criminal/{criminal}","ChatController@send_chat");
 Route::get('/chat','ChatController@index')->name('chat');
@@ -92,6 +94,7 @@ Route::get('/contacts',"Api\ContactsController@fetch_all_contacts");
 Route::get("currency/convert","CurrencyController@convertCurrencyPage");
 Route::put("currency/convert","CurrencyController@currencyConvert");
 Route::get('register/success','ViewsController@registration_success')->name('confirm.mail');
+
 Route::get('project',function(){
 	return view('project');
 });
@@ -122,10 +125,14 @@ Route::get("/rows",function (){
 });
 
 Route::get('/', 'ViewsController@index')->name('index');
+
+
 /**
 * confirming email.
 */
 Route::get('confirm/mail/{confirmation_code}','VerificationController@confirm_email')->name('confirmEmail');
+
+Route::get("user/activated","VerificationController@userActivated");
 
 /*Route::patch('confirm/email/{email}', 'VerificationController@confirmEmail')->name('verifyEmail');
 */

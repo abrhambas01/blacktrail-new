@@ -69,6 +69,14 @@ Route::group(['prefix' => 'v1'], function(){
 	Route::post('get-private-message', 'MessageController@getPrivateMessageById');
 	Route::post('get-private-messages-sent', 'MessageController@getPrivateMessageSent');
 
+	/*Search for a criminal by sorting them out*/
+
+	Route::get("criminals/search","SearchController@searchForACriminal")->name("criminals.search");	
+
+/*
+Route::get('criminals/search/sortBy={id}&country={id}',"SearchController@searchForACriminal")->name("search.criminals");*/
+
+
 
 });
 
