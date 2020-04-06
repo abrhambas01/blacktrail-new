@@ -171,15 +171,11 @@ export default {
 
 			createImage(file) {
 				let reader = new FileReader();				
-				
 				let vm = this;
-
 				vm.form.avatar = file;
-				
 				reader.onload = (e) => {
 					vm.form.avatar = e.target.result;
 				};
-
 				reader.readAsDataURL(file);
 			},
 

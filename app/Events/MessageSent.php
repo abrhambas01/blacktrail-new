@@ -13,6 +13,8 @@ class MessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    protected $channel ; 
+
     public $message = 'sample text';
 
      /**
@@ -22,8 +24,9 @@ class MessageSent implements ShouldBroadcast
      */
      public function __construct(Message $message)
      {
-        $this->message = $message; 
+        $this->message = $message;    
         $this->dontBroadcastToCurrentUser();
+
     }
 
         /**
@@ -31,25 +34,24 @@ class MessageSent implements ShouldBroadcast
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn()
-    {
-
-        /*we'll just use this for simpler coding..*/
-        return new PrivateChannel('message.'.$this->message->id);
+        public function broadcastOn()
+        {
+            /*we'll just use this for simpler coding..*/
         // private channels .. -> needs user authenticated..
+            return new PrivateChannel('message.'.$this->message->id);
         // return new PrivateChannel('channel-name');
-    }
+        }
 
-    public function broadcastAs()
-    {
-        return "New Event";
-    }
+        public function broadcastAs()
+        {
+            return "New Event";
+        }
 
-    /*Broadcast with*/
-    public function broadcastWith()
-    {
-        return [  
-            'message' => $this->message
-        ];
+        /*Broadcast with*/
+        public function broadcastWith()
+        {
+            return [  
+                'message' => $this->message
+            ];
+        }
     }
-}

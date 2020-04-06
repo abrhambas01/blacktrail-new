@@ -110,12 +110,12 @@
 			</div>
 		</div>
 
-		<div class="flex inline-block mt-4">
+		<!-- <div class="flex inline-block mt-4">
 			<div class="mr-2 w-full">
 				<label for="bound_value" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Bound value</label>
 				<textarea name="bound_value" id="bound_value" v-model="form.complete_description" class="h-64 bg-grey-lighter w-full mb-2 p-2 leading-normal"></textarea>
 			</div>
-		</div>
+		</div> -->
 
 		<div class="flex inline-block mt-4">
 			<div class="pr-2 w-full">

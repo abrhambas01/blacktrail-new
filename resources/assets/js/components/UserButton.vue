@@ -10,13 +10,14 @@
 		</button>	
 	<!-- 	<button v-show="this.userRole = true" class="w-full bg-red p-3 text-white border-none border-2 hover:text-white hover:border-grey-lightest mt-4 ml-2 hover:bg-green-second" @click="requestPolice">Request for Police Assistance
 	</button> -->
-	<chat-box :id="id" :criminalName="criminals"></chat-box>
+	<!-- <chat-box :id="id" :criminalName="criminals"></chat-box> -->
+
 	<offer-bounty :id="id" :criminals="criminals"></offer-bounty>
+
 </section>
 </template>
 <script>
 import user from './scripts/api.js';
-import ChatBox from './modals/ChatBox.vue';
 import OfferBounty from './modals/OfferBounty';
 import redirect from '../mixins/redirect';
 import api from './scripts/api.js';
@@ -24,7 +25,7 @@ export default {
 	props : ['id','criminals','respondentName'],
 	name: 'UserButton',	
 	mixins : ['redirect'],
-	components:  { ChatBox, OfferBounty },
+	components:  { OfferBounty },
 	data () {
 		return {
 			criminal_id : this.id ,
@@ -49,23 +50,25 @@ export default {
 		},
 		
 		activateOfferBountyModal(criminal_id){
-			console.log("Criminal Id " +"" +criminal_id);
 			this.$modal.show("offer-bounty"); 
+			// console.log("Criminal Id " +"" +criminal_id);
 		}
 	},
 
 	computed : { 
 		chatUrl(respondentName){
-			return api.app + '/messages/t/' + this.respondentName + '/c/' +this.id; 
-			// return '/respond/criminal/' + this.criminal_id;
+			return api.app + '/messages/t/' + this.respondentName + '/c/' +this.id 
 		},
+
 		userRole(){
 			roleId = user.role_id === 3 ? true : false;
 			return roleId ; 
 		},
+
 		criminalsName(){
 			return this.criminals.first_name +" " +this.criminals.last_name ; 
 		}
+
 	}
 };
 </script>

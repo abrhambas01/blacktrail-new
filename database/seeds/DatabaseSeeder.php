@@ -27,10 +27,10 @@ class DatabaseSeeder extends Seeder
 
 		function seed_crimes_info(){
 		/*		$this->call('CrimesSeeder');		
-			$this->command->info('Seeded crimes!'); 
+		$this->command->info('Seeded crimes!'); 
 		*/
-			$this->call('CrimeCriminalSeeder');
-			$this->command->info('Seeded crime and criminals!'); 			
-		}
+		$this->call('CrimeCriminalSeeder');
+		$this->command->info('Seeded crime and criminals!'); 			
+	}
 
 }

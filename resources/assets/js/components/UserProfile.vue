@@ -4,9 +4,9 @@
 		<div class="bg-white px-8 py-8 pt-4 shadow-md">
 			<div class="text-center">
 				<div id="avatar" class="inline-block mb-6 w-full" >
-					<img :src="avatarPath" class="h-50 w-50 rounded-full border-orange border-2">
-					<p class="font-bold font-sans mt-2 text-black text-3xl tracking-tight">{{ user[0].display_name }}</p>
-
+					<img :src="avatarPath" class="h-64 w-64 rounded-full border-orange border-2">
+					<p class="font-bold font-sans mt-2 text-black text-3xl tracking-tight">{{ user[0].display_name }}
+					</p>
 					<button class="hover:bg-blue-darker hover:text-white bg-blue rounded-full w-1/2 mt-4 h-12 ">
 						<a class="text-white hover:text-blue-lighter" :href="this.editProfileUrl">Edit Profile</a>
 					</button>
@@ -67,7 +67,13 @@ export default {
 			return urls.update_profile_endpoint ; 
 		},
 		avatarPath(){
-			return '/assets/images/default_avatar.jpg';
+
+			if (this.user[0].avatar == 'default_avatar.jpg'){
+				return '/assets/images/default_avatar.jpg';
+			}
+			else { 
+				return `${window.App.defaultStoragePath}/`+this.user[0].avatar;
+			}
 		}
 	}
 };

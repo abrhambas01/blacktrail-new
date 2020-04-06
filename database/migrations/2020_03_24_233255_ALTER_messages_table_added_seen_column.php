@@ -8,16 +8,14 @@ class ALTERMessagesTableAddedSeenColumn extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *  
      * @return void
      */
     public function up()
     {
-
         Schema::table('messages', function ($table) {
             $table->boolean('read')->after('seen_at');
         });     
-
     }
 
     /**
@@ -27,8 +25,8 @@ class ALTERMessagesTableAddedSeenColumn extends Migration
      */
     public function down()
     {
-             Schema::table('messages', function ($table) {
-                $table->dropColumn('read');
-            });  
-     }
+        Schema::table('messages', function ($table) {
+            $table->dropColumn('read');
+        });  
+    }
 }

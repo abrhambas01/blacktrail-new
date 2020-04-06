@@ -1,6 +1,5 @@
 <template src="./OfferBounty.html"></template>
 <script>
-// import 'trix';
 import routes from '../scripts/endpoints.js';
 import api from '../scripts/api.js';
 import CalculateBounty  from '../classes/CalculateBounty';
@@ -54,18 +53,11 @@ export default {
 				shape: 'pill',         // pill | rect
 				color: 'blue'         // gold | blue | silver | black
 			},
-
 			criminal_id : this.id,
 			criminal_details : this.criminals , 
 			currencies : [],
-
 		}
-
 	},
-
-	created(){
-
-	},	
 
 	computed : {
 		// returns what would be the value of the current money that will be converted...
@@ -100,13 +92,16 @@ export default {
 	},
 
 	currentBounty(){
+
 		let profile = this.criminals.profile; 
-		return profile.bounty +" " + profile.currency ; 
+
+		if (profile !== null) {
+			return profile.bounty +" " + profile.currency ; 
+		}
+		else { 
+			return "No Bounty Listed for this criminal yet";
+		}
 	},
-
-
-
-
 	updateBounty(){
 		// convert the current money currency to usd
 		this.convert_to_usd();
@@ -146,8 +141,6 @@ methods : {
 	},
 	
 	add_up_the_value_to_the_bounty_of_the_criminal(amount_paid){
-		
-		
 		axios.put(this.update_the_bounty_of_the_user_endpoint, {
 			params : {
 				total_amount: amount_paid,
@@ -215,7 +208,7 @@ methods : {
 
 	if (error.statusCode == 500){
 		Vue.swal('We encounter some error trying to convert that currency, try a different currency');	
-	}
+	}	
 
 });
 /*when using sweetalert..*/
@@ -225,11 +218,7 @@ methods : {
 else {
 	alert("Please specify a pledge greater than 0");
 }
-
-
-
 }, 1500),
-
 	get_balance_of_an_account(){
 
 	},
@@ -239,10 +228,9 @@ else {
 		axios.get(this.convert_to_usd_endpoint)
 		.then(response => {
 			console.log(response);
-			
-		/*	this.isLoading = false;
-		this.searchResult = response.data.items;*/
-	});
+						/*	this.isLoading = false;
+						this.searchResult = response.data.items;*/
+					});
 	},
 
 	/*only numbers and numbers with decimals can be supplied...*/
@@ -258,7 +246,7 @@ else {
 
 
 	convert_to_usd(){
-		
+
 	},
 
 	notify_user(){
@@ -277,20 +265,20 @@ else {
 	},
 
 	update_bounty(){	
-	// using currency layer api.
-	let updateBountyRoute = routes.add_bounty_url   ;
+		// using currency layer api.
+		let updateBountyRoute = routes.add_bounty_url   ;
 
-	axios.put(updateBountyRoute, { form : this.form   })
-	.then(response => console.log(response))
-	.catch(error => console.log(error))
+		axios.put(updateBountyRoute, { form : this.form   })
+		.then(response => console.log(response))
+		.catch(error => console.log(error))
 
-},
+	},
 
-fetch_currencies(){
-	axios.get(this.fetch_currencies_endpoint)
-	.then(response => this.currencies = response.data)
-	.catch(error => console.log(error));
-}
+	fetch_currencies(){
+		axios.get(this.fetch_currencies_endpoint)
+		.then(response => this.currencies = response.data)
+		.catch(error => console.log(error));
+	}
 
 },
 

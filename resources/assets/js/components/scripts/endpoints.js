@@ -1,4 +1,3 @@
-
 // used for returning api url's for xhr requests.
 import api from './api';
 
@@ -20,7 +19,7 @@ const update_profiles_endpoint = urlDomain + "/api/v1/user/profiles/update";
 const show_profile_endpoint = urlDomain + "/user/profiles/" + api.user.id;
 const urlSaveCriminal = urlDomain + "/admin/criminals";
 const urlUpdateCriminal = urlDomain + "/admin/criminals";
-const urlForSearchingCriminals = api.searchCriminalsEndpoint ;
+const urlForSearchingCriminals = api.searchCriminalsEndpoint;
 // const urlForSearchingCriminals = urlDomain + "/api/v1/?search-criminals";
 
 

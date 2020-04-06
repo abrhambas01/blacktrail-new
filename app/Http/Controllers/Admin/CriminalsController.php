@@ -92,14 +92,21 @@ class CriminalsController extends Controller
 
       /*if there's an avatar*/
       if(request()->has('form.avatar')){
+
         $base64String= request()->input('form.avatar') ; 
+
         $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
+        
         $imageName = str_random(30) . '.png';
         // $p = Storage::disk('local')->put('' . $imageName, $image, 'public'); 
         $imageStore= Storage::disk('criminal')->put('/criminals/' . $imageName, $image, 'public'); 
+        
         $image_url = Storage::disk()->url($imageName);
+        
         Criminal::saveCriminal(request(), $imageName);
+        
         return response()->json(['success' => 'You have successfully registered this criminal'],200);   
+      
       } else {
 
         // dd("Has No file");
@@ -208,19 +215,22 @@ if (request()->wantsJson()) {
         /* if there's an avatar included and to be replaced.*/
         $imageName = str_random(30) . '.png';
         if(request()->has('form.avatar')){
-
           $base64String = request()->input('form.avatar');           
           $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
           $p = Storage::disk('local')->put('' . $imageName, $image, 'public');                    
           Storage::delete($criminal->photo);          
           $image_url = Storage::disk()->url($imageName);
         }
+
           $cr = $criminal->update([
             'first_name'         =>             $request->input("form.first_name"),
             'middle_name'        =>             $request->input("form.middle_name"),
             'last_name'          =>             $request->input("form.last_name"),
+            
             'contact_number'     =>             $request->input("form.contact_number"),
+            
             'contact_person'     =>             $request->input("form.contact_person"),
+
             'alias'              =>             $request->input("form.alias"),
             'country_id'         =>             $request->input("form.country_id"),
             'posted_by'          =>             $request->input("form.posted_by"),
@@ -321,14 +331,21 @@ if (request()->wantsJson()) {
         /* if there's an avatar included and to be replaced.*/
         
         $imageName = $criminal->photo;
+        
         if(request()->has('form.avatar')){
+
           $base64String= request()->input('form.avatar') ; 
+
           $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
+
           $imageName = str_random(30) . '.png';
+
           $imageStore= Storage::disk('criminal')->put('/criminals/' . $imageName, $image, 'public'); 
+
         } else {
           $imageName = $criminal->photo;
         }
+
           $updateData = [
             'first_name'         =>             $request->input("form.first_name"),
             'middle_name'        =>             $request->input("form.middle_name"),
@@ -341,6 +358,7 @@ if (request()->wantsJson()) {
             'status'             =>             $request->input("form.status"),
             'photo'             =>             $imageName,
           ];
+          
           $cr = $criminal->update($updateData);
 
           if ( $cr == true){

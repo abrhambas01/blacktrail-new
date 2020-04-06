@@ -5,7 +5,7 @@
   > 
   <ais-search-box 
   v-on:change="signalChange()"
-  v-model="criminalsName"
+  v-model="passedCriminalsName"
   value="passedCriminalsName"
   class="p-2 mr-4 h-10 w-full rounded-sm font-basic mt-2 mb-4 w-full" 
   placeholder="Search criminals by name">
@@ -82,6 +82,7 @@ export default {
   props : ['criminal_name'],
   data() {
     return {
+      criminalsName : this.criminal_name,
       passedCriminalsName : "", 
       limitResult : 3 , 
       itemData : null , 

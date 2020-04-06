@@ -5,6 +5,7 @@ import $ from 'jquery';
 import Vue from 'vue' ;	
 // import VueInputMultiple from 'vue-input-multiple';
 import VueRouter from 'vue-router';
+import io from 'socket.io-client';
 import moment from 'moment' ; 
 import VModal from 'vue-js-modal'
 import VeeValidate from 'vee-validate' ;
@@ -18,7 +19,7 @@ window.axios = axios ;
 window.axios.defaults.headers.common = {
 	'X-Requested-With': 'XMLHttpRequest'
 };
-
+window.io = io;
 
 // window.form =  ; 			
 
@@ -41,10 +42,10 @@ Vue.config.devtools = true ;
 Vue.config.performance  = true ; 
 Vue.prototype.user = window.App.user;
 Vue.prototype.$http = axios;
-
+/*
 import Echo from "laravel-echo" ;
-/*window.io = require("socket.io-client");
 
+window.io = require("socket.io-client");
 
 window.Echo = new Echo({
 	broadcaster: 'socket.io',

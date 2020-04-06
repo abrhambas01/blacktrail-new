@@ -48,8 +48,8 @@
 					<p class="mt-2">aka <em class="font-basic roman">{{ criminal.alias  }}</em></p>
 					@endverbatim
 				</div>
-		{{-- 	<div v-if="showChatBox = true" class="bg-green-dark rounded-full h-8 w-8 flex items-center justify-center text-white">1
-		</div> --}}
+			<div v-if="showChatBox = true" class="bg-green-dark rounded-full h-8 w-8 flex items-center justify-center text-white">1
+		</div>
 	</div>
 </article>
 </criminals-view>

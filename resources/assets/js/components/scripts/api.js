@@ -12,10 +12,10 @@ export const searchCriminalsEndpoint        = 	   window.App.searchCriminalsBy;
 
 export default {
 	csrfToken : csrfToken, 
-	user  ,
+	user ,
 	algoliaId , 
 	algoliaKey ,
-	publicPath : assetPath ,
+	assetPath ,
 	app,
 	storagePath ,
 	urlSaveCriminal ,

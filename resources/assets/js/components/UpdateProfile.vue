@@ -3,20 +3,28 @@
 		<div v-if="user != null">
 			<form class="bg-white m-auto h-full p-4 w-full" id="setup-billing-form" @submit.prevent="submitProfile()" method="POST">
 				<div class="flex inline-block">
+					
 					<div id="input-group" class="w-3/5">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Username
 						</label>
 						<input v-model="form.username" type="text" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="pin" name="pin" autocomplete="name" placeholder="Your Username" required>
 					</div>
+
 					<div id="input-group" class="ml-2 w-3/5">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Email
 						</label>
 						<input type="text"  v-model="form.email" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="email" name="pin" autocomplete="name" placeholder="5000" required>
 					</div>
 				</div>
+
+				<div class="flex inline-block">
+					<p class="mt-2 mb-2 tracking-wide text-black-v2 text-xs font-bold mb-2">You can leave the passwords if you don't want to update it</p>
+				</div>
+				
 				<div class="flex inline-block">
 					<div id="input-group" class="w-2/5 mr-2">	
-						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Old Password
+						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">
+							Old Password 
 						</label>
 						<input type="password" v-model="form.current_password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="current_password" name="pin" autocomplete="name" placeholder="5000">
 					</div>
@@ -32,7 +40,6 @@
 						<input v-validate="'confirmed:password'" type="password" v-model="form.confirm_password" class="hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal" id="confirm_password" name="confirm_password" autocomplete="name" placeholder="5000" data-vv-as="password">
 					</div>				
 				</div>
-
 				<div class="mb-4 w-full" v-show="errors.any() != false">
 					<div class="flex inline-block">
 						<div class="bg-red-light p-1 text-white font-sans" v-if="errors.any()">
@@ -48,8 +55,6 @@
 						</div>
 					</div>	
 				</div>
-
-
 				<div class="flex inline-block">
 					<div id="input-group" class="w-4/5 mr-4">	
 						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Display Name
@@ -69,10 +74,9 @@
 						</select>
 					</div>
 				</div>
-
 				<div class="flex inline-block mt-4">
 					<div id="input-group" class="w-1/2">	
-						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Upload a photo of yours : 
+						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Upload / Update a photo of yours : 
 						</label>
 						<div class="card-body">
 							<div class="row">
@@ -86,7 +90,6 @@
 						</div>
 					</div>
 				</div>
-
 				<div class="mt-4 flex inline-block">
 					<div id="input-group" class="w-full">	
 						<button class="bg-blue text-white p-4 w-full">Submit</button>
@@ -126,7 +129,7 @@ export default {
 				email : this.user.email, 
 				id : this.user.id, 
 				current_password : "",
-				avatar : this.user.avatar,
+				avatar : this.userAvatar,
 				password : "", 
 				confirm_password : "", 
 				display_name : this.user.display_name,
@@ -196,10 +199,10 @@ export default {
 			axios.put(this.endpoint, { 
 				form : this.form , 
 			}).then(response => {
-				alert(response.data.success);
+				console.log(response); 		
 				let url = urls.show_profile_endpoint; 
 				location.replace(url);
-				console.log(url); 	
+				// alert(response.data.success);
 				// location.reload();
 			}).catch(error => {
 				alert(error.response.data.error);
@@ -217,18 +220,18 @@ export default {
 		togglePasswordVisibility () {
 			this.passwordVisible = !this.passwordVisible
 		}	
+
 	},
+	
 	computed : { 
 		endpoint(){
 			return urls.update_profiles_endpoint;
 		},
 		userAvatar(){
-			if (this.user.avatar === "default_avatar.jpg"){
-				// return `${window.App.assetStorageCriminalsPath}/${this.criminals.photo}`;
-				// return `${window.App.assetStorageCriminalsPath}/${this.criminals.photo}`;
+			if (this.user.avatar == "default_avatar.jpg"){
 				return urls.urlDomain + `/assets/images/default_avatar.jpg`;
 			}
-			else { 
+			else { 		
 				return `${window.App.defaultStoragePath}/${this.user.avatar}`;
 			}
 		}

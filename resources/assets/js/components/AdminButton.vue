@@ -7,15 +7,13 @@
 		<button v-show="userHasCapabilityToViewChat" class="w-full bg-white p-3 text-black border-black border-2 hover:text-white rounded-lg mt-4 ml-2 hover:bg-green-second" @click="this.$modal.show('offer-bounty')">Chat / Report Log
 		</button>		
 		<edit-information-modal></edit-information-modal>
-		<chat-box></chat-box>
 	</section>
 </template>
 
 <script>
 	import EditInformationModal from './modals/EditInformationModal.vue';
-	import ChatBox from './modals/ChatBox.vue';
 	export default {
-		components : { EditInformationModal, ChatBox },
+		components : { EditInformationModal },
 		props : ['criminals'],
 
 		props : { 

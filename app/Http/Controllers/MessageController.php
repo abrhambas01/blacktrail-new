@@ -19,13 +19,12 @@ class MessageController extends Controller
 	*/
 	public function sendMessage($user,$criminal)
 	{
-
 		$message = Message::where([
 			['sender_id','=', auth()->id()],
 			['receiver_id', '=',$user]
 		])->get();
 
-		$criminal = Criminal::where('id','=',$criminal)->get();
+		$criminal = Criminal::where('id','=',$criminal)->with('respondent')->get();
 
 		return view('messages',compact("message",'criminal'));
 	}

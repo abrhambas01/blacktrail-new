@@ -161,7 +161,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6" v-if="form.avatar">
-                                <img :src="form.avatar" class="img-responsive" height="70" width="90" alt="Criminal Photo">
+                                <img :src="form.avatar = this.criminalAvatar" class="img-responsive" height="70" width="90" alt="Criminal Photo">
                             </div>
                             <div class="col-md-6 w-1/2">
                                 <input type="file" name="avatar" id="avatar" v-on:change="onAvatarChange" class="form-control hover:bg-grey-lightest bg-grey-lighter w-full mb-2 p-2 leading-normal">
@@ -218,7 +218,7 @@
                 <!-- <input type="text" v-model="crime.description"> -->
             </div>
             <!-- if there is none then just display the textbox -->
-            <div class="mb-2 mt-2" v-if="newCrimes.length==0 && criminalCrimes.length==0">
+            <div class="mb-2 mt-2" v-if="newCrimes.length==0 && criminalCrimes==0">
                 <h3>There are no crimes for this criminal. Click on Add new Crime Button to add one</h3>
             </div>
 
