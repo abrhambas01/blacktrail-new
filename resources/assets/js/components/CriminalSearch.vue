@@ -4,17 +4,14 @@
   index-name="criminals"
   > 
   <ais-search-box 
-  v-model="criminalsName"
+  v-model="criminalsname"
   class="bg-white border p-2 border-gray mr-4 h-10 w-full rounded-sm font-basic mt-2 mb-4 w-full" 
-  placeholder="Search criminals..."
-  :class-names="{
-  'ais-SearchBox-form' : 'mySearchBoxInput'
-  }">
+  placeholder="Search criminals..."/>
 </ais-search-box>
 <ais-configure 
 :hits-per-page.camel="3"
 />
-<ais-hits v-show="this.criminalsName.length > 0 " :escapeHTML="false">
+<ais-hits v-show="criminalsname.length > 0 " :escapeHTML="false">
   <template
   slot="item"
   slot-scope="{ item }"
@@ -22,7 +19,7 @@
   <div id="search-content" class="z-50 w-full text text-gray-600 rounded-lg overflow-y-auto bg-white shadow-lg" style="max-height: 500px;">
     <div id="searchresults" class="h-auto max-w-3xl mx-auto">
       <span class="p-4 border-b flex justify-between items-center group hover:bg-teal-100">
-        <a class="block flex-1 no-underline" :href="criminalProfile">
+        <a class="block flex-1 no-underline" :href="`/criminals/`+item.id">
           <p class="font-bold text-sm text-indigo-600 hover:text-indigo-500">
             <ais-highlight
             :hit="item"
@@ -61,11 +58,13 @@
           </p>
           
         </a>
-        <a href="https://angulartailwind.com">
-          <img class="hidden md:block h-16 border-none" src="https://www.tailwindtoolbox.com/components/angular-tailwind.png"></a>
-        </span> 
-      </div>
-      <!-- No search results message-->
+        <a :href="`/criminals/`+item.id">
+          <img class="hidden md:block h-16 border-none" :src="`/storage/criminals/`+item.photo">
+        </a>
+      </span>
+
+    </div>
+    <!-- No search results message-->
     <!-- <div id="nosearchresults" class="hidden flex pb-6 px-6 bg-white">
       <svg class="fill-current text-indigo-600 h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
         <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
@@ -213,5 +212,7 @@ em {
 .ais-InstantSearch { @apply .w-full }
 
 .ais-SearchBox { @apply mb-6 }
+
+.ais-SearchBox-input { @apply w-full }
 
 </style>
