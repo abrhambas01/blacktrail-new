@@ -4,7 +4,7 @@
   index-name="criminals"
   > 
   <ais-search-box 
-  v-model="criminalsname"
+v-model="criminalsname"
   class="bg-white border p-2 border-gray mr-4 h-10 w-full rounded-sm font-basic mt-2 mb-4 w-full" 
   placeholder="Search criminals..."/>
 </ais-search-box>
@@ -56,7 +56,6 @@
             attribute="contact_number"
             />
           </p>
-          
         </a>
         <a :href="`/criminals/`+item.id">
           <img class="hidden md:block h-16 border-none" :src="`/storage/criminals/`+item.photo">
