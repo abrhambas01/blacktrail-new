@@ -149,6 +149,9 @@ public function show($criminal)
 	$criminal = Criminal::with('profile','crimes','country','respondent')->findOrFail($criminal);
 	$respondentName = Criminal::with('respondent')->findOrFail($criminal);
 	return view("criminals.show",compact('criminal','respondentName')) ; 
+
+
+	
 }
 
 

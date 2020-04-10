@@ -13,9 +13,7 @@ export default {
 	},
 	methods : { 
 		fetchCriminals(){
-
-		}
-		
+		}	
 	},
 	components : { CriminalProfile },
 

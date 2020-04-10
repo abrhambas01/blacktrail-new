@@ -4,7 +4,7 @@
 			<div class="flex justify-center mb-2">
 				<div class="rounded py-2 px-4" style="background-color: #DDECF2">
 					<p class="text-sm uppercase">
-						February 2, 2020
+						February 2, 2020 
 					</p>
 				</div>
 			</div>
@@ -18,7 +18,7 @@
 			</div>
 
 			<!-- <message-history></message-history>	 -->
-	
+
 			<div class="flex mb-2">
 				<div class="rounded py-2 px-3" style="background-color: #F2F2F2">
 					<p class="text-sm text-teal">
@@ -59,6 +59,19 @@
 </template>
 <script>
 export default { 
+	data(){
+		return { 
 
+		}
+	},
+	sockets : { 
+		connect(){
+			console.log("");
+		},
+
+		message(val){
+
+		}
+	}
 };
 </script>

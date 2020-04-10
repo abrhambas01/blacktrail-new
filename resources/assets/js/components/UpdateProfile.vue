@@ -74,66 +74,77 @@
 						</select>
 					</div>
 				</div>
-				<div class="flex inline-block mt-4">
-					<div id="input-group" class="w-1/2">	
-						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Upload / Update a photo of yours : 
+				<div class="flex inline-block">
+					<div id="input-group" class="w-4/5 mr-4">	
+						<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">
+							Short Description of You
 						</label>
-						<div class="card-body">
-							<div class="row">
-								<div class="col-md-3" v-if="userAvatar">
-									<img :src="userAvatar" class="img-responsive" height="70" width="90">
-								</div>
-								<div class="col-md-6">
-									<input type="file" v-on:change="onAvatarChange" class="form-control">
+						<textarea cols="30" rows="10" v-model="form.description" class="bg-white border-grey-lighter border-1 border-2 w-full p-4 leading-normal" id="display_name" name="pin" autocomplete="name" placeholder="5000" required>
+							
+						</textarea>
+						</div>
+					</div>
+					<div class="flex inline-block mt-4">
+						<div id="input-group" class="w-1/2">	
+							<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Upload / Update a photo of yours : 
+							</label>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-3" v-if="userAvatar">
+										<img :src="userAvatar" class="img-responsive" height="70" width="90">
+									</div>
+									<div class="col-md-6">
+										<input type="file" v-on:change="onAvatarChange" class="form-control">
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="mt-4 flex inline-block">
-					<div id="input-group" class="w-full">	
-						<button class="bg-blue text-white p-4 w-full">Submit</button>
+					<div class="mt-4 flex inline-block">
+						<div id="input-group" class="w-full">	
+							<button class="bg-blue text-white p-4 w-full">Submit</button>
+						</div>
 					</div>
+				</form>
+			</div>
+			<div v-else>
+				<div class="bg-grey-lightest p-4 rounded-md">
+					<p class="font-sans tracking-tight text-2xl bg-gray-900">No profile as of today
+					</p>
 				</div>
-			</form>
-		</div>
-		<div v-else>
-			<div class="bg-grey-lightest p-4 rounded-md">
-				<p class="font-sans tracking-tight text-2xl bg-gray-900">No profile as of today
-				</p>
 			</div>
 		</div>
-	</div>
-</template>
-<script>
-import urls from './scripts/endpoints.js';
-export default {
-	name: 'UpdateProfile',
-	props : {
-		user : { 
-			type : Object, 
-			required : null
-		},
-		country : { 
-			type : Array, 
-			required : null
-		}
-	},	
-	data () {
-		return {
-			maxFiles : 1,
-			avatar: '',
-			form : { 	
-				country_id : this.user.country_id,
-				username : this.user.username, 
-				email : this.user.email, 
-				id : this.user.id, 
-				current_password : "",
-				avatar : this.userAvatar,
-				password : "", 
-				confirm_password : "", 
-				display_name : this.user.display_name,
-				phone_number : this.user.phone_number,
+	</template>
+	<script>
+	import urls from './scripts/endpoints.js';
+	export default {
+		name: 'UpdateProfile',
+		props : {
+			user : { 
+				type : Object, 
+				required : null
+			},
+			country : { 
+				type : Array, 
+				required : null
+			}
+		},	
+		data () {
+			return {
+				maxFiles : 1,
+				avatar: '',
+				form : { 	
+					description : "",
+					country_id : this.user.country_id,
+					username : this.user.username, 
+					email : this.user.email, 
+					id : this.user.id, 
+					current_password : "",
+					avatar : this.userAvatar,
+					password : "", 
+					confirm_password : "", 
+					display_name : this.user.display_name,
+					phone_number : this.user.phone_number,
 				// uploadUrl : urls.update_profiles_endpoint,
 			},
 			countries : this.country,
@@ -201,6 +212,7 @@ export default {
 			}).then(response => {
 				console.log(response); 		
 				let url = urls.show_profile_endpoint; 
+				Vue.swal('Submitting...');
 				location.replace(url);
 				// alert(response.data.success);
 				// location.reload();

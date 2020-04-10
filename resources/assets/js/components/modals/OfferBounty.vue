@@ -92,9 +92,7 @@ export default {
 	},
 
 	currentBounty(){
-
 		let profile = this.criminals.profile; 
-
 		if (profile !== null) {
 			return profile.bounty +" " + profile.currency ; 
 		}
@@ -185,12 +183,13 @@ methods : {
 			axios.get(this.convert_to_usd_endpoint, {
 				params: {
 					offer_bounty : this.form.offer_bounty,
-					from_currency_code : this.form.currencyCode,                       
+					from_currency_code : this.form.currencyCode,
 					to_currency_code : this.form.toCurrencyCode,
 					criminal_id : this.id
 				}	
 			}).then(response => {
 				let bounty_value_in_usd = response.data.toFixed(2);
+				
 				this.bounty_in_usd = parseFloat(bounty_value_in_usd) ;
 				
 				if (this.form.currencyCode == "USD") {

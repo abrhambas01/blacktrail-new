@@ -1,15 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\User ; 
-
 use App\Message ; 
-
 use App\Criminal ; 
-
 class MessageController extends Controller
 {
 	/*
@@ -27,6 +22,7 @@ class MessageController extends Controller
 		$criminal = Criminal::where('id','=',$criminal)->with('respondent')->get();
 
 		return view('messages',compact("message",'criminal'));
+	
 	}
 
 	public function getUserNotifications()

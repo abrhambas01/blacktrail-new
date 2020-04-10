@@ -1,16 +1,17 @@
 {
-	"authHost": "http://localhost",
+	"authHost": "http://blacktrail.test/",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [],
 	"database": "redis",
-	"databaseConfig": {
+	"databaseConfig": 
+	{
 		"redis": {},
 		"sqlite": {
 			"databasePath": "/database/laravel-echo-server.sqlite"
 		}
 	},
 	"devMode": true,
-	"host": null,	
+	"host": null,
 	"port": "6001",
 	"protocol": "http",
 	"socketio": {},

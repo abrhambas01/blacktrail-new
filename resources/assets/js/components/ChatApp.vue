@@ -54,11 +54,8 @@
 									</div>
 								</div>
 							</div>
-
 							<messages></messages>
-
-							<!-- Input -->
-							<message-input></message-input>
+							<message-input @entered="add"></message-input>
 						</div>
 					</div>
 				</div>
@@ -75,7 +72,6 @@ import ChatHeader from './ChatHeader.vue';
 import MessageInput from './Messages/MessageInput.vue';
 import endpoints from './scripts/endpoints.js';
 // import ContactList from './ContactList.vue';
-
 export default {
 	components : {
 		Messages,
@@ -105,70 +101,82 @@ export default {
 			messages : [],
 			contacts : [],
 		}
-},
-methods : {
-	saveNewMessage(message){
-		axios.post(this.send_message_endpoint, {
-		})
+	},
+	methods : {
+		saveNewMessage(message){
+			axios.post(this.send_message_endpoint, {
+			})
+		},
+		startConversationWith(contact){
+			this.updateUnreadCount(contact, true)
+			axios.get(`/conversation/${contact.id}`)
+			.then(response => {
+				this.messages = response.data ; 
+				this.selectedContact = contact ; 
+			})		
+		},
+		updateUnreadCount(contact,reset){
+			this.contacts = this.contacts.map((single) => {
+				if (single.id !== contact.id){
+					return id ; 
+				}
+				if ( reset )
+					single.unread = 0 ; 
+				else 
+					single.unread += 1 ; 
+				return single ; 
+			})
+		}
+
 	},
 	
-	startConversationWith(contact){
-		this.updateUnreadCount(contact, true)
-		axios.get(`/conversation/${contact.id}`)
-		.then(response => {
-			this.messages = response.data ; 
-			this.selectedContact = contact ; 
-		})		
+	sockets : { 
+		connect(){
+			console.log("Socket connected");
+		},
+		customEmit(val){
+			console.log(val);
+		}
 	},
 
+	computed : { 
+		defaultAvatar(){
+			if (this.respondent.avatar == "default_avatar.jpg"){
+				return endpoints.urlDomain +"/assets/images/" +this.respondent.avatar ; 
+			} 
 
-	updateUnreadCount(contact,reset){
-		this.contacts = this.contacts.map((single) => {
-			if (single.id !== contact.id){
-				return id ; 
-			}
-			if ( reset )
-				single.unread = 0 ; 
-			else 
-				single.unread += 1 ; 
-			return single ; 
-		})
-	}
-},
-computed : { 
-	
-	defaultAvatar(){	
-		return endpoints.urlDomain +"/assets/images/" +this.respondent.avatar ; 
+			return endpoints.urlDomain +"/storage/" +this.respondent.avatar;
+		},
+
+		send_message_endpoint(){
+			return window.App.sendMessageEndpoint ; 
+		},
+
+		currentUserAvatar(){	
+			if(this.user.avatar === "default_avatar.jpg") {
+				return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
+			} 
+			else { 
+				return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
+			} 
+		}
 	},
 
-	send_message_endpoint(){
-		return window.App.sendMessageEndpoint ; 
-	},
-	
-	currentUserAvatar(){	
-		if(this.user.avatar === "default_avatar.jpg") {
-			return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
-		} 
-		else { 
-			return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
-		} 
-	}
-},
+	mounted(){
 
-mounted(){
-	console.log('Component mounted.');
-/*
-	let channel = Echo.channel('public');
+		console.log('Component mounted.');
 
-	channel.listen('.MessageSent',function(data){
-		console.log(data);
-	});*/
+		let channel = Echo.channel('public');
 
-	// Registered client on public channel to listen to MessageSent event
-/*		Echo.channel('public').listen('MessageSent', ({message}) => {
-		this.messages.push(message);
-	});*/
+		channel.listen('.MessageSent',function(data){
+			console.log(data);
+		});
 
+		// Registered client on public channel to listen to MessageSent event
+		Echo.channel('public').listen('MessageSent', ({message}) => {
+			console.log("message sent started");
+			this.messages.push(message);
+		});
 
 }	
 	/*console.log("Component mounted for chat Now");			

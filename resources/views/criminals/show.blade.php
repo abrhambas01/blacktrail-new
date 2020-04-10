@@ -179,4 +179,5 @@ use Carbon\Carbon;
 
 	</div>
 </criminal-profile>
+
 @stop

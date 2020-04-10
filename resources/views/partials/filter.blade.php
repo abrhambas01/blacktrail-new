@@ -23,18 +23,17 @@
 				</select>
 			</div>
 
-			<p class="font-bold text-md" v-show="criminalName && !sortBy && !country">
-				or
+			<p class="font-bold mb-2 text-md" v-show="criminalName && !sortBy && !country">
+				Or Search by Name
 			</p>
 
-			<div class="flex" v-show="criminalName && !sortBy && !country">
-				<criminal-search :criminal_name.sync="criminalsName"></criminal-search>	
+			<div class="mt-4 flex" v-show="criminalName && !sortBy && !country">
+				<criminal-search :criminalsname="criminalsName"></criminal-search>	
 			</div>
 
-
-			<div class="flex text-center" style="margin-top:3px; ">
+			<div class="flex text-center mt-8">
 				<button @click="startSearch" class="bg-blue p-2 h-10 mt-2 w-3/5 text-white hover:bg-black flex mr-2">
-					<svg xmlns="http://www.w3.org/2000/svg" class="text-center fill-current text-white h-4 w-6" viewBox="0 0 20 20"><path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+					<svg xmlns="http://www.w3.org/2000/svg" class="text-center fill-current text-white h-4 w-6 mt-8" viewBox="0 0 20 20"><path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
 					</svg>
 					<div class="text-center flex">
 						<p class="ml-4 font-bold text-center">Start Searching</p>

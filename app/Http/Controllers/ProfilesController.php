@@ -81,9 +81,5 @@ class ProfilesController extends Controller
 			    //REALLY HELPFUL FOR DEBUGGING
 			echo $ex->getData();
 		}
-
-
 	}	
-
-
 }

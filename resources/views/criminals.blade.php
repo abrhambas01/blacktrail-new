@@ -16,38 +16,38 @@
 		</p>
 		
 		@include('partials.filter',['countries'=> $countries])		
-	
+
 	</div>
 	
 	@forelse ($criminals as $criminal)	
-
-	<criminals-view :criminals="{{ strip_tags($criminal) }}" inline-template> 
+	<criminals-view :criminals="{{ strip_tags($criminal) }}" inline-template>
 		<article class="timeline-feeds">	
 			<div class="flex" id="userProfile">	
 				<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
+					{{-- <img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('storage/criminals'.$criminal->photo) }}" id="criminalsPhoto"  alt="Criminals View" > --}}
 
 					@if(file_exists(public_path('/storage/criminals/'.$criminal->photo))) 
-
+					
 					<img class="h-18 w-18 mr-4 mt-2" src="{{ asset('/storage/criminals/'.$criminal->photo)  }}" id="criminalsPhoto" alt="Criminals View" >
 					
 					@else
-					
-					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
 
+					<img class="h-18 w-18 rounded-full mr-4 mt-2" src="{{ asset('assets/images/default_avatar.jpg')  }}" id="criminalsPhoto"  alt="Criminals View" >
+					
 					@endif
 
 				</router-link>
-				{{-- showing the names of the criminals --}}
 				<div class="flex-1">
 					@verbatim
 					<h3 class="mt-4 font-basic">{{  criminal.full_name }}</h3>
 					<p class="mt-2">aka <em class="font-basic roman">{{ criminal.alias  }}</em></p>
 					@endverbatim
 				</div>
+				<div v-if="showChatBox = true" class="bg-green-dark rounded-full h-8 w-8 flex items-center justify-center text-white">1
+				</div>
 			</div>
 		</article>
 	</criminals-view>
-	{{-- @include("partials.criminals-view", ['criminals' => $criminal]) --}}
 	@empty
 	<h3>No Criminals are added yet..</h3>
 	@endforelse

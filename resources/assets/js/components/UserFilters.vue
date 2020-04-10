@@ -29,11 +29,11 @@ export default {
           criminalsName : function(newVal, oldVal) { // watch it
           	console.log('Prop changed: ', newVal, ' | was: ', oldVal)
           }
-  	},
+      },
 
-  mounted(){
-  	console.log(urls);
-  },
+      mounted(){
+      	console.log(urls);
+      },
 
       methods : { 
       	updateValue: function (value) {

@@ -3,7 +3,7 @@
 		<div class="bg-black-v2 p-4"> 
 			<div class="init-row">
 				<div class="item">	
-					<h3 style="width:200%" class="text-normal font-basic tracking-normal ml-4 text-white">Offer Bounty to Criminal :  {{ criminals.full_name }}
+					<h3 style="width:200%" class="text-normal font-basic tracking-normal ml-4 text-white">Offer Bounty to Criminal :  			{{ criminals.full_name }}
 					</h3>
 				</div>
 				<div class="item">
@@ -13,19 +13,21 @@
 			</div>
 		</div>
 		<div class="p-4">
-			<p class="font-semibold text-lg ml-4">Current Bounty : {{ this.currentBounty }}
+			<p class="font-semibold text-lg ml-4">Current Bounty : {{ this.currentBounty 
+			}}
 			</p>
-			<p class="font-semibold text-sm ml-4 mt-2" v-show="bounty_in_usd != null">Additional Bounty (in USD) : {{ bounty_in_usd }}</p>
+			<p class="font-semibold text-sm ml-4 mt-2" v-show="this.bounty_in_usd !== null">Additional Bounty (in USD) : {{ this.bounty_in_usd }}</p>
 			<form @submit.prevent="updateBounty" id="offerBountyForm" class="ml-4 mt-2">
 				<!-- <input type="text" v-model="offerBounty" class="bg-grey-lighten p-4" placeholder="How much would you offer ? "> -->
 
 				<div class="input-group mb-2">	
-					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Currency / Currency /  Country</label>		
+					<label for="name" class="block uppercase tracking-wide text-black-v2 text-xs font-bold mb-2">Currency / Currency /  Country
+					</label>		
 					<select @change="attempt_to_convert" v-model="form.currencyCode" class="bg-grey-lighter w-1/2 mb-2 p-2 leading-normal">
-						<option  :selected="form.toCurrencyCode" :value="currency.currency_code" v-for="currency in currencies">{{  currency.name }} - {{  currency.currency }}  -- {{  currency.currency_symbol }} 	
+						<option :selected="form.toCurrencyCode" :value="currency.currency_code" v-for="currency in currencies">
+							{{  currency.name }} - {{  currency.currency }}  -- {{  currency.currency_symbol }} 	
 						</option>
 					</select>
-
 				</div>
 
 

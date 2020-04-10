@@ -26,8 +26,11 @@ class BountyController extends Controller
 		*/
 
 		$items = collect(request()->all());
+
 		$amount = floatval($items->get('params')['total_amount']);
+		
 		$criminal_id = intval($items->get('params')['criminal_id']);
+		
 		$to_currency = $items->get('params')['used_currency'];	
 		
 		$apiKey 					=			$this->currencyApiKey() ; 
@@ -78,7 +81,8 @@ class BountyController extends Controller
 			$rate = $info->$query ;
 			
 			$total = $rate * $amount ;
-			// return response($total) ; 
+
+			return response()->json("total:",$total) ; 
 
 			$criminal = DB::table('criminal_profiles')->where('criminal_id',$criminal_id)->increment('bounty', $total);
 

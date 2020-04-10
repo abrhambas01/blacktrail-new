@@ -11,7 +11,8 @@
 		$countries = Country::select('id','name')->get();
 		@endphp
 
-		<update-profile :country="{{  $countries }}":user="{{  auth()->user() }}"></update-profile>
+		<update-profile :country="{{  $countries }}":user="{{  auth()->user() }}">
+		</update-profile>
 		{{-- <form action="{{ route('profiles') }}" class=""> --}}
 			{{-- <setu/p-billing></setup-billing> --}}
 			{{-- @include('partials.forms._billing-form') --}}

@@ -4,15 +4,16 @@
   index-name="criminals"
   > 
   <ais-search-box 
-  v-on:change="signalChange()"
-  v-model="passedCriminalsName"
-  value="passedCriminalsName"
-  class="p-2 mr-4 h-10 w-full rounded-sm font-basic mt-2 mb-4 w-full" 
-  placeholder="Search criminals by name">
-  </ais-search-box>
-  <ais-configure 
+  v-model="criminalsName"
+  class="bg-white border p-2 border-gray mr-4 h-10 w-full rounded-sm font-basic mt-2 mb-4 w-full" 
+  placeholder="Search criminals..."
+  :class-names="{
+  'ais-SearchBox-form' : 'mySearchBoxInput'
+  }">
+</ais-search-box>
+<ais-configure 
 :hits-per-page.camel="3"
-/>  
+/>
 <ais-hits v-show="this.criminalsName.length > 0 " :escapeHTML="false">
   <template
   slot="item"
@@ -21,25 +22,26 @@
   <div id="search-content" class="z-50 w-full text text-gray-600 rounded-lg overflow-y-auto bg-white shadow-lg" style="max-height: 500px;">
     <div id="searchresults" class="h-auto max-w-3xl mx-auto">
       <span class="p-4 border-b flex justify-between items-center group hover:bg-teal-100">
-        <a class="block flex-1 no-underline" :href="`/criminals/`+item.id">
+        <a class="block flex-1 no-underline" :href="criminalProfile">
           <p class="font-bold text-sm text-indigo-600 hover:text-indigo-500">
-            <h3 class="underline">
-              <ais-highlight
-              :hit="item"
-              attribute="full_name"
-              highlighted-tag-name="mark"
-              />
-            </h3>
+            <ais-highlight
+            :hit="item"
+            attribute="full_name"
+            highlighted-tag-name="mark"
+            />
 
             <p class="font-bold text-sm text-indigo-600 hover:text-indigo-500 mt-2">
              <span class="text-xl text-teal-500">aka</span>
+
              <span class="mr-2 text-teal-500"></span>
              <ais-highlight
              :hit="item" 
              attribute="alias"
              /> 
+
              <span class="text-indigo-300 font-normal">
               from  
+
               <ais-highlight
               :hit="item" 
               attribute="country"
@@ -57,20 +59,20 @@
             attribute="contact_number"
             />
           </p>
+          
         </a>
-        <a :href="`/criminals/`+item.id">
-          <img class="hidden md:block h-16 border-none" :src="`/storage/criminals/`+item.photo">
-        </a>
-      </span> 
-    </div>
-    <!-- No search results message-->
-<!-- <div id="nosearchresults" class="hidden flex pb-6 px-6 bg-white">
-<svg class="fill-current text-indigo-600 h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-<path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
-</svg>
-<span class="ml-4 font-bold"> Oops, no search results!!!1</span>
-</div> -->
-</div>
+        <a href="https://angulartailwind.com">
+          <img class="hidden md:block h-16 border-none" src="https://www.tailwindtoolbox.com/components/angular-tailwind.png"></a>
+        </span> 
+      </div>
+      <!-- No search results message-->
+    <!-- <div id="nosearchresults" class="hidden flex pb-6 px-6 bg-white">
+      <svg class="fill-current text-indigo-600 h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+        <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
+      </svg>
+      <span class="ml-4 font-bold"> Oops, no search results!!!1</span>
+    </div> -->
+  </div>
 </template>
 </ais-hits>
 </ais-instant-search>
@@ -79,53 +81,49 @@
 import algoliasearch from 'algoliasearch/lite';
 import app from "./scripts/api.js";
 export default {
-  props : ['criminal_name'],
-  data() {
+  props : ['criminalsname'],
+  data(){
     return {
-      criminalsName : this.criminal_name,
-      passedCriminalsName : "", 
+      criminalName : this.criminalsname, 
       limitResult : 3 , 
       itemData : null , 
       searchClient: algoliasearch(
         process.env.MIX_ALGOLIA_APP_ID,
         process.env.MIX_ALGOLIA_SEARCH
         ),
-    };
+    }
   },
 
   methods : { 
-   signalChange: function(evt){
-     console.log(evt);
-   }
- },
- computed : { 
-
-  criminalProfile(id){
-    return app.app;
+    reset(){
+      this.criminalName = "";
+      this.$emit("resetSearch");
+    }
   },
 
-  avatarPhoto(){
-    if (this.criminals.photo){
-      return `${window.App.assetStorageCriminalsPath}/${this.criminals.photo}`;
-    }
-    return app + '/storage/public/default_avatar.jpg';
-  }
-},
 
-mounted(){
-  this.passedCriminalsName = this.criminal_name ; 
-},
+  computed : {
+    criminalProfile(id){
+      return app.app;
+    },
 
-watch : { 
-  criminal_name(oldVal,newVal){
-    if(oldVal !== newVal) {
-      this.criminal_name = newVal;
+    avatarPhoto(){
+      if (this.criminals.photo){
+        return `${window.App.assetStorageCriminalsPath}/${this.criminals.photo}`;
+      }
+      return app + '/storage/public/default_avatar.jpg';
+    }    
+  },
+  watch : { 
+    criminal_name(oldVal,newVal){
+      if(oldVal !== newVal) {
+        this.criminalName = newVal;
+      }
     }
-  }
-}
-/*mounted(){
-  this.passedCriminalsName = "";
-} */
+  },
+ /* mounted(){
+    this.criminalName = this.criminals-name; 
+  } */
 };
 </script>
 <style>
@@ -199,11 +197,21 @@ body {
 img {
   max-width: 100%;
 }
-
 em { 
   @apply .bg-blue .p-1 .text-white ; 
 }
 
+.ais-SearchBox-input {
+  @apply bg-grey-lighter p-6 mr-4 h-10 rounded-sm font-basic mb-8 w-3/4;
+}
+
+
+.mySearchBox {}
+.mySearchBoxForm {}
 
 .ais-Hits-item { width: 100%; }
+.ais-InstantSearch { @apply .w-full }
+
+.ais-SearchBox { @apply mb-6 }
+
 </style>

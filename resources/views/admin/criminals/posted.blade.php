@@ -1,3 +1,4 @@
+
 @extends('layouts.master')	
 @section('title', 'Criminals that are posted by you')
 @section('content')
@@ -62,11 +63,8 @@
 
 {{ $criminals->links() }}
 </section>
-
 {{-- CriminalView.vue --}}
-
 <router-view></router-view>
-
 @endsection
 
 

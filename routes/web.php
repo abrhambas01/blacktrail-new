@@ -7,14 +7,16 @@ admin Criminals in your area..
 /*	
 Route::get("/test/email/send",functionf(){
 Mail::send('')
-});
+});`
 */
 
-
+Route::get('broadcast/test', function(){
+	broadcast(new \App\Events\MessageSent("lorem"));
+});
 
 Route::get('get/criminals',function(){
 	$criminals = \App\Criminal::where("first_name",'=',"Kevin")->get();
-	return $criminals ; 	
+	return $criminals ;	 	
 });	
 
 // Route::get("/messags",function(){
@@ -28,7 +30,7 @@ Route::get('get/criminals',function(){
 Route::group(['prefix' => 'admin', 
 	'middleware' => 'isAdmin', 	
 	'namespace' => 'Admin'
-], function () {
+], function(){
 	Route::get("stats","DashboardController@stats")->name("admin.statistics");
 	
 	Route::get("users/pending","DashboardController@pending_users")->name('admin.pending.users');
@@ -206,7 +208,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // `localhost:3000/messages/trackback( $trackback_url, $title, $excerpt, $ID )/fbi44`
 Route::get('messages/t/{respondent}/c/{criminal}',"MessageController@sendMessage")->name('messages.send');
-
 
 
 /*Mailables*/

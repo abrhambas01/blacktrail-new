@@ -58,7 +58,6 @@
       @if(session()->has('flash-message'))
       {{-- this piece of code doesn't work  --}}
       {{-- <flash-message message="{{ session('flash-message' ) }}"></flash-message> --}}
-
       <flash-message inline-template>      
         <div v-show="messageIsAvailable" id="logoutSuccess" class="bg-green-theme p-4 w-full flex justify-between flashMessage">
           <p class="text-white font-semibold text-md font-sans">{{ session('flash-message' ) }}

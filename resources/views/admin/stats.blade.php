@@ -1,9 +1,5 @@
 @extends('layouts.master')
 
 @section('content')
-
-@php
-@dd($stats)
-@endphp
-
+<stats-page></stats-page>
 @endsection

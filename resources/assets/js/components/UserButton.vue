@@ -18,14 +18,23 @@
 </template>
 <script>
 import user from './scripts/api.js';
+
 import OfferBounty from './modals/OfferBounty';
+
 import redirect from '../mixins/redirect';
+
 import api from './scripts/api.js';
+
 export default {
+	
 	props : ['id','criminals','respondentName'],
+	
 	name: 'UserButton',	
+
 	mixins : ['redirect'],
+	
 	components:  { OfferBounty },
+	
 	data () {
 		return {
 			criminal_id : this.id ,
@@ -56,6 +65,7 @@ export default {
 	},
 
 	computed : { 
+
 		chatUrl(respondentName){
 			return api.app + '/messages/t/' + this.respondentName + '/c/' +this.id 
 		},

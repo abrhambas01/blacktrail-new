@@ -2,8 +2,14 @@
 * First we will load all of this project's JavaScript dependencies whi
 * includes Vue and other libraries. It is a great starting point when
 * building robust, powerful web applications using Vue and Laravel.
-*/		
+*/		 
 require('./bootstrap');	
+
+import VueSocketio from 'vue-socket.io';
+import socketio from 'socket.io-client';
+
+// Vue.use(VueSocketio, io(':8090'));
+
 /*when using turbolinks in your app.
 These don't mean that it would work since it means one thing these will not work w/ vue-router..
 */
@@ -39,6 +45,7 @@ Vue.component('dashboard-nav', require('./components/DashboardNav.vue'));
 
 Vue.component('criminal-layout',require('./components/CriminalViewLayout.vue')) ;
 Vue.component('message-conversations',require('./components/Messages/MessageConversations.vue'));
+Vue.component('criminal-search',require('./components/CriminalSearch.vue'));
 Vue.component("edit-criminal",require("./components/EditCriminal.vue"));
 Vue.component("flash-message",require('./components/Alerts/FlashMessage.vue'));
 
@@ -60,6 +67,7 @@ Vue.component('chat-label', require('./components/ChatLabel.vue'));
 Vue.component('upload-image', require('./components/UploadImage.vue'));
 Vue.component('update-profile', require('./components/UpdateProfile.vue'));
 Vue.component('criminals-search', require('./components/CriminalSearch.vue').default);
+Vue.component('stats-page', require('./components/Stats.vue').default);
 // Vue.component('trix-editor', require('./components/TrixEditor.vue'));
 
 // Vue.component('site-sidebar',require('./components/Layouts/SiteSidebar.vue'));
@@ -73,7 +81,7 @@ Vue.component('criminals-search', require('./components/CriminalSearch.vue').def
 
 Vue.filter("capitalize",function(value){
 	if (!value) return ''
-	value = value.toString()
+		value = value.toString()
 	return value.charAt(0).toUpperCase() + value.slice(1)
 });
 
@@ -92,7 +100,7 @@ const app = new Vue({
 		}
 	},
 	router
-	
+
 /*	beforeRouteEnter (to, from, next) {
 		getPost(to.params.id, (err, post) => {
 			next(vm => vm.setData(err, post))

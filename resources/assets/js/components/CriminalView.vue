@@ -13,9 +13,8 @@
 				
 				<div class="text-center">
 					<div id="avatar" class="inline-block mb-6 w-full" >
-						
 						<img :src="avatarPath" onerror="this.src=this.defaultAvatar" class="h-64 w-1/2 border-orange border-2">
-						
+
 						<p class="font-bold font-display mt-2 text-black text-3xl">
 							{{ this.criminals.full_name }}
 						</p>
@@ -40,6 +39,7 @@
 							<p class="font-bold text-md" v-text="">{{  criminal.criminal_offense }} - {{  criminal.pivot.crime_description }}</p>
 						</div>
 					</div>
+
 					<!-- <crimes-list :crimes="crimes" :criminals="criminals"></crimes-list> -->
 				</div>
 				
@@ -56,13 +56,11 @@
 			</div>
 		</div>
 	</div>
-
 </section>
 <div v-show="this.criminals === null">
 	<p>No Criminals Profile</p>
 </div>
 </div>
-
 </template>
 <script>
 import CrimesList from './CrimesList.vue';
@@ -75,9 +73,7 @@ import ChatBox from './modals/ChatBox.vue';
 import _ from 'lodash';
 export default {
 	name: 'CriminalView',
-
 	props : ['criminals','criminalId'],
-
 	components : { 
 		AdminButtons,
 		ChatBox,
@@ -87,10 +83,9 @@ export default {
 	data(){
 		return {
 			showDiv : true , 
+			showIfTheCurrentUserIsTheOneWhoPosted : false,
 			// criminalDetails : this.criminals,
 			// criminalId :  $route.params.id ,
-			showIfTheCurrentUserIsTheOneWhoPosted : false,
-
 			// crimes : this.criminals.crimes
 		}
 	},
@@ -139,7 +134,7 @@ export default {
 
 	showMap(){
 		this.$modal.show('location-map') ; 
-	},
+	},	
 
 	reportCriminalLocation(){
 		this.$modal.show('report-criminal');
@@ -149,12 +144,14 @@ export default {
 		if ( user.id == this.criminals.posted_by ){
 			this.showIfTheCurrentUserIsTheOneWhoPosted = true ; 
 		}
-		else { 
+		else { 	
 			this.showIfTheCurrentUserIsTheOneWhoPosted = false; 
 		}
 	}
 },
+
 mounted(){
+	console.log("user id", this.user.id);
 	this.check_if_the_currently_logged_on_user_is_the_creator(); 
 },
 
@@ -178,8 +175,9 @@ beforeRouteLeave(){
 
 
 computed : { 
+	
 	respondentName(){
-		if (this.criminals.respondent.username !== null ){
+		if (this.criminals.respondent.username != null ){
 			return this.criminals.respondent.username;
 		}
 		return this.criminals.respondent.id;
@@ -225,28 +223,26 @@ computed : {
 		}
 		return bounty ;
 			 // === null ? 'No Profile was listed' : this.criminals.profile.bounty + " " +this.criminals.profile.currency ;
-			},
+	},
 
 			criminalsDetails() {
 			// _.head(this.criminalDetails) ;
 
-			_.sortBy(this.criminals, value => {
-			// console.log(value);
-			return value ; 
-		});
+				_.sortBy(this.criminals, value => {
+				// console.log(value);
+				return value ; 
+			});
+			},
 
-		},
-
-		criminalInfo(criminalsInfo){
-			_.sortBy(this.criminals, value => {
+			criminalInfo(criminalsInfo){
+				_.sortBy(this.criminals, value => {
 		// console.log(value);
 		return value ; 
 
-	});
+		});
 
 		}
-
-	},
+	}
 
 };
 </script>
@@ -254,7 +250,7 @@ computed : {
 <style lang="scss" scoped>
 #trix-toolbar-1 .trix-button-group:not(:first-child) {
 	margin-left: 0vw;
-}
+};
 </style>
 
 <!-- 

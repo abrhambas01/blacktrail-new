@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Mail;
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User ; 
+
 class UserActivated extends Mailable
 {
     use Queueable, SerializesModels;

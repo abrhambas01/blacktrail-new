@@ -63,8 +63,9 @@ export default {
 		}
 	},	
 	methods : {
+		
 		handleTrixInit(file){
-			console.log(file);
+			console.log("file",file);
 		},
 
 		customFormatter(date) {
@@ -362,6 +363,10 @@ computed : {
 },
 
 mounted(){
+	if ( this.criminal.profile != null){
+		alert("No profile was found for this guy");	
+	}
+	
 	this.mountAvatar(this.form.avatar) ;
 }
 
