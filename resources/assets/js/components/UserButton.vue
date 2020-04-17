@@ -13,7 +13,6 @@
 	<!-- <chat-box :id="id" :criminalName="criminals"></chat-box> -->
 
 	<offer-bounty :id="id" :criminals="criminals"></offer-bounty>
-
 </section>
 </template>
 <script>
@@ -26,15 +25,10 @@ import redirect from '../mixins/redirect';
 import api from './scripts/api.js';
 
 export default {
-	
 	props : ['id','criminals','respondentName'],
-	
 	name: 'UserButton',	
-
 	mixins : ['redirect'],
-	
 	components:  { OfferBounty },
-	
 	data () {
 		return {
 			criminal_id : this.id ,
@@ -42,7 +36,6 @@ export default {
 			criminalInfo : this.criminals ,
 		}
 	},
-
 	methods : { 
 		redirectToProfile(id){
 			// console.log(this.criminal_id);

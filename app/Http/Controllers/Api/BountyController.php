@@ -11,12 +11,14 @@ use App\CriminalInfo ;
 class BountyController extends Controller
 {
 	use ConvertsCurrencies;
+	
 		/*** Used for updating the bounty of the criminal based from USD
 		*/
-
 		public function update_the_bounty_of_the_criminal(){
 		/*
 		array:1 [
+
+		
 		"params" => array:3 [
 		"total_amount" => "2.37"
 		"criminal_id" => 3
@@ -26,39 +28,35 @@ class BountyController extends Controller
 		*/
 
 		$items = collect(request()->all());
-
-		$amount = floatval($items->get('params')['total_amount']);
 		
-		$criminal_id = intval($items->get('params')['criminal_id']);
-		
-		$to_currency = $items->get('params')['used_currency'];	
-		
-		$apiKey 					=			$this->currencyApiKey() ; 
+		$amount = floatval(request('total_amount'));
+		$criminal_id = request('criminal_id');
+		$to_currency = strval(request('used_currency'));		
+		$apiKey      =	$this->currencyApiKey() ; 			
 		$payment_currency   		= 			urlencode("USD");
 		$to_currency_code  	        = 			urlencode($to_currency);
 		
-			// /*this one's going fine..*/
-		if ( $to_currency == "USD"){
-				// update it right away..
-
-			$criminal = DB::table('criminal_profiles')->where('criminal_id',$criminal_id)->increment('bounty', $amount);
+	// /*this one's going fine..*/
+		if ( $to_currency == "USD" ){
+			// update it right away..
+			$criminal = DB::table('criminal_profiles')->where('criminal_id',$criminal_id)->	increment('bounty', $amount);
 			
 			return response()->json([
 				'criminal' => $criminal_id ,
 				'amount' => $amount,
 				'currency' => "USD"
 			]); 
+/*
 
-
-		/*	// return response("It's a USD");
+			// return response("It's a USD");
 			$criminal = \App\CriminalInfo::findOrFailById($criminal_id); 	
 			$criminal->bounty += $amount ;
-			$criminal->save();*/
+			$criminal->save();
 			// return response()->json($criminal);
 
 			/*dump("Criminals...");
-			dd($criminal);*/
-
+			dd($criminal);
+*/
 		}
 		else {
 			// dump("non usd..");
@@ -73,17 +71,10 @@ class BountyController extends Controller
 			]; 
 
 			curl_setopt_array($ch, $options);
-			
-			$response =	curl_exec($ch) ;
-			
+			$response =	curl_exec($ch) ;			
 			$info = json_decode($response);
-			
 			$rate = $info->$query ;
-			
 			$total = $rate * $amount ;
-
-			return response()->json("total:",$total) ; 
-
 			$criminal = DB::table('criminal_profiles')->where('criminal_id',$criminal_id)->increment('bounty', $total);
 
 			return response()->json([

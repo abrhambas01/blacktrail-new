@@ -26,30 +26,31 @@ export default {
 			datepickerClass : ['hover:bg-grey-lightest','bg-grey-lighter','w-full','mb-2','p-2', 'leading-normal'], 
 			country : this.criminal.country_id,	
 			form : {		
-				id : this.criminal.id , 
-				full_name : this.criminal.full_name ,
-				alias : this.criminal.alias,
-				first_name : this.criminal.first_name,
-				posted_by : this.criminal.posted_by,
-				middle_name : this.criminal.middle_name,
-				birthplace : this.criminal.profile.birthplace,
-				last_name : 	 this.criminal.last_name,
-				contact_number : this.criminal.contact_number,
-				contact_person : this.criminal.contact_person , 
-				status :         this.criminal.status, 
-				last_seen : this.criminal.profile.last_seen,
-				birthdate : this.criminal.profile.birthdate,
-				eye_color : this.criminal.profile.eye_color,
-				weight : this.criminal.profile.weight_in_kilos,
-				height : this.criminal.profile.height_in_feet_and_inches,
-				country_of_origin : this.criminal.profile.country_of_origin,
-				avatar : this.avatarEndpoint,
-				complete_description : this.criminal.profile.complete_description,
-				height_in_cm : this.criminal.profile.height_in_feet_and_inches,
+				id :null , 
+				avatar : this.criminalAvatar,	
+				birthplace :null ,
+				full_name :null  ,
+				alias :null ,
+				first_name :null ,
+				posted_by :null ,
+				middle_name :null ,
+				last_name : 	null ,
+				contact_number :null ,
+				contact_person : null  , 
+				status :         null, 
+				last_seen : null,
+				birthdate : null,
+				eye_color : null,
+				weight : null,
+				height : null,
+				country_of_origin : null,
+				avatar : null,
+				complete_description : null,
+				height_in_cm : null,
+				body_frame : null,
+				currency : null,
+				bounty : null,
 				maxFiles: 1,
-				body_frame : this.criminal.profile.body_frame,
-				currency : this.criminal.profile.currency,
-				bounty : this.criminal.profile.bounty,
 				uploadUrl: urls.urlSaveCriminal,
 				attachments : [],
 				country_id : 4 , 
@@ -346,8 +347,13 @@ handleAttachmentRemove(file){
 },
 },
 computed : { 
-	avatarEndpoint(){
-		return api.publicPath.replace(/\\/g, "/");
+	criminalAvatar(){
+		if (this.criminal.photo == "default_avatar.jpg"){
+			return urls.urlDomain + `/assets/images/default_avatar.jpg`;
+		}
+		else { 		
+			return `${window.App.assetStorageCriminalsPath}/${this.criminal.photo}`;
+		}
 	},
 
 	endpoint(){
@@ -362,12 +368,38 @@ computed : {
 	}
 },
 
-mounted(){
-	if ( this.criminal.profile != null){
-		alert("No profile was found for this guy");	
+created(){
+	if (this.criminal.profile !== null){
+		alert("No profile was listed for this criminal, please create one for this criminal");	
 	}
-	
-	this.mountAvatar(this.form.avatar) ;
+	if(this.criminal){
+		this.form.id = this.criminal.id ;
+		this.form.full_name = this.criminal.full_name ,
+		this.form.first_name = this.criminal.first_name,
+		this.form.alias = this.criminal.alias,
+		this.form.posted_by = this.criminal.posted_by,
+		this.form.middle_name = this.criminal.middle_name,
+		this.form.last_name = 	 this.criminal.last_name,
+		this.form.contact_number = this.criminal.contact_number,
+		this.form.contact_person = this.criminal.contact_person, 
+		this.form.status =  this.criminal.status
+
+		if(this.criminal.profile)
+			this.form.last_seen = this.criminal.profile.last_seen,
+		this.form.birthdate = this.criminal.profile.birthdate,
+		this.form.birthplace = this.criminal.profile.birthplace,
+		this.form.eye_color = this.criminal.profile.eye_color,
+		this.form.weight = this.criminal.profile.weight_in_kilos,
+		this.form.height = this.criminal.profile.height_in_feet_and_inches,
+		this.form.country_of_origin = this.criminal.profile.country_of_origin,
+		this.form.avatar = this.criminalAvatar,
+		this.form.complete_description = this.criminal.profile.complete_description,
+		this.form.height_in_cm = this.criminal.profile.height_in_feet_and_inches,
+		this.form.maxFiles = 1,
+		this.form.body_frame = this.criminal.profile.body_frame,
+		this.form.currency = this.criminal.profile.currency,
+		this.form.bounty = this.criminal.profile.bounty
+	}
 }
 
 };

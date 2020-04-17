@@ -4,14 +4,12 @@
 			<p class="font-basic tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
 				Criminal Profile of {{ this.criminals.full_name }}
 			</p>
-
 			<div class="bg-white px-8 py-8 pt-4 shadow-md">
 				<div v-show="showIfTheCurrentUserIsTheOneWhoPosted" id="remove-icon">
 					<svg @click="deleteUser(criminalId)" class="h-6 w-6 fillCurrent text-red-darker" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"/>
 					</svg>
 				</div>			
-				
-				<div class="text-center">
+							<div class="text-center">
 					<div id="avatar" class="inline-block mb-6 w-full" >
 						<img :src="avatarPath" onerror="this.src=this.defaultAvatar" class="h-64 w-1/2 border-orange border-2">
 
@@ -43,6 +41,7 @@
 					<!-- <crimes-list :crimes="crimes" :criminals="criminals"></crimes-list> -->
 				</div>
 				
+
 				<div v-else class="font-bold text-3xl font-basic mt-2 text-black-v2">
 					No Crimes were listed for this criminal yet.
 				</div>
@@ -50,6 +49,7 @@
 				<div v-show="userRole === 1 || userRole === 2">
 					<admin-buttons :id="criminalId" :criminals="criminals"></admin-buttons>
 				</div>
+				
 				<div v-show="normalUser">
 					<user-buttons :id="criminalId" :criminals="criminals" :respondentName="this.respondentName"></user-buttons>
 				</div>
@@ -141,7 +141,7 @@ export default {
 	},
 
 	check_if_the_currently_logged_on_user_is_the_creator(){
-		if ( user.id == this.criminals.posted_by ){
+		if ( this.user.id === this.criminals.posted_by ) {
 			this.showIfTheCurrentUserIsTheOneWhoPosted = true ; 
 		}
 		else { 	
@@ -151,7 +151,7 @@ export default {
 },
 
 mounted(){
-	console.log("user id", this.user.id);
+	// console.log("user id", this.user.id);
 	this.check_if_the_currently_logged_on_user_is_the_creator(); 
 },
 
@@ -177,7 +177,7 @@ beforeRouteLeave(){
 computed : { 
 	
 	respondentName(){
-		if (this.criminals.respondent.username != null ){
+		if (this.criminals.respondent.username !== null ){
 			return this.criminals.respondent.username;
 		}
 		return this.criminals.respondent.id;
@@ -223,27 +223,24 @@ computed : {
 		}
 		return bounty ;
 			 // === null ? 'No Profile was listed' : this.criminals.profile.bounty + " " +this.criminals.profile.currency ;
-	},
+			},
 
 			criminalsDetails() {
 			// _.head(this.criminalDetails) ;
 
-				_.sortBy(this.criminals, value => {
+			_.sortBy(this.criminals, value => {
 				// console.log(value);
 				return value ; 
 			});
-			},
+		},
 
-			criminalInfo(criminalsInfo){
-				_.sortBy(this.criminals, value => {
-		// console.log(value);
-		return value ; 
-
-		});
-
+		criminalInfo(criminalsInfo){
+			_.sortBy(this.criminals, value => {
+				// console.log(value);
+				return value ; 
+			});
 		}
 	}
-
 };
 </script>
 

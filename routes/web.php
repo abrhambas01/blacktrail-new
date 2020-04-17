@@ -10,8 +10,12 @@ Mail::send('')
 });`
 */
 
-Route::get('broadcast/test', function(){
-	broadcast(new \App\Events\MessageSent("lorem"));
+use \App\Events\MessageSent;
+
+Route::get("broadcast/test", function(){
+	$message = "Lorem ipsum dolor sit amet.";	
+	event(new MessageSent($message));
+	// broadcast(new \App\Events\MessageSent("lorem"));
 });
 
 Route::get('get/criminals',function(){
@@ -65,7 +69,7 @@ Route::name('auth.resend_confirmation')->get('/register/confirm/resend', 'Auth\R
 Route::name('auth.confirm')->get('/register/confirm/{confirmation_code}', 'Auth\RegisterController@confirm');
 
 // Route::get('admin/criminals', 'CriminalsCo	ntroller@storeCriminal')->name('admin.criminals.store');
-	
+
 Route::get('/admin/groups', 'GroupsController@index')->name('admin.groups')->middleware('isAdmin');
 Route::get("success/registration","ViewsController@registrationSuccess")->name("registrationSuccess");
 Route::get("welcome","ViewsController@registrationSuccess")->name("welcomePage");
@@ -200,7 +204,7 @@ Route::post('/register',[
 	'uses' => 'AuthController@postRegister'
 ]);
 
-
+	
 Route::post('payment/create',"PaypalController@create_payment");
 Route::post('payment/execute',"PaypalController@execute_payment");	
 Route::get("test-paypal","PaypalController@main_paypal_page");

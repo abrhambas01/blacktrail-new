@@ -9,6 +9,7 @@ use Carbon\Carbon ;
 
 class User extends Authenticatable
 {
+    
     use Notifiable, Billable;
 
     public static function findOrFailByToken($code){

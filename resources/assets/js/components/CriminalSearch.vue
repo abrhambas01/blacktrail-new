@@ -4,14 +4,15 @@
   index-name="criminals"
   > 
   <ais-search-box 
-v-model="criminalsname"
+  v-model="criminalName"
   class="bg-white border p-2 border-gray mr-4 h-10 w-full rounded-sm font-basic mt-2 mb-4 w-full" 
   placeholder="Search criminals..."/>
-</ais-search-box>
+  </ais-search-box>
+
 <ais-configure 
 :hits-per-page.camel="3"
 />
-<ais-hits v-show="criminalsname.length > 0 " :escapeHTML="false">
+<ais-hits v-show="this.criminalName.length > 0 " :escapeHTML="false">
   <template
   slot="item"
   slot-scope="{ item }"
@@ -26,10 +27,8 @@ v-model="criminalsname"
             attribute="full_name"
             highlighted-tag-name="mark"
             />
-
             <p class="font-bold text-sm text-indigo-600 hover:text-indigo-500 mt-2">
              <span class="text-xl text-teal-500">aka</span>
-
              <span class="mr-2 text-teal-500"></span>
              <ais-highlight
              :hit="item" 
@@ -38,12 +37,10 @@ v-model="criminalsname"
 
              <span class="text-indigo-300 font-normal">
               from  
-
               <ais-highlight
               :hit="item" 
               attribute="country"
               /> 
-
               <svg class="inline-block pl-2  h-4 fill-current text-brand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 <path d="M9.26 13a2 2 0 0 1 .01-2.01A3 3 0 0 0 9 5H5a3 3 0 0 0 0 6h.08a6.06 6.06 0 0 0 0 2H5A5 5 0 0 1 5 3h4a5 5 0 0 1 .26 10zm1.48-6a2 2 0 0 1-.01 2.01A3 3 0 0 0 11 15h4a3 3 0 0 0 0-6h-.08a6.06 6.06 0 0 0 0-2H15a5 5 0 0 1 0 10h-4a5 5 0 0 1-.26-10z"></path>
               </svg>
@@ -61,16 +58,15 @@ v-model="criminalsname"
           <img class="hidden md:block h-16 border-none" :src="`/storage/criminals/`+item.photo">
         </a>
       </span>
-
     </div>
     <!-- No search results message-->
-    <!-- <div id="nosearchresults" class="hidden flex pb-6 px-6 bg-white">
-      <svg class="fill-current text-indigo-600 h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-        <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
-      </svg>
-      <span class="ml-4 font-bold"> Oops, no search results!!!1</span>
-    </div> -->
-  </div>
+  <!-- <div id="nosearchresults" class="hidden flex pb-6 px-6 bg-white">
+    <svg class="fill-current text-indigo-600 h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+      <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
+    </svg>
+    <span class="ml-4 font-bold"> Oops, no search results!!!1</span>
+  </div> -->
+</div>
 </template>
 </ais-hits>
 </ais-instant-search>
@@ -91,37 +87,36 @@ export default {
         ),
     }
   },
-
   methods : { 
     reset(){
       this.criminalName = "";
-      this.$emit("resetSearch");
+    // this.$emit("resetSearch");
+  }
+},
+
+
+computed : {
+  criminalProfile(id){
+    return app.app;
+  },
+
+  avatarPhoto(){
+    if (this.criminals.photo){
+      return `${window.App.assetStorageCriminalsPath}/${this.criminals.photo}`;
     }
-  },
-
-
-  computed : {
-    criminalProfile(id){
-      return app.app;
-    },
-
-    avatarPhoto(){
-      if (this.criminals.photo){
-        return `${window.App.assetStorageCriminalsPath}/${this.criminals.photo}`;
-      }
-      return app + '/storage/public/default_avatar.jpg';
-    }    
-  },
-  watch : { 
-    criminal_name(oldVal,newVal){
-      if(oldVal !== newVal) {
-        this.criminalName = newVal;
-      }
+    return app + '/storage/public/default_avatar.jpg';
+  }    
+},
+watch : { 
+  criminal_name(oldVal,newVal){
+    if(oldVal !== newVal) {
+      this.criminalName = newVal;
     }
-  },
- /* mounted(){
-    this.criminalName = this.criminals-name; 
-  } */
+  }
+},
+/* mounted(){
+  this.criminalName = this.criminals-name; 
+} */
 };
 </script>
 <style>
@@ -195,23 +190,13 @@ body {
 img {
   max-width: 100%;
 }
-em { 
-  @apply .bg-blue .p-1 .text-white ; 
-}
 
-.ais-SearchBox-input {
-  @apply bg-grey-lighter p-6 mr-4 h-10 rounded-sm font-basic mb-8 w-3/4;
-}
-
-
+em {   @apply .bg-blue .p-1 .text-white ;  }
+.ais-SearchBox-input {  @apply bg-grey-lighter p-6 mr-4 h-10 rounded-sm font-basic mb-8 w-3/4; }
 .mySearchBox {}
 .mySearchBoxForm {}
-
 .ais-Hits-item { width: 100%; }
 .ais-InstantSearch { @apply .w-full }
-
 .ais-SearchBox { @apply mb-6 }
-
 .ais-SearchBox-input { @apply w-full }
-
 </style>

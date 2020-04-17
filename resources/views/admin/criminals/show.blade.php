@@ -19,16 +19,27 @@ use Carbon\Carbon;
 						<div class="text-center">
 							<div id="avatar" class="inline-block mb-6 w-full" >
 								@if(\Storage::disk('public')->exists('criminals/'.$criminal->photo))
+								
 								<img class="h-36 w-50 border-orange border-2" src="{{ asset('storage/criminals/' . $criminal->photo) }}">
+
 								@else
 
 								<img class="h-36 w-45 rounded-full border-orange border-2" 
-								src="{{ asset('/assets/images/avatar.jpg') }}">
+								src="{{ asset('/assets/images/default_avatar.jpg') }}">
 
 								{{-- 	<img src="{{ asset('storage/images/'.'default_avatar.jpg') }}" class="h-50 w-50 rounded-full border-orange border-2"> --}}
 								@endif
 								
+								<button class="hover:bg-blue-darker hover:text-white bg-blue rounded-full w-1/2 mt-4 h-12 ">
+									<a href="{{ route('admin.criminals.edit',$criminal->id) }}" class="text-white hover:text-blue-lighter">
+										Edit Profile
+									</a>
+								</button>
+
 								<p class="font-normal font-display mt-2 text-black text-3xl">{{ $criminal->full_name }} aka <em class="font-bold"> {{  $criminal->alias }}</em></p>
+
+
+
 								<p class="font-bold mt-2 text-black text-2xl">Bounty:</p>
 
 								@if ($criminal->profile()->exists())
@@ -43,7 +54,6 @@ use Carbon\Carbon;
 										Report Location
 									</a>
 								</button>
-								
 								@endif
 							</div>
 						</div>
@@ -72,13 +82,9 @@ use Carbon\Carbon;
 									<p class="text-md text-normal mr-4">Age : <em class="font-bold roman">{{  $criminal->profile->age }}</em></p>
 								</div>
 
-								@endif
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Country of Origin : <em class="font-bold roman">{{  $criminal->country->name }}</em></p>
 								</div>
-
-								@if ($criminal->profile()->exists())
-
 
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Country Last seen : <em class="font-bold roman">{{  $criminal->profile->country_last_seen }}</em></p>
@@ -118,6 +124,12 @@ use Carbon\Carbon;
 
 							<div class="row mb-3">
 								<p class="text-md text-normal mr-4">Height (in feet and inches) : <em class="font-bold roman">{{ ucwords($criminal->profile->height_in_feet_and_inches) }}</em></p>
+							</div>
+
+							@else
+
+							<div class="row mb-3">
+									<h3>There was no profile listed for this criminal now.</h3>
 							</div>
 							
 							@endif

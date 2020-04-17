@@ -10,10 +10,9 @@ class Message extends Model
 
 	// protected $fillable = ['id','from_id','to_id','body'];
     protected $table = 'messages';
-    
     protected $guarded = [];
-    
     protected $appends = ['sender','receiver'];
+
 	  /**
      * User has many Messages.
      *
@@ -24,16 +23,12 @@ class Message extends Model
         // hasMany(RelatedModel, foreignKeyOnRelatedModel = user_id, localKey = id)
         return $this->hasMany(User::class,'id','from');
     }
-
     public function getCreatedAtAttribute($value){
         return Carbon::parse($value)->diffForHumans();
     }
-
-
     public function getSenderAttribute(){
         return User::where('id',$this->sender_id)->first();
-    } 
-
+    }
 
     public function getReceiverAttribute(){
         return User::where('id',$this->receiver_id)->first();

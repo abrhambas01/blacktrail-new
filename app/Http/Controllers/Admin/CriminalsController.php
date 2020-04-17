@@ -376,8 +376,6 @@ if (request()->wantsJson()) {
              'bounty' =>                     request()->input('form.bounty'),
              'complete_description' =>       request()->input('form.complete_description')
            ]);
-
-
             $items = collect(request('criminalCrimes'));
             $criminalCrimes = $request->criminalCrimes;
             $crimes = [];

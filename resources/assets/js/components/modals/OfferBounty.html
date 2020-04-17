@@ -13,7 +13,8 @@
 			</div>
 		</div>
 		<div class="p-4">
-			<p class="font-semibold text-lg ml-4">Current Bounty : {{ this.currentBounty 
+			<p class="font-semibold text-lg ml-4">
+				Current Bounty : {{ this.currentBounty 
 			}}
 			</p>
 			<p class="font-semibold text-sm ml-4 mt-2" v-show="this.bounty_in_usd !== null">Additional Bounty (in USD) : {{ this.bounty_in_usd }}</p>
@@ -63,7 +64,7 @@
 					:env="environment"
 					:style="button_style"
 					:client="paypal">
-				</paypal-checkout>
+					</paypal-checkout>
 			</div>
 		</form>
 	</div>

@@ -25,21 +25,22 @@ class SearchController extends Controller
 
  public function searchForACriminal(Request $request)
  {
-
+    return response()->json($request->all());
+  
+     // dd(request()->all());
    /* $sortByValue = request()->input("sortBy");
     $countryValue = request()->input("country");
     */
-    if (request()->has('sortBy') && request()->has('country'))
+    /*if (request()->has('sortBy') && request()->has('country'))
     {
-      dd("No");
-      // return response("Good",201);
+      return response("Good",201);
     }
     else { 
-
       return response("Well it's bad",500);
-    }
+    }*/
+  
+  } 
 
-}
 }
 
 

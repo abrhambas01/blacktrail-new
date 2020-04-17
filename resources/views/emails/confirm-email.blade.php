@@ -3,12 +3,15 @@
 @section('title', 'Confirm your Email')
 
 @section('content')
+
 <table border="0" cellpadding="0" cellspacing="0" class="body">
 	<tr>
 		<td>&nbsp;</td>
 		<td class="container">
 			<div class="content">
-				<span class="preheader">Subscribe to Coloured.com.ng mailing list</span>
+				<span class="preheader">
+					Subscribe to Coloured.com.ng mailing list
+				</span>
 				<table class="main">
 
 					<!-- START MAIN CONTENT AREA -->
@@ -65,4 +68,5 @@
 		<td>&nbsp;</td>
 	</tr>
 </table>
+
 @endsection

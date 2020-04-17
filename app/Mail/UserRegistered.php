@@ -6,7 +6,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User ; 
 
-
 class UserRegistered extends Mailable
 {
     use Queueable, SerializesModels;

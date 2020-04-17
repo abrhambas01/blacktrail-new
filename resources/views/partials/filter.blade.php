@@ -1,6 +1,6 @@
 <user-filters inline-template>	
 	<form @submit.prevent="startSearch">
-		<div class="bg-white mb-4 w-4/5 mt-4 px-4 py-4 rounded-sm">
+		<div class="bg-white mb-4 w-full mt-4 px-4 py-4 rounded-sm">
 			<h3 class="font-basic text-2xl mt-2 mb-4">Search for Criminals Below.</h3>
 			<div class="flex">	
 				<label class="mt-6 text-md font-bold mr-24" for="sortBy">Sort By</label>
@@ -15,20 +15,23 @@
 					{{-- <option value="3">Very Popular</option> --}}
 				</select>
 
+
 				<select placeholder="Country of Origin" v-model="country" class="bg-grey-lightest border p-2 border-gray mr-4 h-10 w-full rounded-sm font-basic mt-2 mb-4">
 					<option>Country</option>
 					@foreach ($countries as $country)
 					<option value="{{  $country->id }}">{{ $country->name }}</option>
 					@endforeach
 				</select>
+		
 			</div>
+
 
 			<p class="font-bold mb-2 text-md" v-show="criminalName && !sortBy && !country">
 				Or Search by Name
 			</p>
 
 			<div class="mt-4 flex" v-show="criminalName && !sortBy && !country">
-				<criminal-search :criminalsname="criminalsName"></criminal-search>	
+				<criminal-search ref="criminalSearchComponent" :criminalsname.sync="criminalsName"></criminal-search>	
 			</div>
 
 			<div class="flex text-center mt-8">
@@ -38,7 +41,7 @@
 					<div class="text-center flex">
 						<p class="ml-4 font-bold text-center">Start Searching</p>
 					</div>
-				</button>
+				</button>	
 			</div>
 
 			<div class="flex text-center" style="margin-top:3px;" v-show="criminalName && sortBy && country">
@@ -53,4 +56,5 @@
 		</div>
 	</div>
 </form>
+
 </user-filters>

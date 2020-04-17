@@ -1,4 +1,5 @@
 @extends('layouts.master')
+
 @section('title', 'All Wanted Criminals')
 
 @section('content')
@@ -48,8 +49,11 @@
 			</div>
 		</article>
 	</criminals-view>
+
 	@empty
+	
 	<h3>No Criminals are added yet..</h3>
+	
 	@endforelse
 
 	{{ $criminals->links() }}

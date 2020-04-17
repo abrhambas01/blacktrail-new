@@ -48,7 +48,8 @@ export default {
       		this.sortBy = "";
       		this.country = null;
       		this.criminalsName = "";
-      		this.$emit('update:criminalsName', ' ')
+      		// this.$emit('update:criminalsName','');
+      		this.$refs.criminalSearchComponent.reset('');
       	},
 
       	changeFilterAdmin(event){
@@ -65,14 +66,14 @@ export default {
 
 				// console.log("Criminal country is used not the criminal name. So we ");
 
-				axios.get(this.search_criminals_endpoint, { 
-					sortBy : this.sortBy,
-					country : this.country 
-				}).then(response => { 
-					console.log(response.data);
-				}).catch(error => {
-					console.log(error);
-				});
+						axios.get(this.search_criminals_endpoint, { 
+							sortBy : this.sortBy,
+							country : this.country 
+						}).then(response => { 
+							console.log("Response Data",response.data);
+						}).catch(error => {
+							console.log(error);
+						});
 
 			}
 			else {

@@ -1,10 +1,10 @@
 <!doctype html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>@yield("title")</title>
-    <style>
+<head>
+<meta name="viewport" content="width=device-width" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>@yield("title")</title>
+<style>
   /* -------------------------------------
       GLOBAL RESETS
   ------------------------------------- 
@@ -12,7 +12,9 @@
       img {
         border: none;
         -ms-interpolation-mode: bicubic;
-        max-width: 100%; }
+        max-width: 100%; 
+      }
+
       body {
         background-color: #f6f6f6;
         font-family: sans-serif;

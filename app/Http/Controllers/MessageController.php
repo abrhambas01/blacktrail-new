@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\User ; 
 use App\Message ; 
 use App\Criminal ; 
+use DB;
+
 class MessageController extends Controller
 {
 	/*
@@ -14,15 +16,31 @@ class MessageController extends Controller
 	*/
 	public function sendMessage($user,$criminal)
 	{
-		$message = Message::where([
-			['sender_id','=', auth()->id()],
-			['receiver_id', '=',$user]
-		])->get();
+/*
+$message = Message::where([
+['sender_id','=', auth()->id()],
+['receiver_id', '=',$user]
+])->get();
+*/
+
+	// = User::where("username",'=',$user)->pluck('id');
+
+		$receiver_id = DB::table('users')
+		->where('username','=',$user)
+		->value('id');
+
+		$messages = Message::where([
+			'sender_id' => auth()->user()->id,
+			'receiver_id' => $receiver_id])
+		->orWhere('sender_id', $receiver_id)
+		->where('receiver_id', auth()->user()->id)
+		->where('criminal_id',$criminal)
+		->orderBy('id','=','asc')
+		->get();
 
 		$criminal = Criminal::where('id','=',$criminal)->with('respondent')->get();
-
-		return view('messages',compact("message",'criminal'));
-	
+		
+		return view('messages',compact("messages",'criminal'));
 	}
 
 	public function getUserNotifications()

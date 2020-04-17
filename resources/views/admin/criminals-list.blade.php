@@ -8,11 +8,11 @@
 
 @include('modals.report-criminal')
 @include('modals.location-map')
+
 <section class="w-1/2x ml-6">
 	<p class="font-basic tracking-normal text-3xl mb-4 mt-4 font-normal text-black mr-2">Wanted Criminals</p>
 	
 	@include('partials.filter')	
-
 
 	@forelse ($criminals as $criminal)
 	<criminals-view :criminals="{{ strip_tags($criminal) }}" inline-template> 
@@ -40,11 +40,13 @@
 				</div>
 			</div>
 		</article>
+
 	</criminals-view>
 
-	{{-- <criminal-view :criminals="{{ $criminal }}"></criminal-view> --}}
 	@empty
-	<h3>No Criminals are added yet..</h3>
+
+		<h3>No Criminals are added yet..</h3>
+
 	@endforelse
 	{{ $criminals->links() }}
 </section>

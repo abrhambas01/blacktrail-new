@@ -91,6 +91,7 @@ export default {
 		return api.app + '/api/v1/update/bounty';
 	},
 
+
 	currentBounty(){
 		let profile = this.criminals.profile; 
 		if (profile !== null) {
@@ -100,6 +101,7 @@ export default {
 			return "No Bounty Listed for this criminal yet";
 		}
 	},
+
 	updateBounty(){
 		// convert the current money currency to usd
 		this.convert_to_usd();
@@ -123,9 +125,7 @@ export default {
 		console.log(error);
 		});
 		*/
-
 	}
-
 },
 
 
@@ -139,19 +139,17 @@ methods : {
 	},
 	
 	add_up_the_value_to_the_bounty_of_the_criminal(amount_paid){
+		console.log("Aount paid",amount_paid);
+
 		axios.put(this.update_the_bounty_of_the_user_endpoint, {
-			params : {
-				total_amount: amount_paid,
-				criminal_id : this.criminal_id ,
-				used_currency : this.usedCurrency	
-			}
-		})
-		.then(response => {
+			total_amount: amount_paid,
+			criminal_id : this.criminal_id ,
+			used_currency : this.usedCurrency	
+		}).then(response => {
 			console.log(response);
 		}).catch(function (error) {
 			console.log(error);
 		});
-
 	},
 
 	pay_completed(payload){
@@ -161,15 +159,18 @@ methods : {
 
 		if (payload.state =="approved"){
 			let total_amount_paid_in_usd = payload.transactions[0].amount.total ;
+			
 			this.add_up_the_value_to_the_bounty_of_the_criminal(total_amount_paid_in_usd);
-			Vue.swal("Payment was made in USD value of:"+total_amount_paid_in_usd);
+			
 			this.$modal.hide('offer-bounty');
+			location.reload();
+			router.reload();
+			Vue.swal("Payment was made in USD value of:"+total_amount_paid_in_usd);	
 		}
 		else { 
 			this.$modal.hide('offer-bounty');
 			Vue.swal("We encounter some issues while trying to create that payment of yours..");
 		}
-
 	},
 	pay_cancelled(payload){
 		console.log("Payment is cancelled");
@@ -189,15 +190,19 @@ methods : {
 				}	
 			}).then(response => {
 				let bounty_value_in_usd = response.data.toFixed(2);
-				
-				this.bounty_in_usd = parseFloat(bounty_value_in_usd) ;
-				
+				this.bounty_in_usd = parseFloat(bounty_value_in_usd) ;				
 				if (this.form.currencyCode == "USD") {
+					
 					this.textStatus =  `...`;
+
 				}
 				else {
+					
 					this.textStatus =  `${this.form.offer_bounty} ${this.form.currencyCode} is equal to ${this.bounty_in_usd} USD`;
+				
+
 				}
+
 				console.log(response);				
 /*
 				axios.get(this.fetch_currencies_endpoint)
@@ -262,7 +267,6 @@ else {
 			toCurrencyCode : this.criminals.profile.currency   
 		}
 	},
-
 	update_bounty(){	
 		// using currency layer api.
 		let updateBountyRoute = routes.add_bounty_url   ;
@@ -311,19 +315,13 @@ watch : {
 
 mounted(){
 	this.fetch_currencies();
-	
-	// return fx(1000).from("USD").to("GBP");
-	// this.fetch_users();
-
-
-	/*
-	// console.log(fx.convert(12.99, {from: "GBP", to: "HKD"}));
-	this.$watch('form.total_price', function(){
-
-
-	}, optionsObj)
-	*/
-	
+// return fx(1000).from("USD").to("GBP");
+// this.fetch_users();
+/*
+// console.log(fx.convert(12.99, {from: "GBP", to: "HKD"}));
+this.$watch('form.total_price', function(){
+}, optionsObj)
+*/	
 }
 };
 </script>
