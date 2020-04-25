@@ -9,7 +9,7 @@
     @auth
     <div id="profile" class="absolute flex text-black" style="right: 1rem;">
         <p class="mt-3 font-basic font-bold mr-4">{{ $displayName }}</p> 
-        <img @click="showSidebar ^= true" id="userAvatar" class="h-10 w-10 rounded-full mb-2 border-white border-4 avatarImg" src="{{ $avatar }} " alt="Avatar">
+        <img onerror="this.src = {{ public_path("/assets/images/default_avatar.jpg") }}" @click="showSidebar ^= true" id="userAvatar" class="h-10 w-10 rounded-full mb-2 border-white border-4 avatarImg" src="{{ $avatar }} " alt="Avatar">
         <div v-show="showSidebar" class="dropdown-menu mr-2 h-42 show" style="position: absolute; transform: translate3d(-57px, 34px, 0px); top: 0px; right: -30px; will-change: transform;">
             <nav class="font-medium font-basic ml-3 mt-1">
                 <ul class="list-reset p-2">
@@ -21,4 +21,5 @@
         </div>
     </div>
     @endauth
+
 </header>

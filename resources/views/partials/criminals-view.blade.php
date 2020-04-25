@@ -1,4 +1,5 @@
 <criminals-view inline-template :criminals="{{  $criminal }}">
+	
 	<article class="timeline-feeds">	
 		<div class="flex" id="userProfile">	
 			<router-link :to="{ name : 'criminalView', params : { criminalId : criminal.id , criminals : criminal }}" tag="a">
@@ -14,4 +15,5 @@
 			</div>
 		</div>
 	</article>
+
 </criminals-view>

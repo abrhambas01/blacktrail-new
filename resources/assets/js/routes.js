@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router';		
 import CriminalView from './components/CriminalView.vue';
+import NotFoundComponent from './components/NotFoundComponent.vue';
 // import GroupView from './components/GroupView.vue';
 let routes = [ 
 { 		
@@ -13,17 +14,17 @@ let routes = [
 	component : CriminalView,	
 	props : true 	
 	// name : 'criminalView',
+},
+
+{
+ path: '*', component: NotFoundComponent 
 }
 
-/*{
-	path : 'user/:userId', 
-	name : 'chatView',
-	component : ChatView, 
-	props : true
-}*/
+
 ];
 
 export default new VueRouter({
+	// mode : 'history',
 	routes,
 	linkActiveClass: 'is-active'
 });

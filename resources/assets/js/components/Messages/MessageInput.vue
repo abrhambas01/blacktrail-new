@@ -35,8 +35,6 @@ methods: {
     this.$emit('pressedEnter',this.messageText)
     this.messageText = "";
   }
-
 }
-
 };
 </script>

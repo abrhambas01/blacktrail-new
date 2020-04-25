@@ -8,7 +8,7 @@ export default {
 	},
 	methods : {
 		hideAfterSeconds(){
-			setTimeout(() => this.messageIsAvailable = false, 5000);
+			setTimeout(() => this.messageIsAvailable = false, 10000);
 		},
 		hideAlert(){
 			this.messageIsAvailable = false; 

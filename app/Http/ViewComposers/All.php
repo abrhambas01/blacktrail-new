@@ -4,7 +4,6 @@ use App\Country ;
 use Illuminate\View\View;
 
 class All { 
-
 	public function compose(View $view)
 	{
 		if (auth()->check()){

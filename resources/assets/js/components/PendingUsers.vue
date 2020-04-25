@@ -37,7 +37,7 @@ methods : {
 				}).catch((error ) =>{
 					console.log(error);
 				})
-				
+
 				Swal(
 					'Deleted!',
 					'This user was deleted successfully',

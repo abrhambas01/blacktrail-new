@@ -30,7 +30,6 @@
 						<option v-for="admin in admins" :value="admin.id" v-text="admin.display_name"></option>
 					</select>
 				</div>
-
 			</div>
 
 			<div class="flex inline-block mt-4">
@@ -483,6 +482,7 @@ handleEditorChange(file){
 
 		resetForm(){
 			this.resetting = true;
+			
 			console.log('Resetting the form');
 			const self = this; //you need this because *this* will refer to Object.keys below`
 
@@ -516,7 +516,9 @@ handleEditorChange(file){
 				}).then(response => {
 					if ( response.status === 200){
 						alert("Successfully Registered This Criminal");
-						this.resetForm();
+					this.resetForm();
+						// window.location.href = window.App.apiDomain + "/admin/criminals/posted/"+ api.user.id ; 
+						// location.reload("admin/criminals/"+response);
 					}
 					else {
 						alert("We encounter some errors while adding that criminal");

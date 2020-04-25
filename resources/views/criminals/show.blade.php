@@ -13,9 +13,15 @@ use Carbon\Carbon;
 			<div class="shadow-md bg-white p-2 mt-4">
 				<div class="">
 					<div class="ml-4">	
-						<p class="w-full font-basic ml-2 tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
-							Criminal Profile of {{ $criminal->full_name }} 
-						</p>
+						
+						<div class="flex inline-block">
+							<p class="w-full font-basic ml-2 tracking-normal text-2xl mb-4 mt-4 font-normal text-black mr-2">
+								Criminal Profile of {{ $criminal->full_name }} 
+							</p>
+							<div class="bg-green-dark rounded-full h-8 w-8 flex items-center justify-center text-white">1
+							</div>
+						</div>
+
 						<div class="text-center">
 							<div id="avatar" class="inline-block mb-6 w-full" >
 								@if(\Storage::disk('public')->exists('criminals/'.$criminal->photo))
@@ -104,7 +110,7 @@ use Carbon\Carbon;
 							</div>
 
 							<div class="row mb-3">
-								<p class="text-md text-normal mr-4">Weight(Kilos) : <em class="font-bold roman">{{ ucwords($criminal->profile->weight_in_kilos) }}</em>
+								<p class="text-md text-normal mr-4">Weight : <em class="font-bold roman">{{ ucwords($criminal->profile->weight_in_kilos) }}</em>
 
 								</p>
 							</div>
@@ -117,7 +123,7 @@ use Carbon\Carbon;
 							</div>
 
 							<div class="row mb-3">
-								<p class="text-md text-normal mr-4">Height (in feet and inches) : <em class="font-bold roman">{{ ucwords($criminal->profile->height_in_feet_and_inches) }}</em></p>
+								<p class="text-md text-normal mr-4">Height: <em class="font-bold roman">{{ ucwords($criminal->profile->height_in_feet_and_inches) }}</em></p>
 							</div>
 							
 							@endif

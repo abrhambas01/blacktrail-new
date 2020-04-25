@@ -18,7 +18,7 @@ trait ConvertsCurrencies {
 	}
 
 	public function testConvert(){
-		echo $this->convertCurrency(10,'USD','PHP');
+		echo $this->convert_chars( $content, $deprecated = '' )Currency(10,'USD','PHP');
 	}				
 
 	protected function currencyApiKey(){

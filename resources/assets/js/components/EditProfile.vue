@@ -26,20 +26,18 @@ export default {
 		saving: false
 	}),
 
-	mounted () {
-
+	mounted(){
 		this.loading = true
-
-		// GET JSON
-		axios.get('/criminal/3/show').then(response => {
-			this.input = response.data
-			this.error = null
-		}).catch(error => {
-		this.error = error.message // Set error string...
-	}).finally(() => {
-		this.loading = false
-	})
-},
+				// GET JSON
+				axios.get('/criminal/3/show').then(response => {
+					this.input = response.data
+					this.error = null
+				}).catch(error => {
+				this.error = error.message // Set error string...
+			}).finally(() => {
+				this.loading = false
+			})
+	},
 methods: {
 	save () {
 		this.saving = true

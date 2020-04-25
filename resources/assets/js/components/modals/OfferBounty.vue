@@ -11,7 +11,7 @@ export default {
 		return {
 			textStatus : "Note : This software service uses USD for making payments just specify your currency, and we'll automatically convert your money",
 			isTyping : false ,
-			bounty_in_usd : 0.00,
+			bounty_in_usd : 2.03,
 			usedCurrency: this.criminals.profile.currency,
 			isConverting : false , 
 			api_results : [0,3,4,5],
@@ -39,14 +39,12 @@ export default {
 				"currency": "USD"
 			}
 			],
-
+			
 			paypal: {
 				sandbox: 'ASKgsenjMcu30HAZQM_IRrlaEXjEkD5iJQaCO095cO8cL714mr6aIcIJO-TZ9xDgd-50ViBkfryO1-Jw',
 				production: 'ARVBy7D7n5t2sHfx56TXtszDOKWlsl9Rhww9tW7AFGCh--mJdOWr7-VFP1Qy9SSSNhqo7j5i4uWvHnZm'
 			},
-
-			environment : "sandbox",
-
+			environment : "production",
 			button_style : {
 				label: 'checkout',
 				size:  'large',    // small | medium | large | responsive
@@ -58,7 +56,6 @@ export default {
 			currencies : [],
 		}
 	},
-
 	computed : {
 		// returns what would be the value of the current money that will be converted...
 		current_money(value){
@@ -71,11 +68,8 @@ export default {
 		// 		this.convert_currency();
 
 		// 		let convert_money = fx.convert(1000, {from: "USD" , to: "HKD"});
-
 		// 		console.log(convert_money)
-
-
-		// 		return parseFloat(this.form.offer_bounty).toFixed(2);		
+		// 		return parseFloat(this.form.offer_bounty).toFixed(2);
 	},
 
 	fetch_currencies_endpoint(){

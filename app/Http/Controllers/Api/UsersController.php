@@ -29,21 +29,22 @@ class UsersController extends Controller
 		return response()->json($user);
 	}
 
+	/*Activate user*/
 	public function activate_user(){
+		
 		$user_id = intval(request('user_id'));
-
 		DB::table('users')->where('id', '=', $user_id)->update(['status' => '1']);	
-
 		$user = DB::table("users")->where('id','=',$user_id)->get();
-
 		Mail::to($user->email)->send(new UserActivated($user));
 		return response()->json($user);
+
 	}
 
 	public function updateUser(Request $request,$id)
 	{
 		$validator = Validator::make($request->input('form'), [
 			'display_name' => 'required|min:3|max:100',
+			'description' => 'required|min:3|max:255',
 			'username' => 'required|unique:users|min:4|max:15',
 			'email' 	   => 'required|email|unique:users',
 			'phone_number' => 'required|min:3',
@@ -56,19 +57,22 @@ class UsersController extends Controller
 			$base64String = request()->input('form.avatar') ; 
 			$image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
 			$imageName = str_random(30) . '.png';
+
 			$imageStore = Storage::disk('public')->put($imageName, $image, 'public'); 
 
 			$userData = [
-				'display_name'  => $request->input("form.display_name"),
-				'username'	 	=> $request->input("form.username"),
-				'email' 		=> $request->input("form.email"),
-				'phone_number'  => $request->input("form.phone_number"),
-				'password' 		=> bcrypt($request->input("form.password")),
-				'country_id' 	=> $request->input("form.country_id"),
-				'avatar' 		=> $imageName
+			'display_name'  => $request->input("form.display_name"),
+			'username'	 	=> $request->input("form.username"),
+			'description'	 	=> $request->input("form.description"),
+			'email' 		=> $request->input("form.email"),
+			'phone_number'  => $request->input("form.phone_number"),
+			'password' 		=> bcrypt($request->input("form.password")),
+			'country_id' 	=> $request->input("form.country_id"),
+			'avatar' 		=> $imageName
 			];
 
 			$user = User::findOrFail($id);
+
 			$user->update($userData);
 			
 			if ($user){ 
@@ -82,6 +86,7 @@ class UsersController extends Controller
 			$userData = [
 				'display_name'  => $request->input("form.display_name"),
 				'username'	 	=> $request->input("form.username"),
+				'description' 	=> $request->input("form.description"),
 				'email' 		=> $request->input("form.email"),
 				'phone_number'  => $request->input("form.phone_number"),
 				'password' 		=> bcrypt($request->input("form.password")),
@@ -99,7 +104,6 @@ class UsersController extends Controller
 				return response("Didn't update",200);	
 			}
 		}
-		
 	}	
 
 	public function update_profile_of_the_user(Request $request)
@@ -111,13 +115,10 @@ class UsersController extends Controller
 		$password = request()->input('form.password');
 		$confirm_password = request()->input('form.confirm_password');
 
-/*if the two passwords don't match then issue a response*/
-		
-
+		/*if the two passwords don't match then issue a response*/
 		if (is_null($password) || is_null($confirm_password)) {
 			$this->updateUser(request(),$id);
 		}
-
 
 		if ( $password !=  $confirm_password) {
 			return response()->json(['error' => 'Your Passwords do not match, try to fix it out'], 401);

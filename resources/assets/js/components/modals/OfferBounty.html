@@ -3,7 +3,7 @@
 		<div class="bg-black-v2 p-4"> 
 			<div class="init-row">
 				<div class="item">	
-					<h3 style="width:200%" class="text-normal font-basic tracking-normal ml-4 text-white">Offer Bounty to Criminal :  			{{ criminals.full_name }}
+					<h3 style="width:200%" class="text-normal font-basic tracking-normal ml-4 text-white">Offer Bounty to Criminal : {{ criminals.full_name }}
 					</h3>
 				</div>
 				<div class="item">
@@ -54,6 +54,7 @@
 					<button @click="notify_user" v-show="form.payment_option != 1" class="bg-blue pt-4 py-4 px-2 w-full text-white font-bold">Offer this bounty
 					</button>
 					<paypal-checkout
+					:env="environment"
 					class="mt-4 p-2"
 					v-show="form.payment_option == 1"
 					:amount="bounty_in_usd"
@@ -61,7 +62,6 @@
 					@payment-authorized="pay_authorized"
 					@payment-completed="pay_completed"
 					@payment-cancelled="pay_cancelled"
-					:env="environment"
 					:style="button_style"
 					:client="paypal">
 					</paypal-checkout>

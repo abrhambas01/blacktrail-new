@@ -12,7 +12,6 @@ return [
     | any of the connections defined in the "connections" array below.
     |
     | Supported: "pusher", "redis", "log", "null"
-    |
     */
 
     'default' => env('BROADCAST_DRIVER', 'null'),
@@ -40,7 +39,7 @@ return [
                 'encrypted' => true,
             ],
         ],
-
+ 
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',

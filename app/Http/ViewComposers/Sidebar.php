@@ -1,11 +1,8 @@
 <?php 
 
 namespace App\Http\ViewComposers;
-
 use App\Country ; 
-
 use Illuminate\View\View;
-
 class Sidebar { 
 
 	public function compose(View $view)

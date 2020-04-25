@@ -21,4 +21,5 @@ class TrixAttachment extends Model
 		Storage::disk($this->disk)->delete($this->attachment);
 		$this->delete();
 	}
+
 }

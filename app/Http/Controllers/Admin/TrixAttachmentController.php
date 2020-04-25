@@ -13,4 +13,5 @@ class TrixAttachmentController extends Controller
 
 	public function destroyAttachment(){
 	}
+
 }

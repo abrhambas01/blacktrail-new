@@ -12,11 +12,13 @@ Mail::send('')
 
 use \App\Events\MessageSent;
 
+
 Route::get("broadcast/test", function(){
 	$message = "Lorem ipsum dolor sit amet.";	
 	event(new MessageSent($message));
 	// broadcast(new \App\Events\MessageSent("lorem"));
 });
+
 
 Route::get('get/criminals',function(){
 	$criminals = \App\Criminal::where("first_name",'=',"Kevin")->get();
@@ -35,6 +37,7 @@ Route::group(['prefix' => 'admin',
 	'middleware' => 'isAdmin', 	
 	'namespace' => 'Admin'
 ], function(){
+	
 	Route::get("stats","DashboardController@stats")->name("admin.statistics");
 	
 	Route::get("users/pending","DashboardController@pending_users")->name('admin.pending.users');
@@ -66,6 +69,7 @@ Route::resource("group","GroupController",[
 
 
 Route::name('auth.resend_confirmation')->get('/register/confirm/resend', 'Auth\RegisterController@resendConfirmation');
+
 Route::name('auth.confirm')->get('/register/confirm/{confirmation_code}', 'Auth\RegisterController@confirm');
 
 // Route::get('admin/criminals', 'CriminalsCo	ntroller@storeCriminal')->name('admin.criminals.store');
@@ -104,8 +108,6 @@ Route::get('register/success','ViewsController@registration_success')->name('con
 Route::get('project',function(){
 	return view('project');
 });
-
-
 /**
 * User profile for the logged on 	user.
 */

@@ -29,15 +29,20 @@
 						<p class="text-md text-normal mr-4">Username : <em class="font-bold roman" v-text="user[0].username"></em></p>
 					</div>	
 
-					<div class="row mb-3">
-						<p class="text-md text-normal mr-4">Country : <em class="font-bold roman" v-text="user[0].country.name"></em></p>
+					<div class="row mb-6">
+						<p class="text-md text-normal mr-4">Country : 
+							<em class="font-bold roman" v-text="user[0].country.name"></em>
+						</p>
 					</div>	
 				</div>
 
 				<div class="item" id="crimes-section">
-
 					<div class="row mb-3">
 						<p class="text-md text-normal mr-4">Phone Number : <em class="font-bold roman" v-text="user[0].phone_number == null ? 'N.A' : user[0].phone_number  "></em></p>
+					</div>	
+					<div class="row mb-3">
+						<p class="text-md text-normal mr-4">Description : <em class="font-bold roman" v-text="user[0].description == null ? 'N.A' : user[0].description  "></em>
+						</p>
 					</div>	
 				</div>
 			</div>

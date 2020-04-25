@@ -6,10 +6,12 @@
 				<div class="py-6 h-screen">
 					<div class="flex border border-grey rounded shadow-lg h-full">
 						<div class="w-1/3 border flex flex-col">
+
 							<div class="py-2 px-3 bg-grey-lighter flex flex-row justify-between items-center">
-								<div>
-									<img class="w-10 h-10 rounded-full" :src="currentUserAvatar"/>
-								</div>
+
+							<div>
+								<img class="w-10 h-10 rounded-full" :src="currentUserAvatar"/>
+							</div>
 
 								<div class="flex">
 									<div>
@@ -84,10 +86,10 @@ export default {
 			type : Array,
 			required : true
 		},
-		messages : { 
-			type : Object, 
+/*		messages : { 
+			type : Array, 
 			required : true 
-		},
+		},*/
 		user : {
 			type : Object,
 			required : true
@@ -97,44 +99,43 @@ export default {
 			required : true
 		}
 	},
-
 	data(){
 		return { 	
 			selectedContact : this.respondent,
-	// crime_respondent : this.respondent[0],
+			// crime_respondent : this.respondent[0],
 			messages : [],
 			contacts : []
-	}
+		}
 	},
 
-methods : {
-	saveNewMessage(message){
-		axios.post(this.send_message_endpoint, {
-		})
-	},
+	methods : {
+		saveNewMessage(message){
+			axios.post(this.send_message_endpoint, {
+			})
+		},
 
-	startConversationWith(contact){
-		this.updateUnreadCount(contact, true)
-		axios.get(`/conversation/${contact.id}`)
-		.then(response => {
-			this.messages = response.data ; 
-			this.selectedContact = contact ; 
-		})		
-	},
-	updateUnreadCount(contact,reset){
-		this.contacts = this.contacts.map((single) => {
-			if (single.id !== contact.id){
-				return id ; 
-			}
-			if ( reset )
-				single.unread = 0 ; 
-			else 
-				single.unread += 1 ; 
-			return single ; 
-		})
-	}
+		startConversationWith(contact){
+			this.updateUnreadCount(contact, true)
+			axios.get(`/conversation/${contact.id}`)
+			.then(response => {
+				this.messages = response.data ; 
+				this.selectedContact = contact ; 
+			})		
+		},
+		updateUnreadCount(contact,reset){
+			this.contacts = this.contacts.map((single) => {
+				if (single.id !== contact.id){
+					return id ; 
+				}
+				if ( reset )
+					single.unread = 0 ; 
+				else 
+					single.unread += 1 ; 
+				return single ; 
+			})
+		}
 
-},
+	},
 
 sockets : { 
 	connect(){
@@ -146,44 +147,45 @@ sockets : {
 },
 
 computed : { 
-	defaultAvatar(){
-		if (this.respondent.avatar == "default_avatar.jpg"){
-			return endpoints.urlDomain +"/assets/images/" +this.respondent.avatar ; 
-		} 
+		defaultAvatar(){
+			if (this.respondent.avatar == "default_avatar.jpg"){
+				return endpoints.urlDomain +"/assets/images/" +this.respondent.avatar ; 
+			} 
 
-		return endpoints.urlDomain +"/storage/" +this.respondent.avatar;
-	},
+			return endpoints.urlDomain +"/storage/" +this.respondent.avatar;
+		},
 
-	send_message_endpoint(){
-		return window.App.sendMessageEndpoint ; 
-	},
+		send_message_endpoint(){
+			return window.App.sendMessageEndpoint ; 
+		},
 
-	currentUserAvatar(){	
-		if(this.user.avatar === "default_avatar.jpg") {
-			return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
-		} 
-		else { 
-			return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
-		} 
-	}
+		currentUserAvatar(){	
+			if(this.user.avatar === "default_avatar.jpg") {
+				return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
+			} 
+			else { 
+				return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
+			} 
+		}
 },
 
-mounted(){
-	console.log('Component mounted.');
 
-	let channel = Echo.channel('public');
+	mounted(){
+		console.log('Component mounted.');
 
-	channel.listen('.MessageSent',function(data){
-		console.log(data);
-	});
+		let channel = Echo.channel('public');
+
+		channel.listen('.MessageSent',function(data){
+			console.log(data);
+		});
 
 // Registered client on public channel to listen to MessageSent event
-Echo.channel('public').listen('MessageSent', ({message}) => {
-	console.log("message sent started");
-	this.messages.push(message);
-});
+		Echo.channel('public').listen('MessageSent', ({message}) => {
+			console.log("message sent started");
+			this.messages.push(message);
+		});
 
-}	
+	}	
 /*console.log("Component mounted for chat Now");			
 
 let channel = Echo.channel('message');

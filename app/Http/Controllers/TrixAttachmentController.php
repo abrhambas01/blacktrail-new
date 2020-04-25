@@ -6,11 +6,11 @@ use Validator;
 use App\TrixAttachment ; 
 use Storage;
 use Response;
+
 class TrixAttachmentController extends Controller
 {	
 	/*storing attached files in trix..*/
 	public function store(Request $request){	
-
 		$validator = Validator::make(request()->all(), [
 			'file' => 'required|file',
 		]);
@@ -22,7 +22,7 @@ class TrixAttachmentController extends Controller
 		$attachment = request()->file->store('/', $request->disk ?? 'public');		
 		
 		$url = Storage::disk($request->disk ?? config('laravel-trix.storage_disk'))->url($attachment);
-		
+
 		TrixAttachment::create([
 			'field' => $request->field,
 			'attachable_type' => 'App\CriminalInfo',

@@ -16,6 +16,7 @@
         this.incomingChat(chatMessage)
       })
     },
+    
     computed: {
       ...mapState({
         chatStore: state => state.chatStore,

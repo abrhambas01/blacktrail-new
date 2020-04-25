@@ -8,12 +8,14 @@ import VueRouter from 'vue-router';
 import moment from 'moment' ; 
 import VModal from 'vue-js-modal'
 import VeeValidate from 'vee-validate' ;
+
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueInstantSearch from 'vue-instantsearch';
 // import Vuetify from 'vuetify';
 // import vuetifyCss from 'vuetify/dist/vuetify.min.css';
 
-window.Vue = Vue ; 
+window.Vue = Vue ;
+
 window.axios = axios ;	
 window.axios.defaults.headers.common = {
 	'X-Requested-With': 'XMLHttpRequest'

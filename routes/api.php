@@ -1,3 +1,4 @@
+
 <?php
 use Illuminate\Http\Request;
 /*
@@ -10,13 +11,18 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group(['prefix' => 'v1'], function(){
+Route::group(['prefix' => 'v1'], function(){	
 	Route::post("/attachments","TrixAttachmentController@store");
-	Route::delete("/attachments/{url}","TrixAttachmentController@destroyAttachment");
+
+	Route::delete("/attachments/{url}","TrixAttachmentController@destroyAttachment");	
+
 	Route::get('/groups', 'GroupsController@getAll');
+	
 	Route::get("/convert/currency/usd","CurrencyController@convert_currency_to_usd");
+	
 	/*retrieving respondent of the criminal's information*/
 	Route::get("/respondent/criminal","Api\CriminalsController@fetch_respondent");
+	
 	Route::get("/respond/criminal/{criminal}","ChatController@send_chat");
 
 	/*Fetching the messages of the current logged on user to the fetched user*/

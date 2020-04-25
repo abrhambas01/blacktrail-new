@@ -58,7 +58,6 @@ export default {
 	},
 
 	computed : { 
-
 		chatUrl(respondentName){
 			return api.app + '/messages/t/' + this.respondentName + '/c/' +this.id 
 		},
