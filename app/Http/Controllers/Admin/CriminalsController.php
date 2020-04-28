@@ -99,11 +99,9 @@ class CriminalsController extends Controller
         $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
         
         $imageName = str_random(30) . '.png';
-        // $p = Storage::disk('local')->put('' . $imageName, $image, 'public'); 
-        $imageStore= Storage::disk('criminal')->put('/criminals/' . $imageName, $image, 'public'); 
+        // $p = Storage::disk('local')->put('/criminals/' . $imageName, $image, 'public'); 
+        $imageStore= Storage::disk('local')->put('/criminals/' . $imageName, $image, 'public'); 
 
-
-        
         $image_url = Storage::disk()->url($imageName);
         
         Criminal::saveCriminal(request(), $imageName);
@@ -116,12 +114,13 @@ class CriminalsController extends Controller
         Criminal::saveCriminal($request);
 
         return response()->json(['success' => 'You have successfully registered this criminal'],200);
+
      /*    return response()->json([
             'success' => true,
             'id' => $file->id
           ], 200);*/
-        
-      }
+
+    }
 /*
 if (request()->wantsJson()) {
 }*/
@@ -160,13 +159,21 @@ if (request()->wantsJson()) {
     public function edit($crim)
     {
       $ownerId = Criminal::where("id",$crim)->select('posted_by')->first();
+
       $body_types = collect(CriminalInfo::getEnumColumnValues('criminal_profiles','body_frame'));
+      
       $user = auth()->user()->id ; 
+      
       abort_unless($user === $ownerId->posted_by, 403);
+      
       $criminal = Criminal::with('profile','country','crimes')->findOrFail($crim);
+      
       $admins = User::admins()->select("display_name","id")->get();
+      
       $crimes = Crime::select('id','criminal_offense')->get();     
+      
       $countries = Country::select("name","id","currency_code","currency_symbol")->get();
+
       return view("admin.criminals.edit", compact("crimes", "criminal",'countries','admins','body_types'));
     }
 
@@ -277,6 +284,7 @@ if (request()->wantsJson()) {
             $crimes = array_merge($crimes,$newCrimes);
           }
           if(count($crimes)>0) {
+
             $syncValues = [];
             foreach ($crimes as $crime) {
               $syncValues[$crime['crime_id']] = [
@@ -284,25 +292,44 @@ if (request()->wantsJson()) {
               ] ;
             }
             $cr = $criminal->crimes()->sync($syncValues);
+
           }
+
           $responseData = [
             "status"=>true,
             "message"=>"criminal Updated"
           ];
           return response()->json($responseData,200);
 
-
         } else {
+
           $responseData = [
-            "status"=>fasle,
-            "message"=>"Something went wrong!"
+            "status"=> fasle,
+            "message"=> "Something went wrong!"
           ];
+
           return response()->json($responseData,500);
+
         }
       }
-      
-      public function update(Request $request, Criminal $criminal) 
+
+      public function validBase64($string)
       {
+        $decoded = base64_decode($string, true);
+
+    // Check if there is no invalid character in string
+        if (!preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $string)) return false;
+
+    // Decode the string in strict mode and send the response
+        if (!$decoded) return false;
+
+    // Encode and compare it to original one
+        if (base64_encode($decoded) != $string) return false;
+
+        return true;
+      }
+
+      public function update(Request $request, Criminal $criminal){
 
         // $criminal = Criminal::findOrFail($id);        
         // dd(request()->all());
@@ -345,135 +372,148 @@ if (request()->wantsJson()) {
           $bd = Carbon::now()->diffInYears(Carbon::parse(request()->input('form.birthdate')));
 
           if ($bd <= 6){          
+          
             return response(['message' =>  "That's way too young to be a criminal."],406);   
+          
           }
 
           else { 
 
-           if(request()->has('form.avatar')){
+            if(request()->has('form.avatar')){
+              // dump("avatar");
 
-            $base64String= request()->input('form.avatar') ;             
-            
-            $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
-            
-            $imageName = str_random(30) . '.png';
-            
-            $imageStore = Storage::disk('criminal')->put('/criminals/' . $imageName, $image, 'public'); 
-
-          } else {
-
-            $imageName = $criminal->photo;
-          
-          }
-
-          $updateData = [
-            'first_name'         =>             $request->input("form.first_name"),
-            'birthdate'         =>              $request->input("form.birthdate"),
-            'middle_name'        =>             $request->input("form.middle_name"),
-            'last_name'          =>             $request->input("form.last_name"),
-            'contact_number'     =>             $request->input("form.contact_number"),
-            'contact_person'     =>             $request->input("form.contact_person"),
-            'alias'              =>             $request->input("form.alias"),
-            'country_id'         =>             $request->input("form.country_id"),
-            'posted_by'          =>             $request->input("form.posted_by"),
-            'status'             =>             $request->input("form.status"),
-            'photo'              =>              $imageName,
-          ];
-
-          $cr = $criminal->update($updateData);
-
-          $date = Carbon::parse(request()->input('form.birthdate'))->toDateString();
-
-          if ( $cr == true){
-            $updated =  CriminalInfo::where('criminal_id','=',request()->input('id'))
-            ->update(['criminal_id' =>                request()->input('id'),
-             'birthplace' =>                          request()->input('form.birthplace'),
-             'last_seen' =>                           request()->input('form.last_seen'),
-             'birthdate' =>                           $date,
-             'eye_color' =>                           request()->input('form.eye_color'),
-             'weight_in_kilos' =>                     request()->input('form.weight'),
-             'height_in_feet_and_inches' =>           request()->input('form.height'),
-             'body_frame' =>                          request()->input('form.body_frame'),
-             'country_of_origin' =>                   request()->input('form.country_of_origin'),
-             'currency' =>                            request()->input('form.currency'),
-             'bounty' =>                              request()->input('form.bounty'),
-             'complete_description' =>                request()->input('form.complete_description')
-           ]);
-
-            $items = collect(request('criminalCrimes'));
-            
-            $criminalCrimes = $request->criminalCrimes;
-            $crimes = [];
-
-            foreach ($criminalCrimes as $crime) {
-              $crimes[] = [
-                'crime_id' => $crime['pivot']['crime_id'],
-                'crime_description' => $crime['pivot']['crime_description'],
-              ];
-            }
-
-            $newCrimes = $request->newCrimes;
-
-            if(count($newCrimes)>0) {
-              $crimes = array_merge($crimes,$newCrimes);
-            }
-
-            if(count($crimes)>0) {
-              $syncValues = [];
-              foreach ($crimes as $crime) {
-                $syncValues[$crime['crime_id']] = [
-                  'crime_description'=> $crime['crime_description']
-                ] ;
-              }
-              $cr = $criminal->crimes()->sync($syncValues);
-            }
-            $responseData = [
-              "status"=>true,
-              "message"=>"criminal Updated"
-            ];
-            return response()->json($responseData,200);
-          } else {
-            $responseData = [
-              "status"=> false,
-              "message"=>"Something went wrong!"
-            ];
-            return response()->json($responseData,500);
-          }
-        }
+                // dd(request()->input("form.avatar"));
+  /*
+  if it's a valid base 64 image then that means it's a new image supplied
+  */
+     if ($this->validBase64(request()->input('form.avatar'))){
+          Storage::disk('local')->delete('/criminals/'.$imageName, $image);
+            $base64String = request()->input('form.avatar') ;        
+          $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));      
+          $imageName = str_random(30) . '.png';
+          $imageStore = Storage::disk('local')->put('/criminals/' . $imageName, $image, 'public'); 
       }
-    /**
+
+      else {
+          $imageName = $criminal->photo;
+      }
+
+      $updateData = [
+        'first_name'         =>             $request->input("form.first_name"),
+        'birthdate'          =>             $request->input("form.birthdate"),
+        'middle_name'        =>             $request->input("form.middle_name"),
+        'last_name'          =>             $request->input("form.last_name"),
+        'contact_number'     =>             $request->input("form.contact_number"),
+        'contact_person'     =>             $request->input("form.contact_person"),
+        'alias'              =>             $request->input("form.alias"),
+        'country_id'         =>             $request->input("form.country_id"),
+        'posted_by'          =>             $request->input("form.posted_by"),
+        'status'             =>             $request->input("form.status"),
+        'photo'              =>             $imageName,
+      ];
+
+    $cr = $criminal->update($updateData);
+
+    $date = Carbon::parse(request()->input('form.birthdate'))->toDateString();
+
+    if ( $cr == true){
+
+      $updated =  CriminalInfo::where('criminal_id','=',request()->input('id'))
+      ->update(['criminal_id' =>                request()->input('id'),
+       'birthplace' =>                          request()->input('form.birthplace'),
+       'last_seen' =>                           request()->input('form.last_seen'),
+       'birthdate' =>                           $date,
+       'eye_color' =>                           request()->input('form.eye_color'),
+       'weight_in_kilos' =>                     request()->input('form.weight'),
+       'height_in_feet_and_inches' =>           request()->input('form.height'),
+       'body_frame' =>                          request()->input('form.body_frame'),
+       'country_of_origin' =>                   request()->input('form.country_of_origin'),
+       'currency' =>                            request()->input('form.currency'),
+       'bounty' =>                              request()->input('form.bounty'),
+       'complete_description' =>                request()->input('form.complete_description')
+      ]);
+
+      $items = collect(request('criminalCrimes'));
+      $criminalCrimes = $request->criminalCrimes;
+      $crimes = [];
+
+  foreach ($criminalCrimes as $crime) {
+    $crimes[] = [
+      'crime_id' => $crime['pivot']['crime_id'],
+      'crime_description' => $crime['pivot']['crime_description'],
+    ];
+  }
+
+  $newCrimes = $request->newCrimes;
+
+  if(count($newCrimes)>0) {
+    $crimes = array_merge($crimes,$newCrimes);
+  }
+
+  if(count($crimes)>0) {
+    
+    $syncValues = [];
+  
+    foreach ($crimes as $crime) {
+  
+      $syncValues[$crime['crime_id']] = [
+        'crime_description'=> $crime['crime_description']
+      ] ;
+
+    }
+
+    $cr = $criminal->crimes()->sync($syncValues);
+  }
+
+  $responseData = [  
+    "status"=> true,
+    "message"=> "criminal Updated"
+  ];
+
+  return response()->json($responseData,200);
+} else {
+  $responseData = [
+    "status"=> false,
+    "message"=> "Something went wrong!"
+  ];
+  return response()->json($responseData,500);
+}
+}
+}
+}
+      /**
      * Remove the specified resource from storage.
      *
        * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-      $criminal = Criminal::findOrFail($id);
+      public function destroy($id)
+      {
+        $criminal = Criminal::findOrFail($id);
 
-      $criminal->delete() ;
-    }
+        $criminal->delete() ;
+      }
 
 
-    protected function validateInputs(){
-     return Validator::make(request()->input('form'), [
-      'first_name'                => 'required|min:2',
-      'middle_name'                => 'required|min:2',
-      'last_name' => 'required|min:2',
-      'avatar'                    => 'required',
-      'alias'                     => 'required|min:2|single_word',
-      'currency'                  => 'required|numeric',
-      'bounty'                    =>  'required|numeric',
-      'full_name'                 => 'required|string|min:120',
-      'posted_by'                 => 'required|numeric',
-      'contact_number'            => 'required|string',
-      'last_seen'                 => 'required|string',
-      'status'                    => 'required|numeric',
-      'country_id'                => 'required|numeric' ,
-      'body'                      => 'required'
-    ]);
+      protected function validateInputs(){
+       return Validator::make(request()->input('form'), [
+        'first_name'                => 'required|min:2',
+        'middle_name'                => 'required|min:2',
+        'last_name' => 'required|min:2',
+        'avatar'                    => 'required',
+        'alias'                     => 'required|min:2|single_word',
+        'currency'                  => 'required|numeric',
+        'bounty'                    =>  'required|numeric',
+        'full_name'                 => 'required|string|min:120',
+        'posted_by'                 => 'required|numeric',
+        'contact_number'            => 'required|string',
+        'last_seen'                 => 'required|string',
+        'status'                    => 'required|numeric',
+        'country_id'                => 'required|numeric' ,
+        'body'                      => 'required'
+      ]);
+
+     }
+
 
    }
-
-
- }

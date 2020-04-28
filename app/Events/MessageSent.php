@@ -15,46 +15,44 @@ class MessageSent implements ShouldBroadcast
     
     protected $channel ;
     
-    public $message = "foo";
+    public $message;
 
-        /**
-        * Create a new event instance.
-        *
-        * @return void
-        */
-        public function __construct($message)
-        {
-            $this->message = $message;    
-        }
+    /**
+    * Create a new event instance.
+    *
+    * @return void
+    */
+    public function __construct($message)
+    {
+        $this->message = $message;    
+    }
 
-        public function dontBroadcastToCurrentUser(){
-
-        }
-
-        /**
-        * Get the channels the event should broadcast on.
-        *
-        * @return \Illuminate\Broadcasting\Channel|array
-        */
-        public function broadcastOn()
-        {   
-            /*we'll just use this for simpler coding..*/
-            // private channels .. -> needs user authenticated..
-            return new PrivateChannel('message.'.$this->message->id);
-            // return new PrivateChannel('channel-name');
-        }
-
-        /**/
-        public function broadcastAs(){
-            return "New Event";
-        }
-
-        /*Broadcast with*/
-        public function broadcastWith()
-        {
-            return [  
-                'message' => $this->message
-            ];
-        }
+    public function dontBroadcastToCurrentUser(){
 
     }
+
+    /**
+    * Get the channels the event should broadcast on.
+    *
+    * @return \Illuminate\Broadcasting\Channel|array
+    */
+    public function broadcastOn()
+    {   
+        /*we'll just use this for simpler coding..*/
+        // private channels .. -> needs user authenticated..
+        return new PrivateChannel('messages'.$this->message->id);
+    }
+
+    /**/
+    public function broadcastAs(){
+        return "New Event";
+    }
+
+    /*Broadcast with*/
+    public function broadcastWith()
+    {
+        return [  
+            'message' => $this->message
+        ];
+    }
+}

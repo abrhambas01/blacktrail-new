@@ -8,9 +8,14 @@ import datepicker from 'vuejs-datepicker';
 import _ from "lodash"; 	
 
 export default {
+	props : {
+		crimes:  [ Object, Array],
+		criminal:  [ Object, Array] ,
+		admins : [ Object, Array],
+		countries: [ Object, Array],
+		body_types: [ Object, Array]
+	},
 
-	props : [ 'crimes', 'criminal', 'admins', 'countries','body_types'],
-	
 	components : { 
 		'VueTrix' : VueTrix,
 		'places' : Places, 
@@ -61,7 +66,7 @@ export default {
 				attachments : [],
 				country_id : 4 , 
 			},
-			
+
 			posted_by : this.criminal.posted_by,
 
 			max_files: { // total # of files allowed to be uploaded
@@ -131,7 +136,9 @@ export default {
 			/*Updating a profile.*/
 			updateProfile(){
 				this.$swal('Wait for sometime. The page will just refresh by its own');
+
 				if ( this.criminalCrimes.length > 0 || this.newCrimes.length > 0){
+
 					setTimeout(() => {
 						this.isLoading = false;
 						this.requesting = true;
@@ -143,12 +150,18 @@ export default {
 							criminalCrimes : this.criminalCrimes,
 							newCrimes : this.newCrimes
 						}).then(response => {
+
+							console.log(response.data);
+
 							window.location.replace("/admin/criminals/"+this.criminal.id);
+
 						}).catch((error) => {
+
 							console.log("error",error.response.status);
-							
-							if (error.response.status === 422){
-								Vue.swal("Please fill all the fields required");
+
+							if (error.response.status === 422)
+							{
+								Vue.swal("Please fill all the fields required correctly or you could check if currency is correct");
 							}
 
 							else if (error.response.status === 406) { 	
@@ -406,19 +419,30 @@ mounted(){
 		this.form.status =  this.criminal.status
 		/*if there's a profile found*/
 		if(this.criminal.profile){	
+
 			this.form.complete_description = _.unescape(this.criminal.profile.complete_description),	
+
 			this.form.last_seen = this.criminal.profile.last_seen,
+			
 			this.form.birthdate = this.criminal.profile.birthdate,
+			
 			this.form.birthplace = this.criminal.profile.birthplace,
+			
 			this.form.eye_color = this.criminal.profile.eye_color,
+
 			this.form.weight = this.criminal.profile.weight_in_kilos,
+			
 			this.form.height = this.criminal.profile.height_in_feet_and_inches,
+			
 			this.form.country_of_origin = this.criminal.profile.country_of_origin,
 			this.form.avatar = this.criminalAvatar,
 			/*	this.form.complete_description = this.criminal.profile.complete_description,*/
 			this.form.height_in_cm = this.criminal.profile.height_in_feet_and_inches,
+
 			this.form.maxFiles = 1,
+			
 			this.form.body_frame = this.criminal.profile.body_frame,
+			
 			this.form.currency = this.criminal.profile.currency,
 			this.form.bounty = this.criminal.profile.bounty
 		}
@@ -440,7 +464,6 @@ mounted(){
 		}
 	}
 }
-
 };
 </script>
 

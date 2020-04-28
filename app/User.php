@@ -166,7 +166,6 @@ class User extends Authenticatable
             }
         }  
 
-
         /* A member only belongs to a single group*/
         public function group()
         {

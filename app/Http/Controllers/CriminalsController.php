@@ -110,7 +110,8 @@ class CriminalsController extends Controller
 			if (request()->wantsJson()) {
 				return response()->json($criminal, 201);
 			}
-		} 
+		}	 
+		
 		catch(UserRegistrationException $ex){
 			return response([],503);
 		}
@@ -149,9 +150,6 @@ public function show($criminal)
 	$criminal = Criminal::with('profile','crimes','country','respondent')->findOrFail($criminal);
 	$respondentName = Criminal::with('respondent')->findOrFail($criminal);
 	return view("criminals.show",compact('criminal','respondentName')) ; 
-
-
-	
 }
 
 

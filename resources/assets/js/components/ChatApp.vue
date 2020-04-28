@@ -175,7 +175,7 @@ computed : {
 
 		let channel = Echo.channel('public');
 
-		channel.listen('.MessageSent',function(data){
+		channel.listen('.MessageSent', function(data){
 			console.log(data);
 		});
 

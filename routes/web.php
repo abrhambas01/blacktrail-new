@@ -12,11 +12,25 @@ Mail::send('')
 
 use \App\Events\MessageSent;
 
+use \App\Message ; 
 
-Route::get("broadcast/test", function(){
-	$message = "Lorem ipsum dolor sit amet.";	
-	event(new MessageSent($message));
-	// broadcast(new \App\Events\MessageSent("lorem"));
+use Faker\Generator as Faker;
+
+Route::get("broadcast/test/message", function (Faker $faker){		
+		$message = "Lorem ipsum dolor sit amet.";
+		
+		$message = Message::forceCreate([
+			'receiver_id' => \App\User::admins()->get()->random()->id,
+			'sender_id' =>  DB::table('users')->where('role_id',3)->get()->random()->id,
+			'criminal_id' => \App\Criminal::get()->random()->id,
+			'message' => $faker->realText,
+			'seen_at' => $faker->dateTime,
+			'read' => 0
+		]);
+
+		event(new MessageSent($message));
+
+	    return $message;
 });
 
 
@@ -239,7 +253,7 @@ Route::post("/sender",function(){
 });
 
 
-Route::get('/home/2', function () {
+Route::get('home/2', function () {
 	return view('welcome');
 });
 

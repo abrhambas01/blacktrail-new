@@ -131,11 +131,11 @@ use Carbon\Carbon;
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Height:<em class="font-bold roman">{{ ucwords($criminal->profile->height_in_feet_and_inches) }}</em></p>
 								</div>
-
 								@else
-
+							
 								<div class="row mb-3">
-									<h3>There was no profile listed for this criminal now.</h3>
+									<h3>There was no profile listed for this criminal now.
+									</h3>
 								</div>
 
 								@endif

@@ -3,7 +3,6 @@ namespace App\Utilities ;
 use App\CriminalInfo;
 use DB ; 
 
-
 trait ConvertsCurrencies { 
 
 	public function testing_convert_currency($amount, $criminal_id, $to_currency){
@@ -18,7 +17,7 @@ trait ConvertsCurrencies {
 	}
 
 	public function testConvert(){
-		echo $this->convert_chars( $content, $deprecated = '' )Currency(10,'USD','PHP');
+/*		echo $this->convert_chars( $content, $deprecated = '' )Currency(10,'USD','PHP');*/
 	}				
 
 	protected function currencyApiKey(){

@@ -61,7 +61,6 @@ $message = Message::where([
 		return response(['data' => $ms], 200);
 	}
 
-
 	public function getMessageById(Request $request){
 		
 		$msgs = Message::where('id', $request->input('id'))->first();
@@ -105,5 +104,7 @@ $message = Message::where([
 		
 		return response(['data' => $pms], 200);
 	}
+
+	
 
 }

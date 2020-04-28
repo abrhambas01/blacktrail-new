@@ -35,12 +35,10 @@
     @endif --}}
 
     @if(auth()->user()->username === null )
-    @include('partials.alerts.null-username')
+       @include('partials.alerts.null-username')
     @endif
 
     @endif
-
-    
     <div class="m-auto">
       @if(session()->has('activated_flash'))
       <flash-message inline-template>      
@@ -50,6 +48,7 @@
           </svg>
         </div>
       </flash-message>
+
       @endif 
 
       @if(session()->has('flash'))
