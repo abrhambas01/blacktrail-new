@@ -2,6 +2,17 @@
 
 use Faker\Generator as Faker;
 
+$factory->define(Delivery::class, function (Faker $faker) {
+    return [
+        'delivery_code' => $faker->iban,
+        'description' => $faker->text,
+        'courier_id' => function(){
+            return DB::table('users')->get()->random()->id;
+        },   
+    ];
+});
+
+
 
 $factory->define(App\Criminal::class, function (Faker $faker) {
     return [

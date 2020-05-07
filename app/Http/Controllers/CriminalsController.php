@@ -140,7 +140,7 @@ class CriminalsController extends Controller
 	updating posted_by column
 */
 
-/*
+/*	
 To rank the criminals by their criminality_level ->  points  => 100
 ->  reward /bounty => 300,000 $ or 	
 */
@@ -148,6 +148,7 @@ public function show($criminal)
 {
 			// $user = Criminal::findOrFail($criminal)->with('profile','crimes','country')->get();
 	$criminal = Criminal::with('profile','crimes','country','respondent')->findOrFail($criminal);
+	
 	$respondentName = Criminal::with('respondent')->findOrFail($criminal);
 	return view("criminals.show",compact('criminal','respondentName')) ; 
 }

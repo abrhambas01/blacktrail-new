@@ -1,11 +1,10 @@
-/**
+/*
 * First we will load all of this project's JavaScript dependencies whi
 * includes Vue and other libraries. It is a great starting point when
 * building robust, powerful web applications using Vue and Laravel.
 */		 
 require('./bootstrap');	
-
-import VueSocketio from 'vue-socket.io';
+// import VueSocketio from 'vue-socket.io';
 import socketio from 'socket.io-client';
 
 // Vue.use(VueSocketio, io(':8090'));
@@ -19,11 +18,14 @@ These don't mean that it would work since it means one thing these will not work
 import router from './routes';
 import PayPal from 'vue-paypal-checkout';
 import VueInstantSearch from 'vue-instantsearch';
+import TestMessages from './components/TestMessages.vue';
+
 
 // import UploadImage from 'vue-upload-image'eDITc;
 
 window.Vue = require('vue');
 
+Vue.component('test-message', TestMessages);
 Vue.component('chat-app', require('./components/ChatApp.vue'));
 Vue.component('chat-box', require('./components/ChatBox.vue'));
 /*globally registered components.. */
@@ -48,6 +50,7 @@ Vue.component('message-conversations',require('./components/Messages/MessageConv
 Vue.component('criminal-search',require('./components/CriminalSearch.vue'));
 Vue.component("edit-criminal",require("./components/EditCriminal.vue"));
 Vue.component("flash-message",require('./components/Alerts/FlashMessage.vue'));
+Vue.component('deliveries-list', require('./components/Deliveries.vue').default);
 
 /*the navigation under the Welcome to Blacktrail text*/
 Vue.component("main-navigation",require('./components/MainNavigation.vue'));
@@ -89,17 +92,21 @@ Vue.filter("format-currency",function(value){
 	// return (val / 200 ).t
 });	
 
-
 // Somewhere in your code where you have access to the Vue instance
-
 const app = new Vue({
 	el: '#app',
 	data(){
 		return {
 			user_info: "",
 		}
-	},
+	},	
 	router
+	/*
+	created(){
+		console.log("Alright");	
+		console.log(require('./components/TestMessages.vue').default);
+	}
+	*/
 
 /*	beforeRouteEnter (to, from, next) {
 		getPost(to.params.id, (err, post) => {

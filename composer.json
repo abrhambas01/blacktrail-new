@@ -11,8 +11,7 @@
     {
         "php": ">=7.0.0",
         "akaunting/money": "^1.0",
-        "laravel/horizon" : "^4.3",
-        "algolia/algoliasearch-client-php": "^2.6",
+        "algolia/algoliasearch-client-php": "^1.27",
         "beyondcode/laravel-confirm-email": "^1.5",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "~4.0",
@@ -20,18 +19,17 @@
         "guzzlehttp/guzzle": "~6.0",
         "intervention/image":  "^2.5",
         "laravel/cashier": "~7.0",
-        "laravel/framework": "5.5.9",
-        "laravel/scout": "7.2.1",
+        "laravel/framework": "5.6.*",
+        "laravel/scout": "~4.0",
         "laravel/tinker": "~1.0",
         "paypal/rest-api-sdk-php": "^1.14",
         "predis/predis": "^1.1",
-        "pusher/pusher-php-server": "^4.1",
-        "pusher/pusher-http-laravel": "^4.2",
         "themsaid/laravel-mail-preview": "^2.0",
         "tucker-eric/eloquentfilter": "^2.3",
         "webpatser/laravel-countries": "dev-master"
     },
-    "require-dev": {
+    "require-dev": 
+    {
         "barryvdh/laravel-debugbar": "^3.2",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
@@ -40,7 +38,7 @@
         "symfony/thanks": "^1.0"
     },
     "autoload": {
-        "classmap": [
+        "classmap": [   
             "database/seeds",
             "database/factories"
         ],

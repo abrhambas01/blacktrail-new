@@ -22,11 +22,8 @@ export default {
 	methods: {
 		postMessage() {
 			axios.post('/post', {message: this.text}).then(({data}) => {
-				
 				this.messages.push(data);
-				
 				this.text = '';
-
 			});
 		}
 	},

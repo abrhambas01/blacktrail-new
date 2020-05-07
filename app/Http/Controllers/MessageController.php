@@ -16,12 +16,12 @@ class MessageController extends Controller
 	*/
 	public function sendMessage($user,$criminal)
 	{
-/*
-$message = Message::where([
-['sender_id','=', auth()->id()],
-['receiver_id', '=',$user]
-])->get();
-*/
+		/*
+		$message = Message::where([
+		['sender_id','=', auth()->id()],
+		['receiver_id', '=',$user]
+		])->get();
+		*/
 
 	// = User::where("username",'=',$user)->pluck('id');
 

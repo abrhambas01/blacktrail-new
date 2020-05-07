@@ -8,23 +8,19 @@ import VueRouter from 'vue-router';
 import moment from 'moment' ; 
 import VModal from 'vue-js-modal'
 import VeeValidate from 'vee-validate' ;
-
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueInstantSearch from 'vue-instantsearch';
 // import Vuetify from 'vuetify';
 // import vuetifyCss from 'vuetify/dist/vuetify.min.css';
 
 window.Vue = Vue ;
-
 window.axios = axios ;	
 window.axios.defaults.headers.common = {
 	'X-Requested-With': 'XMLHttpRequest'
 };
 
 // window.form =  ; 			
-
-
-Vue.use(VModal, { dialog: true })
+Vue.use(VModal, { dialog: true });
 Vue.use(VeeValidate);
 Vue.use(VueRouter);
 // Vue.use(VueInputMultiple);
@@ -37,10 +33,15 @@ const options = {
 }
 
 Vue.use(VueInstantSearch);
+
 Vue.use(VueSweetalert2, options);
+
 Vue.config.devtools = true ; 
-Vue.config.performance  = true ; 
+
+Vue.config.performance  = true ;
+
 Vue.prototype.user = window.App.user;
+
 Vue.prototype.$http = axios;
 
 import Echo from "laravel-echo" ;
@@ -49,14 +50,13 @@ window.io = require("socket.io-client");
 
 window.Echo = new Echo({
 	broadcaster: 'socket.io',
-	host : process.env.MIX_APP_URL + ':6001'
-	// key : '1232b570ab3e5024b5e9d',
-	// cluster : 'ap1',
-	// encrypted : true
+	host : process.env.MIX_APP_URL + ':6001',
+	key : '1232b570ab3e5024b5e9d',
+	cluster : 'ap1',
+	encrypted : true
 });	
 
 
-window.Echo.channel('test-event')
-.listen('MessageSent', (e) => {
-	console.log(e);
-});
+
+/*Test Event.*/
+/*p*/

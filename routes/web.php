@@ -7,37 +7,26 @@ admin Criminals in your area..
 /*	
 Route::get("/test/email/send",functionf(){
 Mail::send('')
-});`
+});
 */
 
 use \App\Events\MessageSent;
-
 use \App\Message ; 
-
+use \App\User ; 
 use Faker\Generator as Faker;
 
-Route::get("broadcast/test/message", function (Faker $faker){		
-		$message = "Lorem ipsum dolor sit amet.";
-		
-		$message = Message::forceCreate([
-			'receiver_id' => \App\User::admins()->get()->random()->id,
-			'sender_id' =>  DB::table('users')->where('role_id',3)->get()->random()->id,
-			'criminal_id' => \App\Criminal::get()->random()->id,
-			'message' => $faker->realText,
-			'seen_at' => $faker->dateTime,
-			'read' => 0
-		]);
+Route::get("chat/test","ChatController@testMessage");
 
-		event(new MessageSent($message));
-
-	    return $message;
-});
-
+Route::post("/send","ChatController@sendChat");	
 
 Route::get('get/criminals',function(){
 	$criminals = \App\Criminal::where("first_name",'=',"Kevin")->get();
 	return $criminals ;	 	
 });	
+
+
+
+
 
 // Route::get("/messags",function(){
 // 	return App\Message::where('id',1)->first();
@@ -51,14 +40,15 @@ Route::group(['prefix' => 'admin',
 	'middleware' => 'isAdmin', 	
 	'namespace' => 'Admin'
 ], function(){
-	
+
 	Route::get("stats","DashboardController@stats")->name("admin.statistics");
-	
+
 	Route::get("users/pending","DashboardController@pending_users")->name('admin.pending.users');
 
 	Route::get('/home', 'DashboardController@index')->name('admin.dashboard');	
 	/*Chats for a specific criminal..*/
 	Route::get("chats/{criminal}","CriminalsController@chats_for_a_specific_criminal");
+
 	Route::get('/criminals/posted/{user}', 'DashboardController@postedCriminals')->name('admin.criminals.posted');
 
 /*
@@ -147,13 +137,13 @@ Route::get("/rows",function (){
 });
 
 Route::get('/', 'ViewsController@index')->name('index');
+Route::get('/deliveries', 'ViewsController@delivery')->name('index');
 
 
 /**
 * confirming email.
 */
 Route::get('confirm/mail/{confirmation_code}','VerificationController@confirm_email')->name('confirmEmail');
-
 Route::get("user/activated","VerificationController@userActivated");
 
 /*Route::patch('confirm/email/{email}', 'VerificationController@confirmEmail')->name('verifyEmail');
@@ -220,7 +210,7 @@ Route::post('/register',[
 	'uses' => 'AuthController@postRegister'
 ]);
 
-	
+
 Route::post('payment/create',"PaypalController@create_payment");
 Route::post('payment/execute',"PaypalController@execute_payment");	
 Route::get("test-paypal","PaypalController@main_paypal_page");

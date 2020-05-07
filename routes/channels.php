@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -10,8 +9,14 @@
 | used to check if an authenticated user can listen to the channel.
 |
 */
-// use App\Broadcasting
-
+use App\Broadcasting\MessageChannel; 
+use Illuminate\Support\Facades\Broadcast ; 
+ 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
 	return (int) $user->id === (int) $id;
+});
+
+
+Broadcast::channel("user.{user}", function ($user, $orderId) {
+    return $user->id === Order::findOrNew($orderId)->user_id;
 });

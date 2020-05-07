@@ -12,5 +12,7 @@ Route::get("db/seed/bounty/criminals","DatabaseController@seedBounty");
 Route::get("db/seed/info/criminals","DatabaseController@seed_criminals_info");
 Route::get("db/seed/info/criminals/countries","DatabaseController@seedCriminalsCountries");
 Route::get("db/erase/criminals/profile","DatabaseController@erase_profile_of_criminals");
+
 Route::post("db/remove/criminals/non-adults","DatabaseController@remove_criminals_who_are_not_adults");
+
 Route::get('/db/update/messages/criminal_id/zero','DatabaseController@update_messages_where_criminal_id_is_zero');

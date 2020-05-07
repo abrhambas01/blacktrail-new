@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Str;
 
 return [
@@ -29,7 +28,7 @@ return [
     |
     | All database work in Laravel is done through the PHP PDO facilities
     | so make sure you have the driver for your particular database of
-    | choice installed on your machine before you begin development.
+        | choice installed on your machine before you begin development.
     |
     */
 
@@ -119,12 +118,11 @@ return [
 
     'redis' => [
 
-        'client' => env('REDIS_CLIENT', 'predis'),
-
-        'options' => [
-            'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
-        ],
+    'client' => env('REDIS_CLIENT', 'predis'),
+    'options' => [
+        'cluster' => env('REDIS_CLUSTER', 'redis'),
+        'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+    ],
 
         'default' => [
             'url' => env('REDIS_URL'),
@@ -141,7 +139,7 @@ return [
             'port' => env('REDIS_PORT', 6379),
             'database' => env('REDIS_CACHE_DB', 1),
         ]
-    ],
+    ]
 
 ];
   

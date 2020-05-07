@@ -3,7 +3,7 @@
   import {mapState} from 'vuex'
 
   export default {
-    components: {
+    components: { 
       'private-message-sidebar': PrivateMessageSidebar
     },
     computed: {

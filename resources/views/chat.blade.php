@@ -121,6 +121,4 @@ style=" height: 121%; ">
 </div>
 <!-- <ContactsList :contacts="contacts"/> -->
 </div>
-
-
 @endsection

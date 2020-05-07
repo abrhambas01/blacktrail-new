@@ -1,10 +1,15 @@
 {
 	"authHost": "http://blacktrail.test/",
 	"authEndpoint": "/broadcasting/auth",
-	"clients": [],
+	"clients": 
+	[
+		{
+			"appId": "4737c44e7cb01a73",
+			"key": "7634fd337a1fdecf9efeb57389f14923"
+		}
+	],
 	"database": "redis",
-	"databaseConfig": 
-	{
+	"databaseConfig": {
 		"redis": {},
 		"sqlite": {
 			"databasePath": "/database/laravel-echo-server.sqlite"

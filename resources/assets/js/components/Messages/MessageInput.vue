@@ -16,7 +16,6 @@
 </template>
 <script>
 import urls from '../scripts/endpoints.js';
-
 export default {
  props: ['activeChannel', 'username'],
  data() {

@@ -3,9 +3,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\UserRegistered; 
 use App\User ; 
-
+use App\Delivery ; 
 class ViewsController extends Controller
 {
+
 	public function index()
 	{
 		if (!auth()->check()){
@@ -22,7 +23,6 @@ class ViewsController extends Controller
 		}	
 	}
 
-
 	function slots()
 	{
 		return view('slots');
@@ -36,5 +36,10 @@ class ViewsController extends Controller
 	public function test_mailable(){
 		$user = User::find(1);
 		return new UserRegistered($user);
+	}
+
+	public function delivery(){
+		$deliveries = Delivery::all();
+		return view('delivery',compact('deliveries'));
 	}
 }

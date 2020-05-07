@@ -7,9 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="stylesheet" href="{{ asset('css/fonts.css') }}">  
-    <link href="{{ asset('css/app.css')}}" rel="stylesheet" data-turbolinks-track="true">
-    <link rel="stylesheet" href="{{ asset('css/animate.css') }}">  
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">  
+    <link href="{{ asset('css/main.css')}}" rel="stylesheet" data-turbolinks-track="true">
     <script>    
         window.App = @include("partials.stubs.global-vars")
     </script>     

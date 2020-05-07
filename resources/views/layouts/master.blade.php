@@ -105,8 +105,6 @@
    $(document).ready(function(){
      $(".flashMessage").hide().slideDown().delay(3000).fadeOut();
      console.log("ok");
-
-
    });
  </script>
  @yield("scripts")
