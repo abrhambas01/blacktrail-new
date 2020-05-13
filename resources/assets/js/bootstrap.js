@@ -48,6 +48,7 @@ import Echo from "laravel-echo" ;
 
 window.io = require("socket.io-client");
 
+// console.log(process.env.MIX_APP_URL);
 window.Echo = new Echo({
 	broadcaster: 'socket.io',
 	host : process.env.MIX_APP_URL + ':6001',

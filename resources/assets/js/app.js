@@ -50,7 +50,7 @@ Vue.component('message-conversations',require('./components/Messages/MessageConv
 Vue.component('criminal-search',require('./components/CriminalSearch.vue'));
 Vue.component("edit-criminal",require("./components/EditCriminal.vue"));
 Vue.component("flash-message",require('./components/Alerts/FlashMessage.vue'));
-Vue.component('deliveries-list', require('./components/Deliveries.vue').default);
+Vue.component('deliveries-list', require('./components/Deliveries.vue'));
 
 /*the navigation under the Welcome to Blacktrail text*/
 Vue.component("main-navigation",require('./components/MainNavigation.vue'));

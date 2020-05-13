@@ -5,6 +5,7 @@
 @section('content')
 
 <section class="w-1/2 mt-4 text-center m-auto h-full">
+
   <form action="{{ route('register') }}" method="POST" class="bg-white p-10 ml-4 mt-4 font-basic font-normal w-4/5 inline-block">
    {{  csrf_field() }}
    <h3 class="mb-4 text-3xl font-basic tracking-normal">Create an account</h3>
@@ -102,4 +103,5 @@
 </form>
 </div>
 </section>
+
 @endsection

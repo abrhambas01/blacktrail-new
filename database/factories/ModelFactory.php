@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(Delivery::class, function (Faker $faker) {
+$factory->define(App\Delivery::class, function (Faker $faker) {
     return [
         'delivery_code' => $faker->iban,
         'description' => $faker->text,

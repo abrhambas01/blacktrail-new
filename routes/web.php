@@ -9,7 +9,7 @@ Route::get("/test/email/send",functionf(){
 Mail::send('')
 });
 */
-
+	
 use \App\Events\MessageSent;
 use \App\Message ; 
 use \App\User ; 
@@ -23,9 +23,6 @@ Route::get('get/criminals',function(){
 	$criminals = \App\Criminal::where("first_name",'=',"Kevin")->get();
 	return $criminals ;	 	
 });	
-
-
-
 
 
 // Route::get("/messags",function(){
@@ -87,9 +84,13 @@ Route::get('/criminals', 'CriminalsController@index')->name("criminals");
 Route::get('/criminals/{criminal}', 'CriminalsController@show')->name("criminal.show");
 
 Route::get('/search',"SearchController@search");
+
 Route::get('/groups', 'GroupsController@index')->name("groups");
+
 Route::get("/login",'AuthController@loginForm')->name('login')->middleware("guest");
-Route::get("register","AuthController@registerForm")->name('register');
+
+
+Route::get("register","AuthController@registerForm")->name('register')->middleware('guest');
 
 Route::get("/role","AuthController@postRole");
 
@@ -137,6 +138,7 @@ Route::get("/rows",function (){
 });
 
 Route::get('/', 'ViewsController@index')->name('index');
+
 Route::get('/deliveries', 'ViewsController@delivery')->name('index');
 
 
@@ -202,18 +204,26 @@ Route::any('upload', function()
 
 // Auth::routes();
 
-Route::post("/login",'AuthController@postLogin')->name('postLogin');
-Route::get('/logout','AuthController@logout')->name('logout');
+
+Route::post("/login",'AuthController@postLogin')->name('postLogin')->middleware('guest');
 
 Route::post('/register',[
 	'as' => 'postRegister',
-	'uses' => 'AuthController@postRegister'
+	'uses' => 'AuthController@postRegister',
+	'middleware' => 'guest'
 ]);
+
+Route::get('/logout','AuthController@logout')->name('logout');
+
+
 
 
 Route::post('payment/create',"PaypalController@create_payment");
+
 Route::post('payment/execute',"PaypalController@execute_payment");	
+
 Route::get("test-paypal","PaypalController@main_paypal_page");
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 // `localhost:3000/messages/trackback( $trackback_url, $title, $excerpt, $ID )/fbi44`

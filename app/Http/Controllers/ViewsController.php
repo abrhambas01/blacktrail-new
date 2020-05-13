@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Mail\UserRegistered; 
 use App\User ; 
 use App\Delivery ; 
+
 class ViewsController extends Controller
 {
 

@@ -14,6 +14,7 @@ class MessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     protected $room ;
+
     public $user;  
     public $message; 
     
@@ -54,11 +55,11 @@ class MessageSent implements ShouldBroadcast
         return "MessageEvent";
     }  
 
-   
-/*     
+   /*
+     
 public function dontBroadcastToCurrentUser(){
 
     }
-*/
 
+*/
 }

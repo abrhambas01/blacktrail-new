@@ -26,146 +26,223 @@
 
 							<!-- Search Bar for message-->
 							<message-search></message-search>
-							<message-conversations :messages="this.messages" :selectedContact="this.respondent">
-							</message-conversations>						
-						
-						</div>
-						<!-- Right -->
-						<div class="w-2/3 border flex flex-col">
+							<message-conversations :messages="this.messages" 
+							:selectedContact="this.respondent">
+						</message-conversations>						
 
-							<!-- Header -->
-							<div class="py-2 px-3 bg-grey-lighter flex flex-row justify-between items-center">
-								<div class="flex items-center">
-									<div>
-										<img class="w-10 h-10 rounded-full" :src="defaultAvatar"/>
-									</div>
-									<div class="ml-4">
-										<p class="text-grey-darkest">
-											{{ this.selectedContact.display_name }}
-										</p>
-										<p class="text-grey-darker text-xs mt-1">
-											Responding to Criminal: {{ this.criminal[0].full_name }}
-										</p>
-									</div>
+					</div>
+					<!-- Right -->
+					<div class="w-2/3 border flex flex-col">
+
+						<!-- Header -->
+						<div class="py-2 px-3 bg-grey-lighter flex flex-row justify-between items-center">
+							<div class="flex items-center">
+								<div>
+									<img class="w-10 h-10 rounded-full" :src="defaultAvatar"/>
 								</div>
+								<div class="ml-4">
+									<p class="text-grey-darkest">
+										<!-- {{ this.selectedContact.display_name }} -->
 
-								<div class="flex">
-									<div class="ml-6">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="#263238" fill-opacity=".6" d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z"></path></svg>
-									</div>
+										Display Name
+
+									</p>
+									<p class="text-grey-darker text-xs mt-1">
+										Display name (SELECTED) 
+
+										<!-- Responding to Criminal: {{ this.criminal[0].full_name }} -->
+									</p>
 								</div>
 							</div>
-							<messages></messages>
-							<message-input @pressedEnter="add"></message-input>
+
+							<div class="flex">
+								<div class="ml-6">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="#263238" fill-opacity=".6" d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z"></path></svg>
+								</div>
+							</div>
 						</div>
+						<messages></messages>
+						<message-input @saveMessage="saveMessage"></message-input>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </template>
 <script>
-// import ContactList from './ContactList.vue';
+import ContactList from './ContactList.vue';
 import MessageSearch from './Messages/MessageSearch';
 import MessageConversations from './Messages/MessageConversations.vue';
 import Messages from './Messages/Messages.vue';
 import ChatHeader from './ChatHeader.vue';
 import MessageInput from './Messages/MessageInput.vue';
 import endpoints from './scripts/endpoints.js';
+import sanitizeHtml from 'sanitize-html';
 // import ContactList from './ContactList.vue';
 export default {
-	
-components : {
-	Messages,
-	MessageInput, 
-	MessageSearch, 
-	MessageConversations, 
-	ChatHeader 
-},
+	components : {
+		Messages,
+		MessageInput, 
+		MessageSearch, 
+		MessageConversations, 
+		ChatHeader 
+	},
+	props : { 
+		id:  [ Number ],
+		criminal:  [ Object, Array] ,
+		user  : [ Object, Array ],
+		respondent : [ Object, Array],
+	},
+	data(){		
+		return {
+			privateChat: {
+				selectedReceiver: null,
+				isPrivateChatExpand: false,
+				isSelectedReceiverTyping: false,
+				hasNewMessage: false,
+		        isSeen: null, // null: no new message, false: a message is waiting to be seen, true: user seen message (should display "Seen at..")
+		        seenAt: '',
+		        roomId: '',
+		        isOnline: true,
+		        message: {
+		        	isLoading: false,
+		        	list: [],
+		        	currentPage: 0,
+		        	perPage: 0,
+		        	total: 0,
+		        	lastPage: 0,
+		           	newMessageArrived: 0 // number of new messages we just got (use for saving scroll position)
+		           },
+		           emojiCoordinates: {
+		           	x: 0,
+		           	y: 0
+		           },
+		           isShowEmoji: false,
+		           selectedMessage: null
+		       },
+		       crime_respondent : this.respondent[0],
+		       selectedContact : this.respondent[0],
+		       messages : [],
+		       contacts : []
+		   }
+		},
+		methods : {
+			async saveMessage (message, receiver = null) {
 
-props : { 
-	id:  [ Number ],
-	criminal:  [ Object, Array] ,
-	user  : [ Object, Array ],
-	respondent : [ Object, Array],
-},
-data(){		
-	return { 	
-		selectedContact : this.respondent,
-		// crime_respondent : this.respondent[0],
-		messages : [],
-		contacts : []
-	}
-},
+				try {
+					/*if there's no message and there's no receiver*/
+					if ((!receiver && !message.trim().length)) {
+						return
+					}
 
-methods : {
-	saveNewMessage(message){
-		axios.post(this.send_message_endpoint, {
-		})
+			// clean data before save to DB
+					message = sanitizeHtml(message).trim()
+
+					console.log(message);
+
+					if (!message.length) {
+						return
+					}
+
+					const response = await axios.post('/messages', {
+						receiver,
+						content: message,
+						room: receiver ? null : this.currentRoom.id
+					})
+
+					if (receiver) {
+						this.privateChat.message.list.push(response.data.message)
+					      this.privateChat.isSeen = false 
+					      // waiting for other to seen this message
+					      // send message indicate that user stop typing (incase Throttle function isn't called)
+					      
+					      this.$Echo.private(`room.${this.privateChat.roomId}`)
+					      .whisper('typing', {
+					      	user: this.$root.user,
+					      	isTyping: false
+					      })
+					  
+					  } else {
+
+					  	this.publicChat.message.list.push(response.data.message)
+					  
+					  }
+					  this.scrollToBottom(document.getElementById(`${receiver ? 'private' : 'shared'}_room`), true)
+					} catch (error) {
+						console.log(error);
+					}
+
+		},
+
+
+		saveNewMessage(message){
+			axios.post(this.send_message_endpoint, {
+			})
+		},
+
+		startConversationWith(contact){
+			this.updateUnreadCount(contact, true)
+			axios.get(`/conversation/${contact.id}`)
+			.then(response => {
+				this.messages = response.data ; 
+				this.selectedContact = contact ; 
+			})		
+		},
+		updateUnreadCount(contact,reset){
+			this.contacts = this.contacts.map((single) => {
+				if (single.id !== contact.id){
+					return id ; 
+				}
+				if ( reset )
+					single.unread = 0 ; 
+				else 
+					single.unread += 1 ; 
+				return single ; 
+			})
+		}
+
 	},
 
-	startConversationWith(contact){
-		this.updateUnreadCount(contact, true)
-		axios.get(`/conversation/${contact.id}`)
-		.then(response => {
-			this.messages = response.data ; 
-			this.selectedContact = contact ; 
-		})		
-	},
-	updateUnreadCount(contact,reset){
-		this.contacts = this.contacts.map((single) => {
-			if (single.id !== contact.id){
-				return id ; 
-			}
-			if ( reset )
-				single.unread = 0 ; 
-			else 
-				single.unread += 1 ; 
-			return single ; 
-		})
-	}
-
-},
-
-sockets : { 
-	connect(){
-		console.log("Socket connected");
-	},
-	customEmit(val){
-		console.log(val);
-	}
-},
-
-computed : { 
-	defaultAvatar(){
-		if (this.respondent.avatar == "default_avatar.jpg"){
-			return endpoints.urlDomain +"/assets/images/" +this.respondent.avatar ; 
-		} 
-		return endpoints.urlDomain +"/storage/" +this.respondent.avatar;
+	sockets : { 
+		connect(){
+			console.log("Socket connected");
+		},
+		customEmit(val){
+			console.log(val);
+		}
 	},
 
-	send_message_endpoint(){
-		return window.App.sendMessageEndpoint ; 
+	computed : { 
+		defaultAvatar(){
+			if (this.respondent.avatar == "default_avatar.jpg"){
+				return endpoints.urlDomain +"/assets/images/" +this.respondent.avatar ; 
+			} 
+			return endpoints.urlDomain +"/storage/" +this.respondent.avatar;
+		},
+
+		send_message_endpoint(){
+			return window.App.sendMessageEndpoint ; 
+		},
+
+		currentUserAvatar(){	
+			if(this.user.avatar === "default_avatar.jpg") {
+				return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
+			} 
+			else { 
+				return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
+			} 
+		}
 	},
 
-	currentUserAvatar(){	
-		if(this.user.avatar === "default_avatar.jpg") {
-			return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
-		} 
-		else { 
-			return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
-		} 
-	}
-},
+	mounted(){ 
+		console.log('Component mounted.'); 
 
-mounted(){ 
-	console.log('Component mounted.'); 
-    
-    let channel = Echo.private('message.' + this.id);
+		let channel = Echo.private('message.' + this.id);
 
-	channel.listen('.MessageEvent', function(data){
-		console.log(data);
-	}); 
+		channel.listen('.MessageEvent', function(data){
+			console.log(data);
+		}); 
 
 	// Registered client on public channel to listen to MessageSent event
 	Echo.channel('public').listen('MessageSent', ({message}) => {

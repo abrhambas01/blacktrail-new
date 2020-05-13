@@ -15,12 +15,9 @@ let routes = [
 	props : true 	
 	// name : 'criminalView',
 },
-
 {
  path: '*', component: NotFoundComponent 
 }
-
-
 ];
 
 export default new VueRouter({

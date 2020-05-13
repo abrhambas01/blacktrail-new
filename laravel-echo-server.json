@@ -1,5 +1,5 @@
 {
-	"authHost": "http://blacktrail.test/",
+	"authHost":"http://blacktrail.test",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": 
 	[

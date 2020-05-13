@@ -39,8 +39,10 @@ class MessageController extends Controller
 		->get();
 
 		$criminal = Criminal::where('id','=',$criminal)->with('respondent')->get();
-		
+
 		return view('messages',compact("messages",'criminal'));
+
+
 	}
 
 	public function getUserNotifications()

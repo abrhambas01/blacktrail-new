@@ -65,7 +65,9 @@ class AuthController extends Controller
 	public function registerForm()
 	{
 		$roles = Role::select(['id','role_title'])->get() ;
+	
 		$countries = Country::select(['id','name'])->get();
+	
 		return view("auth.register", compact('roles','countries'));
 	}
 

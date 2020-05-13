@@ -30,10 +30,15 @@ class BountyController extends Controller
 		$items = collect(request()->all());
 		
 		$amount = floatval(request('total_amount'));
+		
 		$criminal_id = request('criminal_id');
+		
 		$to_currency = strval(request('used_currency'));		
+		
 		$apiKey      =	$this->currencyApiKey() ; 			
+		
 		$payment_currency   		= 			urlencode("USD");
+		
 		$to_currency_code  	        = 			urlencode($to_currency);
 		
 	// /*this one's going fine..*/
@@ -71,10 +76,15 @@ class BountyController extends Controller
 			]; 
 
 			curl_setopt_array($ch, $options);
+		
 			$response =	curl_exec($ch) ;			
+		
 			$info = json_decode($response);
+
 			$rate = $info->$query ;
+			
 			$total = $rate * $amount ;
+			
 			$criminal = DB::table('criminal_profiles')->where('criminal_id',$criminal_id)->increment('bounty', $total);
 
 			return response()->json([
