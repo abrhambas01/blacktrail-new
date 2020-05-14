@@ -2,6 +2,8 @@
 /public/hot
 /public/storage
 /storage/*.key
+.cfignore
+.ebextensions
 /vendor
 /.idea
 /.vagrant
