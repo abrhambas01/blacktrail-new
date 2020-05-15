@@ -15,8 +15,8 @@ npm-debug.log
 yarn-error.log
 .env
 project.md
+composer.phar
 /.phpintel
-composer.
 resources/crud-generator
 test-app.md
 public/js/app.js
