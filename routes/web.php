@@ -16,9 +16,7 @@ use \App\User ;
 use Faker\Generator as Faker;
 
 Route::get("chat/test","ChatController@testMessage");
-
 Route::post("/send","ChatController@sendChat");	
-
 Route::get('get/criminals',function(){
 	$criminals = \App\Criminal::where("first_name",'=',"Kevin")->get();
 	return $criminals ;	 	

@@ -66,8 +66,11 @@ Route::group(['prefix' => 'v1'], function(){
 
 	/*Private Message urls*/
 	Route::post('get-private-message-notifications', 'MessageController@getUserNotifications');
+
 	Route::post('get-private-messages', 'MessageController@getMessages');
+
 	Route::post('get-private-message', 'MessageController@getPrivateMessageById');
+
 	Route::post('get-private-messages-sent', 'MessageController@getPrivateMessageSent');
 
 	/*Search for a criminal by sorting them out*/

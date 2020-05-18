@@ -3,6 +3,8 @@
 /public/storage
 /storage/*.key
 /storage
+/storage/logs
+max)
 .cfignore
 .ebextensions
 /vendor
@@ -23,5 +25,5 @@ public/js/app.js
 resources/assets/js/components/marc.html
 blacktrail.rar
 public/vendor/mercurius
-blacktrail-new.git	
+/blacktrail-new.git	
 bfg.jar

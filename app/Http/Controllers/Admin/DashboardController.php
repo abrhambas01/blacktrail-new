@@ -1,12 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Criminal ; 
 use App\Country ; 
 use App\User ; 	
-
 
 class DashboardController extends Controller {
 
