@@ -9,14 +9,11 @@
 | used to check if an authenticated user can listen to the channel.
 |
 */
-use App\Broadcasting\MessageChannel; 
+use App\Broadcasting\UserChannel; 
 use Illuminate\Support\Facades\Broadcast ; 
  
-Broadcast::channel('App.User.{id}', function ($user, $id) {
+Broadcast::channel('App.User.{id}', function($user, $id) {
 	return (int) $user->id === (int) $id;
 });
 
-
-Broadcast::channel("user.{user}", function ($user, $orderId) {
-    return $user->id === Order::findOrNew($orderId)->user_id;
-});
+Broadcast::channel("user.{user}", UserChannel::class);

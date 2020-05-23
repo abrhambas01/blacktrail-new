@@ -67,17 +67,17 @@ in the BlogPost.vue file
 then the html would look like 
 
 ```html
-	<section class="blog-post">
-	<header>
-	<h2>Blog post title</h2>
-	<p>Post by Callum Macrae</p>
-	</header>
+<section class="blog-post">
+<header>
+<h2>Blog post title</h2>
+<p>Post by Callum Macrae</p>
+</header>
 
-	<main>
-	<p>Blog post content</p>
-	<p>More blog post content</p>
-	</main>
-	</section>
+<main>
+<p>Blog post content</p>
+<p>More blog post content</p>
+</main>
+</section>
 ```
 
 
@@ -131,25 +131,25 @@ Our new component looks like this:
 		<p>{{ post.summary }}</p>
 		</slot>
 		</div>
-	</div>
+		</div>
 
-Now, the original way we used the component still works fine, because the paragraph element is still available as a fallback if no slot element is provided, but if we choose to, we can override the post summary element.
-Let’s override the summary to display an image instead of the post summary:
+		Now, the original way we used the component still works fine, because the paragraph element is still available as a fallback if no slot element is provided, but if we choose to, we can override the post summary element.
+		Let’s override the summary to display an image instead of the post summary:
 
-<blog-listing :posts="posts">
-<img
-slot="summary"
-slot-scope="post"
-:src="post.image"
-:alt="post.summary">
-</blog-listing>
+		<blog-listing :posts="posts">
+		<img
+		slot="summary"
+		slot-scope="post"
+		:src="post.image"
+		:alt="post.summary">
+	</blog-listing>
 
-Now the image element is used instead of the text element. We provided the post summary as the alternate text for the image, though; this is important so that users using assistive technology such as screen readers still know what the blog post is about.
-Slot scope destructuring
-As a neat shortcut, you can treat the slot-scope argument as if it were a function argument, so you can use destructuring.
-Let’s rewrite the previous example to use destructuring:
+	Now the image element is used instead of the text element. We provided the post summary as the alternate text for the image, though; this is important so that users using assistive technology such as screen readers still know what the blog post is about.
+	Slot scope destructuring
+	As a neat shortcut, you can treat the slot-scope argument as if it were a function argument, so you can use destructuring.
+	Let’s rewrite the previous example to use destructuring:
 
-<blog-listing :posts="posts">
+	<blog-listing :posts="posts">
 	<img
 	slot="summary"
 	slot-scope="{ image, summary }"
@@ -164,3 +164,33 @@ Watcher
 
 While computed properties are more appropriate in most cases, there are times when a custom watcher is necessary. That’s why Vue provides a more generic way to react to data changes through the watch option. This is most useful when you want to perform asynchronous or expensive operations in response to changing data.
 
+
+
+
+# Async and Await
+```js
+function makeRequest(location){
+	return new Promise((resolve, reject) => {
+		console.log(`' making request to ${location}'`);
+		if ( location === 'Google') {
+			resolve("google says hi");
+		}
+		else {
+			reject("We can talk to google only");
+		}
+	})
+}
+
+function processRequest(response) {
+	return new Promise((resolve, reject) => {
+	 console.log("Processing response");
+	 resolve(`Extra information + ${response}`);
+}) 
+}
+
+makeRequest("Google").then(response => {
+	console.log('Response Received');
+return processRequest(response);
+}).then(processResposne= )
+
+```

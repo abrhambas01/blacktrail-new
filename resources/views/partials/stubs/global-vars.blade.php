@@ -10,6 +10,7 @@
 	'publicPath'	 	  =>  		public_path(),
 	'storagePath'		  =>  		storage_path(),
 	'sendMessageEndpoint' => 	    route("sendMessageEndpoint"),
+	'sendMessageEndpoint2' => 	    route("sendChat"),
 	'assetStorageCriminalsPath'		  =>  asset('storage/criminals'),
 	'assetPublicPath'		  =>  asset('storage/public'),
 	'assetStoragePath'				  =>  asset('storage'),

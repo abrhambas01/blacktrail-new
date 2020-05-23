@@ -38,7 +38,7 @@ return [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
-            'prefix' => '',
+            'prefix' => Str::slug(env('APP_NAME','laravel'). '_ ')."_database_",
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 

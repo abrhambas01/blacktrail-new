@@ -48,18 +48,17 @@ class ChatController extends Controller
 			$criminal = \App\Criminal::where('id','=',$criminal)->with('respondent')->get();*/
 
 			$criminalId = 3 ;
-			
 			$criminal = \App\Criminal::where('id','=',$criminalId)->with('respondent')->get();
 
-			return view("test-message",compact("criminal"));
+		return view("test-message",compact("criminal"));
 
 	}
 
 	public function sendChat(Request $request){
-		$user = User::find(request('id')); 
-		$message = $request->message; 
+		$user = User::find(request('id'));
+		$message = $request->message;
 		event(new \App\Events\MessageSent($user,$message));				
-	}
+	} 
 
 // dd($user);
 

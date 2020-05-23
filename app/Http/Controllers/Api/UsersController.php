@@ -53,22 +53,26 @@ class UsersController extends Controller
 			'avatar' => 'required'
 		]);
 
+
+
 		if(request()->has('form.avatar')){
+
 			$base64String = request()->input('form.avatar') ; 
+
 			$image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
 			$imageName = str_random(30) . '.png';
 
 			$imageStore = Storage::disk('public')->put($imageName, $image, 'public'); 
 
 			$userData = [
-			'display_name'  => $request->input("form.display_name"),
-			'username'	 	=> $request->input("form.username"),
-			'description'	 	=> $request->input("form.description"),
-			'email' 		=> $request->input("form.email"),
-			'phone_number'  => $request->input("form.phone_number"),
-			'password' 		=> bcrypt($request->input("form.password")),
-			'country_id' 	=> $request->input("form.country_id"),
-			'avatar' 		=> $imageName
+				'display_name'  => $request->input("form.display_name"),
+				'username'	 	=> $request->input("form.username"),
+				'description'	 	=> $request->input("form.description"),
+				'email' 		=> $request->input("form.email"),
+				'phone_number'  => $request->input("form.phone_number"),
+				'password' 		=> bcrypt($request->input("form.password")),
+				'country_id' 	=> $request->input("form.country_id"),
+				'avatar' 		=> $imageName
 			];
 
 			$user = User::findOrFail($id);
@@ -113,9 +117,10 @@ class UsersController extends Controller
 		$user = User::where('id',$id)->pluck('password');
 		$logged_on_users_password = $user[0];
 		$password = request()->input('form.password');
+		
 		$confirm_password = request()->input('form.confirm_password');
-
-		/*if the two passwords don't match then issue a response*/
+		$originalAvatarOfThisUser = User::where("id",'=',$id)->select('avatar')->get();
+			/*if the two passwords don't match then issue a response*/
 		if (is_null($password) || is_null($confirm_password)) {
 			$this->updateUser(request(),$id);
 		}

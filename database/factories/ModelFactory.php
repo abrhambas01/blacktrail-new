@@ -2,6 +2,7 @@
 
 use Faker\Generator as Faker;
 
+
 $factory->define(App\Delivery::class, function (Faker $faker) {
     return [
         'delivery_code' => $faker->iban,
@@ -107,7 +108,6 @@ $factory->define(App\Message::class, function (Faker $faker) {
 });
 
 /*for criminal_info*/
-
 $factory->define(App\CriminalInfo::class, function (Faker $faker) {
     $country = $faker->countryCode;
     return [

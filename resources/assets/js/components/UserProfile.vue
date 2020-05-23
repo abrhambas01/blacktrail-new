@@ -51,8 +51,10 @@
 </section>
 </template>
 <script>
+
 import urls from './scripts/endpoints.js';
 import api from './scripts/api.js';
+
 export default {
 	props : ['user'],
 	name: 'UserProfile',

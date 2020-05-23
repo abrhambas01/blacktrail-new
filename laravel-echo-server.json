@@ -1,11 +1,10 @@
 {
-	"authHost":"http://blacktrail.test",
+	"authHost": "http://blacktrail.test",
 	"authEndpoint": "/broadcasting/auth",
-	"clients": 
-	[
+	"clients": [
 		{
-			"appId": "4737c44e7cb01a73",
-			"key": "7634fd337a1fdecf9efeb57389f14923"
+			"appId": "1197dfbf738c4364",
+			"key": "8322ea2d451105209f6ab6e27567c9af"
 		}
 	],
 	"database": "redis",
@@ -30,9 +29,9 @@
 		"redis": true
 	},
 	"apiOriginAllow": {
-		"allowCors": false,
-		"allowOrigin": "",
-		"allowMethods": "",
-		"allowHeaders": ""
+		"allowCors": true,
+		"allowOrigin": "http://blacktrail.test:80",
+		"allowMethods": "GET, POST",
+		"allowHeaders": "Origin, Content-Type, X-Auth-Token, X-Requested-With, Accept, Authorization, X-CSRF-TOKEN, X-Socket-Id"
 	}
 }

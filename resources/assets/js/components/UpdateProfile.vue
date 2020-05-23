@@ -146,67 +146,67 @@ export default {
 				confirm_password : "", 
 				display_name : this.user.display_name,
 				phone_number : this.user.phone_number,
-				// uploadUrl : urls.update_profiles_endpoint,
-			},
-			countries : this.country,
-			rules: [
-			{ message:'One lowercase letter required.', regex:/[a-z]+/ },
-			{ message:"One uppercase letter required.",  regex:/[A-Z]+/ },
-			{ message:"8 characters minimum.", regex:/.{8,}/ },
-			{ message:"One number required.", regex:/[0-9]+/ }
-			],
-			password:'',
-			checkPassword:'',
-			passwordVisible:false,
-			submitted:false
-		}
-	},
-	methods : { 
-		
-		onAvatarChange(e) {
-			let files = e.target.files || e.dataTransfer.files;
-			if (!files.length)
-				return;
-			this.createAvatar(files[0]);
+			// uploadUrl : urls.update_profiles_endpoint,
 		},
+		countries : this.country,
+		rules: [
+		{ message:'One lowercase letter required.', regex:/[a-z]+/ },
+		{ message:"One uppercase letter required.",  regex:/[A-Z]+/ },
+		{ message:"8 characters minimum.", regex:/.{8,}/ },
+		{ message:"One number required.", regex:/[0-9]+/ }
+		],
+		password:'',
+		checkPassword:'',
+		passwordVisible:false,
+		submitted:false
+	}
+},
+methods : { 
 
-		createAvatar(file) {
-			let reader = new FileReader();
-			let vm = this;
-			reader.onload = (e) => {
-				vm.form.avatar = e.target.result;
-			};
-			reader.readAsDataURL(file);
-		},
-		
-		uploadImage(){
-			axios.post(this.endpoint,{ avatar: this.avatar})
-			.then(response => {
-				if (response.data.success) {
-					alert(response.data.success);
-				}
+	onAvatarChange(e) {
+		let files = e.target.files || e.dataTransfer.files;
+		if (!files.length)
+			return;
+		this.createAvatar(files[0]);
+	},
+
+	createAvatar(file) {
+		let reader = new FileReader();
+		let vm = this;
+		reader.onload = (e) => {
+			vm.form.avatar = e.target.result;
+		};
+		reader.readAsDataURL(file);
+	},
+
+	uploadImage(){
+		axios.post(this.endpoint,{ avatar: this.avatar})
+		.then(response => {
+			if (response.data.success) {
+				alert(response.data.success);
+			}
+		}).catch(error => {
+			console.log(error);
+		});
+	},
+
+	validateBeforeSubmit() {
+		this.$validator
+		.validateAll()
+		.then((response) => {
+			axios.put(this.endpoint, {
+				params : { form : this.form }
+			}).then(response => { 
+				console.log(response.data);
 			}).catch(error => {
 				console.log(error);
-			});
-		},
-		
-		validateBeforeSubmit() {
-			this.$validator
-			.validateAll()
-			.then((response) => {
-				axios.put(this.endpoint, {
-					params : { form : this.form }
-				}).then(response => { 
-					console.log(response.data);
-				}).catch(error => {
-					console.log(error);
-				})
-			}).catch(function(e) {
-				console.log("not matched");
-			});
-		},
-		
-		submitProfile(){
+			})
+		}).catch(function(e) {
+			console.log("not matched");
+		});
+	},
+
+	submitProfile(){
 			// let data = new FormData();
 			axios.put(this.endpoint, { 
 				form : this.form , 
@@ -214,7 +214,9 @@ export default {
 				console.log(response); 		
 				let url = urls.show_profile_endpoint; 
 				Vue.swal('Submitting...');
-				location.replace(url);
+				// location.replace(url);
+
+
 				// alert(response.data.success);
 				// location.reload();
 			}).catch(error => {

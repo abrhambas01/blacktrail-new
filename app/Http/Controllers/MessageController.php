@@ -39,10 +39,7 @@ class MessageController extends Controller
 		->get();
 
 		$criminal = Criminal::where('id','=',$criminal)->with('respondent')->get();
-
 		return view('messages',compact("messages",'criminal'));
-
-
 	}
 
 	public function getUserNotifications()
@@ -79,34 +76,44 @@ class MessageController extends Controller
 
 	public function saveNewMessage(Request $request)
 	{
-		$attributes = [
-			'sender_id' => $request->user()->id,
-			'receiver_id' => $request->input('receiver_id'),
-			'message' => $request->input('message'),
-			'subject' => $request->input('subject'),
-			'read' => 0,
-		];
-
-		$pm = Message::create($attributes);
-		$data = Message::where('id', $pm->id)->first();
-
-	/*	
-	$redis = LRedis::connection();
-		$redis->publish('message', $data);
-*/
-		return response(['data' => $data], 201);
+		// return response()->json(request()->all());
+		dd(request()->all());
 		
-	}
+
+		$message = new Message();
+
+		$receiver = request()->input("receiver.id");
+
+		if ($request->has('receiver') && $request->input('receiver')){
+			$receiver_id = (int)$request->input('receiver.id');
+			$message->sender_id = auth()->id() ; 			
+			$message->message = $request->input('content', '');
+			$message->receiver_id = $receiver_id ;
+			$message->criminal_id = request()->input('criminal.id') ;	
+			$message->seen_at = NULL  ; 
+			$message->read = 0 ;
+			$message->save();  
+				// $message->room = $message->sender < $receiver ? $message->sender.'__'.$receiver : $receiver.'__'.$message->sender;
+		}
+		else {
+			dd("Make sure you have a receiver");
+		}
+
+		$message->save();
+
+    	broadcast(new MessageSent($receiver, $request->input('content')))->toOthers(); // send to others EXCEPT user who sent this message
+    	
+    	return response()->json(['message' => $message->load(['sender', 'reactions.user'])]);
+
+    }
 
 
-	public function getMessageSent(Request $request)
-	{
-		$pms = Message::where('sender_id', $request->user()->id)->orderBy('created_at', 'desc')
-		->get();
-		
-		return response(['data' => $pms], 200);
-	}
+    public function getMessageSent(Request $request)
+    {
+    	$pms = Message::where('sender_id', $request->user()->id)->orderBy('created_at', 'desc')
+    	->get();
 
-	
+    	return response(['data' => $pms], 200);
+    }
 
 }

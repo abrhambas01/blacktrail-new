@@ -16,11 +16,17 @@ use \App\User ;
 use Faker\Generator as Faker;
 
 Route::get("chat/test","ChatController@testMessage");
-Route::post("/send","ChatController@sendChat");	
+
+Route::post("/send","ChatController@sendChat")->name('sendChat');	
+
 Route::get('get/criminals',function(){
 	$criminals = \App\Criminal::where("first_name",'=',"Kevin")->get();
 	return $criminals ;	 	
 });	
+
+Route::get("async",function(){
+	return view("async");
+});
 
 
 // Route::get("/messags",function(){
@@ -131,13 +137,15 @@ Route::get("/2-col",function (){
 	return view("2-col");
 });	
 
+
+
 Route::get("/rows",function (){
 	return view("rows");
 });
 
 Route::get('/', 'ViewsController@index')->name('index');
 
-Route::get('/deliveries', 'ViewsController@delivery')->name('index');
+Route::get('/deliveries', 'ViewsController@delivery');
 
 
 /**

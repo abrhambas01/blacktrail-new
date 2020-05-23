@@ -35,13 +35,9 @@ const options = {
 Vue.use(VueInstantSearch);
 
 Vue.use(VueSweetalert2, options);
-
 Vue.config.devtools = true ; 
-
 Vue.config.performance  = true ;
-
 Vue.prototype.user = window.App.user;
-
 Vue.prototype.$http = axios;
 
 import Echo from "laravel-echo" ;

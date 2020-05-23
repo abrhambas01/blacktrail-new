@@ -9,13 +9,13 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Message ;   
 use App\User ;
- 
+
 class MessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+    
     protected $room ;
-
-    public $user;  
+    public $user; 
     public $message; 
     
     /*
@@ -28,14 +28,14 @@ class MessageSent implements ShouldBroadcast
         $this->message = $message;    
         $this->user = $user ; 
     }
-
+    
     /*Broadcast with*/
     public function broadcastWith()
     { 
         return [  
             'message' => $this->message ,
             'user' => $this->user 
-        ];
+        ]; 
     } 
     
     /**
@@ -50,10 +50,10 @@ class MessageSent implements ShouldBroadcast
         // private channels .. -> needs user authenticated..
         // return new PrivateChannel('messages'.$this->message->id);
     } 
- 
+    
     public function broadcastAs(){
         return "MessageEvent";
-    }  
+    }   
 
    /*
      
