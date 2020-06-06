@@ -1,23 +1,24 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": [
+    "keywords": 
+    [
         "framework",
         "laravel"
     ],
     "license": "MIT",
     "type": "project",
-    "require": 
-    {
+    "require": {
         "php": ">=7.0.0",
         "akaunting/money": "^1.0",
         "algolia/algoliasearch-client-php": "^1.27",
+        "arcanedev/log-viewer": "~4.5.0",
         "beyondcode/laravel-confirm-email": "^1.5",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "~4.0",
         "geocoder-php/algolia-places-provider": "^0.1.1",
         "guzzlehttp/guzzle": "~6.0",
-        "intervention/image":  "^2.5",
+        "intervention/image": "^2.5",
         "laravel/cashier": "~7.0",
         "laravel/framework": "5.6.*",
         "laravel/scout": "~4.0",

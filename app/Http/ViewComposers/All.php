@@ -2,8 +2,10 @@
 namespace App\Http\ViewComposers;
 use App\Country ; 
 use Illuminate\View\View;
+use DB ; 
 
-class All { 
+class All {
+
 	public function compose(View $view)
 	{
 		if (auth()->check()){
@@ -11,7 +13,8 @@ class All {
 			$str = asset('/storage/'.auth()->user()->avatar)  ; 
 			$avatar = str_replace('\\', '/', $str);
 			$user_id = auth()->user()->id ; 
-		}
+			/*$user,$criminal*/
+		}		
 		
 		else {
 			$displayName = '';
@@ -24,7 +27,7 @@ class All {
 					'displayName'	=> $displayName ,
 					'user_id'	=>  $user_id,
 					'avatar' => $avatar
-		]);	
-	
+		]);		
 	}
+
 }

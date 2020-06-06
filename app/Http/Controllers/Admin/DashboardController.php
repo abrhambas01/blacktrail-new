@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -55,6 +56,7 @@ class DashboardController extends Controller {
 	/* Returns all posted criminals.. */
 	public function postedCriminals($admin)
 	{
+
 		$criminals = Criminal::postedByLoggedOnUser()->with('respondent','crimes','profile')->paginate(5);	
 				
 		// $criminals = Criminal::paginate(5);
@@ -67,6 +69,8 @@ class DashboardController extends Controller {
 		->paginate(5);*/
 
 		return view('admin.criminals.posted',compact('criminals'));
+	
+
 	}
 
 	public function saveCriminals(Request $request)

@@ -1,7 +1,5 @@
 <?php
-
 namespace Tests;
-
 use App\Exceptions\Handler;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Contracts\Debug\ExceptionHandler;

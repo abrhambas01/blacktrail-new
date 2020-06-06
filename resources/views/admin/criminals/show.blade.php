@@ -120,6 +120,7 @@ use Carbon\Carbon;
 									<p class="text-md text-normal mr-4">Weight	: <em class="font-bold roman">{{ ucwords($criminal->profile->weight_in_kilos) }}</em>
 									</p>
 								</div>
+
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Contact Number : <em class="font-bold roman">{{ $criminal->contact_number  }}</em></p>
 								</div>
@@ -131,6 +132,7 @@ use Carbon\Carbon;
 								<div class="row mb-3">
 									<p class="text-md text-normal mr-4">Height:<em class="font-bold roman">{{ ucwords($criminal->profile->height_in_feet_and_inches) }}</em></p>
 								</div>
+								
 								@else
 							
 								<div class="row mb-3">

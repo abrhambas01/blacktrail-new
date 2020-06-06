@@ -1,11 +1,11 @@
 <?php
-
-namespace App\Broadcasting;
-use App\User;
+namespace App\Broadcasting ;
+use App\User ;
 use App\Message ; 
 
 class MessageChannel
 {
+
     /**
      * Create a new channel instance.
      *

@@ -7,6 +7,14 @@ use App\Message ;
 class MessagesController extends Controller
 {
 
+	public function getMessagesFrom(){
+		$messages = Message::where("sender_id",'=',auth()->id())
+							->orWhere('receiver_id','=',auth()->id())
+							->get();
+
+		dd($messages);
+	}
+
 	public function fetch_messages(){
 		$logged_user = auth()->id(); 
 		$respondent_id = request("respondent_id");
@@ -15,7 +23,7 @@ class MessagesController extends Controller
 	}
 
 	/*returns respondent_name , updated message from its body*/
-		public function fetch_all_messages_of_the_currently_logged_on_user_to_a_its_respondent(){
+	public function fetch_all_messages_of_the_currently_logged_on_user_to_a_its_respondent(){
 		/*the user id or auth id*/
 		$logged_user = request('user_id');
 		$respondent_id = request("respondent_id");

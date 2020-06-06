@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use App\User ; 
 
 class isAdmin
 {
@@ -22,7 +22,6 @@ class isAdmin
     */
     public function handle($request, Closure $next)
     {
-
         $user = auth()->user();
 
         if (auth()->check() && $user->isAdmin()){
@@ -30,7 +29,6 @@ class isAdmin
         }
 
         abort(403, 'You do not have permission to perform this action.');
-
     }
 
 }

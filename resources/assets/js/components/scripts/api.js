@@ -16,11 +16,15 @@ export default {
 	algoliaId , 
 	algoliaKey ,
 	assetPath ,
-	app,
+	app,	
 	storagePath ,
+	
 	urlSaveCriminal ,
+	
 	searchCriminalsEndpoint,
+	
 	url_for_saving_photos
+
 };
 
 

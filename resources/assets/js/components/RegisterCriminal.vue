@@ -69,7 +69,6 @@
 							</div>
 							<div class="col-md-6">
 								<input type="file" name="form.avatar" id="avatar" @change="onAvatarChange" class="bg-white p-2 form-control">
-
 							</div>
 						</div>
 					</div>
@@ -143,10 +142,14 @@ import Places from 'vue-places';
 import VueTrix from "vue-trix";
 import datepicker from 'vue-date-picker';
 import _ from "lodash"; 
+
 export default { 
+
 	components : { 
 		'VueTrix' : VueTrix,
+
 		'places' : Places, 
+
 		'datepicker' : datepicker
 	},
 
@@ -168,6 +171,7 @@ export default {
 			default : null
 		}
 	},
+
 	data(){
 		return { 
 			avatar : "",
@@ -516,7 +520,7 @@ handleEditorChange(file){
 				}).then(response => {
 					if ( response.status === 200){
 						alert("Successfully Registered This Criminal");
-					this.resetForm();
+						this.resetForm();
 						// window.location.href = window.App.apiDomain + "/admin/criminals/posted/"+ api.user.id ; 
 						// location.reload("admin/criminals/"+response);
 					}
@@ -576,7 +580,7 @@ handleEditorChange(file){
 	@apply .bg-grey-lighter .w-auto;
 }
 
-.trix-content{
+.trix-content {
 	height: 500px;
 	overflow-y: auto;
 }

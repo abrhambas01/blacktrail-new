@@ -9,9 +9,8 @@ use Spatie\Searchable\SearchResult;
 class Criminal extends Model
 {
 	use Searchable ; 
-	
-	protected $guarded = [];
 
+	protected $guarded = [];
 
 	protected $fillable = [
 		'first_name',
@@ -162,12 +161,12 @@ class Criminal extends Model
 	}	
 
 	/*
-*	 * status is at large
+ * status is at large
 	*/
-public function scopeNotYetCaptured($query)
-{
-	return $query->where("status",'=',1);
-}
+	public function scopeNotYetCaptured($query)
+	{
+		return $query->where("status",'=',1);
+	}
 	/*
 	Ranking by most wanted........
 	*/
@@ -244,8 +243,5 @@ public function scopeNotYetCaptured($query)
 			'currency' => $request->input("form.currency"),
 			'complete_description'  =>        	$request->input("form.complete_description")
 		]);
-
 	}
-
-
 }

@@ -19,26 +19,36 @@
 				</p>
 			</div>
 		</div>
+		<div v-for="message in messages"></div>
 	</div>
 </template>
 <script>
 import endpoints from '../scripts/endpoints.js';
+
 export default {
-	props : ['selectedContact','messages'],
-	data(){
-		return { 
-			message : this.messages
-		}
-	},
+
+	props : ['selectedContact','messages','user'],
 	computed : { 
 		currentUserAvatar(){	
-			if(this.user.avatar === "default_avatar.jpg") {
-				return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
+			if(this.selectedContact.avatar === "default_avatar.jpg"){
+				return endpoints.urlDomain +"/assets/images/default_avatar.jpg"   ;
 			} 
 			else { 
-				return endpoints.urlDomain +"/assets/images/" +this.user.avatar ; 
+				return endpoints.urlDomain +"/storage/" +this.selectedContact.avatar ;	
 			}
 		}
+	},
+
+	data(){
+
+		return { 
+			message : this.messages	,
+			properAvatar : ""
+		}
+
+	},
+
+	methods : { 
 	}
-};
+}
 </script>

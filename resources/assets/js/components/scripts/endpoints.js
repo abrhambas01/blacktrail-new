@@ -1,4 +1,4 @@
-	// used for returning api url's for xhr requests.
+// used for returning api url's for xhr requests.
 import api from './api';
 
 const urlDomain = api.app ; 
@@ -10,16 +10,16 @@ const currencyLayerApi  = urlDomain + '/api/v1/bounty/update';
 const convertCurrencyUrl = urlDomain + "/currency/convert";
 const destroyUserUrl = urlDomain + "/api/v1/user/delete";
 const activateUserUrl = urlDomain + "/api/v1/user/activate";
-const fetch_criminals_respondent = urlDomain + "/api/v1/respondent/criminal";
-const respond_to_criminal = urlDomain + "/respond/criminal";
-const fetch_messages_endpoint = urlDomain + "/api/v1/messages/get";
-const send_messages_endpoint = urlDomain + "/api/v1/messages/send";
-const update_profile_endpoint = urlDomain + "/user/profiles/update/" + api.user.id;
-const update_profiles_endpoint = urlDomain + "/api/v1/user/profiles/update";
-const show_profile_endpoint = urlDomain + "/user/profiles/" + api.user.id;
-const urlSaveCriminal = urlDomain + "/admin/criminals";
-const urlUpdateCriminal = urlDomain + "/admin/criminals";
-const urlForSearchingCriminals = api.searchCriminalsEndpoint;
+const fetch_criminals_respondent = urlDomain + "/api/v1/respondent/criminal" ;
+const respond_to_criminal = urlDomain + "/respond/criminal" ;
+const fetch_messages_endpoint = urlDomain + "/api/v1/messages/get" ;
+const send_messages_endpoint = urlDomain + "/api/v1/messages/send" ;
+const update_profile_endpoint = urlDomain + "/user/profiles/update/" + api.user.id ;
+const update_profiles_endpoint = urlDomain + "/api/v1/user/profiles/update" ;
+const show_profile_endpoint = urlDomain + "/user/profiles/" + api.user.id ;
+const urlSaveCriminal = urlDomain + "/admin/criminals" ;
+const urlUpdateCriminal = urlDomain + "/admin/criminals" ;
+const urlForSearchingCriminals = api.searchCriminalsEndpoint ;
 // const urlForSearchingCriminals = urlDomain + "/api/v1/?search-criminals";
 
 

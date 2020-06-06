@@ -60,18 +60,13 @@
 <script>
 export default { 
 	data(){
-		return { 
-
-		}
+		return { }
 	},
 	sockets : { 
 		connect(){
 			console.log("");
 		},
-
-		message(val){
-
-		}
+		message(val){}
 	}
 };
 </script>

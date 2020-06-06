@@ -20,7 +20,6 @@ import PayPal from 'vue-paypal-checkout';
 import VueInstantSearch from 'vue-instantsearch';
 import TestMessages from './components/TestMessages.vue';
 
-
 // import UploadImage from 'vue-upload-image'eDITc;
 
 window.Vue = require('vue');
@@ -44,17 +43,14 @@ Vue.component('criminal-map', require('./components/CriminalMap'));
 Vue.component('user-filters', require('./components/UserFilters.vue'));	
 Vue.component('dashboard-nav', require('./components/DashboardNav.vue'));
 // Vue.component('search-messages', require('./components/SearchMessages.vue'));
-
 Vue.component('criminal-layout',require('./components/CriminalViewLayout.vue')) ;
 Vue.component('message-conversations',require('./components/Messages/MessageConversations.vue'));
 Vue.component('criminal-search',require('./components/CriminalSearch.vue'));
 Vue.component("edit-criminal",require("./components/EditCriminal.vue"));
 Vue.component("flash-message",require('./components/Alerts/FlashMessage.vue'));
 Vue.component('deliveries-list', require('./components/Deliveries.vue'));
-
 /*the navigation under the Welcome to Blacktrail text*/
 Vue.component("main-navigation",require('./components/MainNavigation.vue'));
-
 //testing slots...
 Vue.component('site-header',require('./components/Layouts/SiteHeader.vue'));
 Vue.component('site-header-two',require('./components/Layouts/SiteHeader2.vue'));
@@ -71,6 +67,7 @@ Vue.component('upload-image', require('./components/UploadImage.vue'));
 Vue.component('update-profile', require('./components/UpdateProfile.vue'));
 Vue.component('criminals-search', require('./components/CriminalSearch.vue').default);
 Vue.component('stats-page', require('./components/Stats.vue').default);
+Vue.component('check-if-admin-chat', require('./components/CheckIfAdminChatIsAvailable.vue'));
 // Vue.component('trix-editor', require('./components/TrixEditor.vue'));
 
 // Vue.component('site-sidebar',require('./components/Layouts/SiteSidebar.vue'));
@@ -100,7 +97,7 @@ const app = new Vue({
 			user_info: "",
 		}
 	},	
-	router
+	router,
 	/*
 	created(){
 		console.log("Alright");	

@@ -2,10 +2,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User ; 
+use App\Message ;
 use App\Criminal ; 
+
 class ChatController extends Controller
 {
-	
 	public function __construct(){
 		return $this->middleware('auth');
 	}
@@ -47,18 +48,49 @@ class ChatController extends Controller
 
 			$criminal = \App\Criminal::where('id','=',$criminal)->with('respondent')->get();*/
 
-			$criminalId = 3 ;
-			$criminal = \App\Criminal::where('id','=',$criminalId)->with('respondent')->get();
+		$criminalId = 3 ;
+
+		$criminal = \App\Criminal::where('id','=',$criminalId)->with('respondent')->get();
 
 		return view("test-message",compact("criminal"));
-
 	}
 
 	public function sendChat(Request $request){
-		$user = User::find(request('id'));
+		// dd("something inserts here");
+		$user = User::find(request()->input('id'));
 		$message = $request->message;
 		event(new \App\Events\MessageSent($user,$message));				
-	} 
+		
+/*		\\
+		$message = new Message;	
+
+		$receiver = request()->input("receiver.id");
+
+		if ($request->has('receiver') && $request->input('receiver')){
+			$receiver_id = (int)$request->input('receiver.id');
+			$message->sender_id = auth()->id() ; 			
+			$message->message = $request->input('content', '');
+			$message->receiver_id = $receiver_id ;
+			$message->criminal_id = request()->input('criminal.id') ;	
+			$message->seen_at = NULL  ; 
+			$message->read = 0 ;
+			$message->save();  
+				// $message->room = $message->sender < $receiver ? $message->sender.'__'.$receiver : $receiver.'__'.$message->sender;
+		}
+		else {
+			dd("Make sure you have a receiver");
+		}
+
+		$message->save();
+
+    	broadcast(new MessageSent($receiver, $request->input('content')))->toOthers(); // send to others EXCEPT user who sent this message
+    	
+    	return response()->json(['message' => $message->load(['sender', 'reactions.user'])]);
+
+*/
+	}
+
+
 
 // dd($user);
 

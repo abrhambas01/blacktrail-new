@@ -28,11 +28,10 @@
   <div id="app">
     @if(auth()->user())
     {{-- <h3>Something like this.</h3> --}}
-    
-{{--     @if (route('profiles.billing',auth()->user()->id))
-        
-
-@endif --}}
+{{-- 
+@if (route('profiles.billing',auth()->user()->id))
+@endif 
+--}}
 
 @if(auth()->user()->username === null )
 @include('partials.alerts.null-username')
@@ -41,6 +40,7 @@
 @endif
 <div class="m-auto">
   @if(session()->has('activated_flash'))
+
   <flash-message inline-template>      
     <div v-show="messageIsAvailable" id="messageSuccess" class="bg-green-theme p-4 w-full flex justify-between flashMessage">
       <p class="text-white font-semibold text-md font-sans">{{ trans('flash.logout_success') }}</p>
@@ -48,7 +48,6 @@
       </svg>
     </div>
   </flash-message>
-
   @endif 
 
   @if(session()->has('flash'))
@@ -72,16 +71,18 @@
   </flash-message>
   @endif
 
-  @if(session()->has('flash-message'))
+  @if (session()->has('flash-message'))
   {{-- this piece of code doesn't work  --}}
   {{-- <flash-message message="{{ session('flash-message' ) }}"></flash-message> --}}
-  <flash-message inline-template>      
+  <flash-message inline-template>       
+    
     <div v-show="messageIsAvailable" id="logoutSuccess" class="bg-green-theme p-4 w-full flex justify-between flashMessage">
       <p class="text-white font-semibold text-md font-sans">{{ session('flash-message' ) }}
       </p>
       <svg @click="hideAlert()" class="fill-current text-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
       </svg>
     </div>
+ 
   </flash-message>
   @endif
 
@@ -90,24 +91,35 @@
   </app-header>
 
   <main class="flex m-auto">
-    @if (auth()->check())            
-    @include('partials.sidebar')
+    @if (auth()->check())
+    
+      @if (auth()->user()->isAdmin())
+          <check-if-admin-chat :id="{{  auth()->id() }}"></check-if-admin-chat>
+      @endif
+  
+        @include('partials.sidebar')
+    
     @endif        
+
     @yield("content")
+  
   </main>
 </div>
 </div>
 
 <script data-turbolinks-suppress-warning src="{{ mix('js/app.js') }}"></script>
-<script data-turbolinks-suppress-warning src="{{ asset('js/jquery.min.js') }}"></script>
+
+<script data-turbolinks-suppress-warning src="{{ asset('js/jquery.min.js') }}">
+</script>
+
 <script>
- 
  $(document).ready(function(){
    $(".flashMessage").hide().slideDown().delay(3000).fadeOut();
    console.log("ok");
  });
-
 </script>
+
 @yield("scripts")
+
 </body>
 </html> 

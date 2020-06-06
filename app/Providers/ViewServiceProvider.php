@@ -12,9 +12,13 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         view()->composer('*','App\Http\ViewComposers\All');
-        
-        view()->composer(['partials.filters.criminals','partials.filters.groups'],'App\Http\ViewComposers\SearchFilters');
+            
+        view()->composer(['partials.filters.criminals','partials.filters.groups'],'App\Http\ViewComposers\SearchFilters');  
+
+        // view()->composer('*','App\Http\ViewComposers\SearchFilters');
+
     }
 
     /**

@@ -17,7 +17,6 @@ class GroupController extends Controller
     {
         $groups = Group::all() ;
         return view('groups.index');
-
     }
 
     /**

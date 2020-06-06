@@ -1,4 +1,4 @@
-<?php
+<?php	
 /*
 We need pages for this in the landing page 
 for the bounty hunters
@@ -42,21 +42,20 @@ Route::group(['prefix' => 'admin',
 	'namespace' => 'Admin'
 ], function(){
 
-	Route::get("stats","DashboardController@stats")->name("admin.statistics");
+Route::get("stats","DashboardController@stats")->name("admin.statistics");
 
-	Route::get("users/pending","DashboardController@pending_users")->name('admin.pending.users');
+Route::get("users/pending","DashboardController@pending_users")->name('admin.pending.users');
 
-	Route::get('/home', 'DashboardController@index')->name('admin.dashboard');	
-	/*Chats for a specific criminal..*/
-	Route::get("chats/{criminal}","CriminalsController@chats_for_a_specific_criminal");
+Route::get('/home', 'DashboardController@index')->name('admin.dashboard');	
+/*Chats for a specific criminal..*/
 
-	Route::get('/criminals/posted/{user}', 'DashboardController@postedCriminals')->name('admin.criminals.posted');
+Route::get("chats/{criminal}","CriminalsController@chats_for_a_specific_criminal");
+
+Route::get('/criminals/posted/{user}', 'DashboardController@postedCriminals')->name('admin.criminals.posted');
 
 /*
 Route::resource('criminals','CriminalsController')->prefix("admin");*/
-
 include 'admin_routes_criminal.php';
-
 
 Route::post('/photos/uploads', 'DashboardController@savePicturesToTheServer')->name('admin.photos.uploads');
 
@@ -75,16 +74,22 @@ Route::resource("group","GroupController",[
 
 Route::name('auth.resend_confirmation')->get('/register/confirm/resend', 'Auth\RegisterController@resendConfirmation');
 
+
 Route::name('auth.confirm')->get('/register/confirm/{confirmation_code}', 'Auth\RegisterController@confirm');
 
 // Route::get('admin/criminals', 'CriminalsCo	ntroller@storeCriminal')->name('admin.criminals.store');
 
 Route::get('/admin/groups', 'GroupsController@index')->name('admin.groups')->middleware('isAdmin');
+
 Route::get("success/registration","ViewsController@registrationSuccess")->name("registrationSuccess");
+
 Route::get("welcome","ViewsController@registrationSuccess")->name("welcomePage");
+
 Route::resource("group","Admin\GroupController");
 /*Make sure we can redirect if the users' role is 2 */
+
 Route::get('/criminals', 'CriminalsController@index')->name("criminals");
+
 Route::get('/criminals/{criminal}', 'CriminalsController@show')->name("criminal.show");
 
 Route::get('/search',"SearchController@search");
@@ -111,7 +116,9 @@ Route::get('/contacts',"Api\ContactsController@fetch_all_contacts");
 
 /*Testing currency converter api*/
 Route::get("currency/convert","CurrencyController@convertCurrencyPage");
+
 Route::put("currency/convert","CurrencyController@currencyConvert");
+
 Route::get('register/success','ViewsController@registration_success')->name('confirm.mail');
 
 Route::get('project',function(){
@@ -136,15 +143,11 @@ Route::group([
 Route::get("/2-col",function (){
 	return view("2-col");
 });	
-
-
-
 Route::get("/rows",function (){
 	return view("rows");
 });
 
 Route::get('/', 'ViewsController@index')->name('index');
-
 Route::get('/deliveries', 'ViewsController@delivery');
 
 
@@ -221,20 +224,17 @@ Route::post('/register',[
 
 Route::get('/logout','AuthController@logout')->name('logout');
 
-
-
-
 Route::post('payment/create',"PaypalController@create_payment");
 
 Route::post('payment/execute',"PaypalController@execute_payment");	
 
-Route::get("test-paypal","PaypalController@main_paypal_page");
+Route::get("test-paypal","PaypamessageslController@main_paypal_page");
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 // `localhost:3000/messages/trackback( $trackback_url, $title, $excerpt, $ID )/fbi44`
-Route::get('messages/t/{respondent}/c/{criminal}',"MessageController@sendMessage")->name('messages.send');
 
+Route::get('messages/t/{respondent}/c/{criminal}',"MessageController@sendMessage")->name('messages.send')->middleware('auth');
 
 /*Mailables*/
 Route::get("mailable","ViewsController@test_mailable");

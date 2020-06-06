@@ -178,7 +178,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
         'Webpatser\Countries\CountriesServiceProvider',
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
+
         // Srmklive\PayPal\Providers\PayPalServiceProvider::class
 
 

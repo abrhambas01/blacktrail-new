@@ -3,7 +3,7 @@
 namespace App\Broadcasting;
 use App\User;
 use App\Message ; 
-
+ 
 class UserChannel
 {
     /**
@@ -11,8 +11,8 @@ class UserChannel
      *
      * @return void
      */
-    public function __construct(User $user){
-        return $message->id === $messageClient->id;
+    public function __construct(){
+        // return $message->id === $messageClient->id;
     }
  
     /**

@@ -150,10 +150,9 @@ export default {
 							criminalCrimes : this.criminalCrimes,
 							newCrimes : this.newCrimes
 						}).then(response => {
-
-							console.log(response.data);
-
-							window.location.replace("/admin/criminals/"+this.criminal.id);
+							console.log(response.data);	
+							
+		// window.location.replace("/admin/criminals/"+this.criminal.id);
 
 						}).catch((error) => {
 
@@ -179,7 +178,9 @@ export default {
 					}, 1000);
 				}
 				else { 
+
 					this.$swal('You cannot proceed if you don\'t add Crimes for this Criminal now');
+				
 				}
 			},
 			updateUserRoute(){
@@ -419,32 +420,22 @@ mounted(){
 		this.form.status =  this.criminal.status
 		/*if there's a profile found*/
 		if(this.criminal.profile){	
-
 			this.form.complete_description = _.unescape(this.criminal.profile.complete_description),	
-
 			this.form.last_seen = this.criminal.profile.last_seen,
-			
 			this.form.birthdate = this.criminal.profile.birthdate,
-			
 			this.form.birthplace = this.criminal.profile.birthplace,
-			
 			this.form.eye_color = this.criminal.profile.eye_color,
-
-			this.form.weight = this.criminal.profile.weight_in_kilos,
-			
+			this.form.weight = this.criminal.profile.weight_in_kilos,			
 			this.form.height = this.criminal.profile.height_in_feet_and_inches,
-			
 			this.form.country_of_origin = this.criminal.profile.country_of_origin,
 			this.form.avatar = this.criminalAvatar,
 			/*	this.form.complete_description = this.criminal.profile.complete_description,*/
 			this.form.height_in_cm = this.criminal.profile.height_in_feet_and_inches,
-
 			this.form.maxFiles = 1,
-			
 			this.form.body_frame = this.criminal.profile.body_frame,
-			
 			this.form.currency = this.criminal.profile.currency,
 			this.form.bounty = this.criminal.profile.bounty
+
 		}
 		else { 
 			this.form.last_seen = this.criminal.profile.last_seen,

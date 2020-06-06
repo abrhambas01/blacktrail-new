@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\User ; 
+use App\User ;
+use Log ;  
 use App\Message ; 
 use App\Criminal ; 
 use DB;
@@ -12,10 +12,9 @@ class MessageController extends Controller
 	/*
 ==>
 	 Send message
-	<==
+<==
 	*/
-	public function sendMessage($user,$criminal)
-	{
+	public function sendMessage($user,$criminal){
 		/*
 		$message = Message::where([
 		['sender_id','=', auth()->id()],
@@ -35,11 +34,12 @@ class MessageController extends Controller
 		->orWhere('sender_id', $receiver_id)
 		->where('receiver_id', auth()->user()->id)
 		->where('criminal_id',$criminal)
-		->orderBy('id','=','asc')
+		->orderBy('id','=','ASC')
 		->get();
 
 		$criminal = Criminal::where('id','=',$criminal)->with('respondent')->get();
-		return view('messages',compact("messages",'criminal'));
+		
+		return view('messages',compact("messages",'criminal'));		
 	}
 
 	public function getUserNotifications()
@@ -77,14 +77,16 @@ class MessageController extends Controller
 	public function saveNewMessage(Request $request)
 	{
 		// return response()->json(request()->all());
-		dd(request()->all());
+		// dd(request()->all());
 		
 
 		$message = new Message();
 
 		$receiver = request()->input("receiver.id");
+		
+		dd($receiver);
 
-		if ($request->has('receiver') && $request->input('receiver')){
+		if ($request->has('receiver') || $request->input('receiver')){
 			$receiver_id = (int)$request->input('receiver.id');
 			$message->sender_id = auth()->id() ; 			
 			$message->message = $request->input('content', '');
